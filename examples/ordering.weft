@@ -1,0 +1,16 @@
+// Illustrative syntax only. References are not live Writfold identities.
+review pagination_change {
+    context "example-realm/checkout" at "example-release-42";
+    profile "example-declared-contract-profile";
+    target change = proposal "example-plan-17";
+
+    asset contract = citation "example-contract-4";
+    claim contract_scope = citation "example-contract-scope-8";
+    claim sdk_validation = citation "example-sdk-validation-9";
+
+    need contract;
+    need contract_scope;
+    need sdk_validation;
+
+    check ordering: change.order == contract.required_order;
+}

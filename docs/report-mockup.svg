@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="620" viewBox="0 0 920 620" role="img" aria-labelledby="title desc" style="color-scheme: light dark">
+  <title id="title">Weft grounded-plan report concept</title>
+  <desc id="desc">Synthetic, unexecuted report. A proposed ordering change conflicts with a usable contract. An independent required SDK validation is stale. The report covers declared obligations and captured dependencies only and does not authorize execution.</desc>
+  <g font-family="system-ui, sans-serif" fill="currentColor">
+    <text x="28" y="38" font-size="24" font-weight="650">Weft / Grounded plan review</text>
+    <text x="28" y="65" font-size="14" fill="var(--muted,currentColor)">SYNTHETIC MOCKUP — NOT EXECUTED</text>
+
+    <rect x="24" y="88" width="872" height="82" rx="10" fill="none" stroke="var(--border,currentColor)"/>
+    <text x="44" y="120" font-size="20" font-weight="600" fill="var(--error,currentColor)">Declared obligations are not all satisfied</text>
+    <text x="44" y="148" font-size="15">A contract mismatch and an evidence gap are different findings.</text>
+
+    <text x="28" y="205" font-size="13" font-weight="600" fill="var(--muted,currentColor)">PROSPECTIVE SUBJECT</text>
+    <text x="28" y="231" font-size="16">example-plan-17 · pagination change</text>
+    <text x="492" y="205" font-size="13" font-weight="600" fill="var(--muted,currentColor)">KNOWLEDGE BINDING</text>
+    <text x="492" y="231" font-size="16">checkout · example-release-42</text>
+    <line x1="28" y1="251" x2="892" y2="251" stroke="var(--border,currentColor)"/>
+
+    <text x="28" y="285" font-size="18" font-weight="600">Ordering contract</text>
+    <text x="718" y="285" font-size="14" font-weight="650" fill="var(--error,currentColor)">VIOLATED</text>
+    <text x="28" y="313" font-size="15">Declared ordering: unspecified. Required ordering: stable.</text>
+    <text x="28" y="338" font-size="14" fill="var(--muted,currentColor)">Basis: usable contract binding; exact typed field comparison.</text>
+    <text x="28" y="362" font-size="14" fill="var(--muted,currentColor)">This compares declarations. It does not prove implementation behavior.</text>
+    <line x1="28" y1="383" x2="892" y2="383" stroke="var(--border,currentColor)"/>
+
+    <text x="28" y="417" font-size="18" font-weight="600">Required SDK validation</text>
+    <text x="652" y="417" font-size="14" font-weight="650" fill="var(--warning,currentColor)">UNMET DEPENDENCY</text>
+    <text x="28" y="445" font-size="15">Positive support is retained; the validation basis is stale.</text>
+    <text x="28" y="470" font-size="14" fill="var(--muted,currentColor)">New applicable evidence is needed. A stale check is not a refuted proposition.</text>
+
+    <rect x="24" y="496" width="872" height="96" rx="10" fill="none" stroke="var(--border,currentColor)"/>
+    <text x="44" y="524" font-size="14" font-weight="650">ASSESSMENT BOUNDARY</text>
+    <text x="44" y="549" font-size="14">Declared obligations and captured dependencies only; not every real-world requirement.</text>
+    <text x="44" y="574" font-size="14">Read-only finding. No plan application, graph update or permission to execute.</text>
+  </g>
+</svg>

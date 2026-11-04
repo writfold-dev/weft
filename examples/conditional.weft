@@ -1,0 +1,11 @@
+// Illustrative syntax only. This is conditional reasoning, not a grounded pass.
+review cursor_precondition {
+    context "example-realm/checkout" at "example-release-42";
+    profile "example-finite-cursor-theory";
+    target change = proposal "example-plan-18";
+
+    rule cursor_rule = citation "example-cursor-rule-2";
+    assume client_acceptance: accepts_cursor(change.client);
+
+    check cursor_condition: cursor_precondition_met(change) by cursor_rule;
+}

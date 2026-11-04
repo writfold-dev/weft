@@ -1,0 +1,31 @@
+(* Weft design sketch, 2026-11-04. Not an implemented or frozen language.
+   EBNF: ',' sequence; '|' choice; [ ] optional; { } repetition.
+   UPPERCASE names are lexical terminals defined in language.md.
+   Quoted strings are exact spellings. Semantics and profiles are separate.
+   This describes local Weft source, never a Writfold opcode/recipe protocol. *)
+
+source_file = review ;
+review = "review", IDENT, "{", scope_decl, profile_decl, target_decl,
+         { statement }, "}" ;
+scope_decl = "context", STRING, "at", STRING, ";" ;
+profile_decl = "profile", STRING, ";" ;
+target_decl = "target", IDENT, "=", "proposal", STRING, ";" ;
+
+statement = binding_decl | need_decl | assumption_decl | check_decl ;
+binding_decl = binding_kind, IDENT, "=", "citation", STRING, ";" ;
+binding_kind = "claim" | "asset" | "rule" ;
+need_decl = "need", IDENT, ";" ;
+assumption_decl = "assume", IDENT, ":", expression, ";" ;
+check_decl = "check", IDENT, ":", expression, [ rule_use ], ";" ;
+rule_use = "by", IDENT, { ",", IDENT } ;
+
+expression = or_expr ;
+or_expr = and_expr, { "or", and_expr } ;
+and_expr = not_expr, { "and", not_expr } ;
+not_expr = "not", not_expr | atom ;
+atom = "(", expression, ")" | predicate_call | comparison | BOOLEAN ;
+comparison = value, ( "==" | "!=" ), value ;
+predicate_call = IDENT, "(", [ arguments ], ")" ;
+arguments = value, { ",", value } ;
+value = path | STRING | INTEGER | BOOLEAN ;
+path = IDENT, { ".", IDENT } ;
