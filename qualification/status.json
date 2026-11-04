@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "authority": "handovers/revision-1/weft",
+  "stages": [
+    {
+      "id": "P00",
+      "gate": "WEFT00",
+      "status": "not_run",
+      "receipts": [],
+      "reason": "No qualifying receipt yet"
+    },
+    {
+      "id": "P01",
+      "gate": "WEFT01",
+      "status": "not_run",
+      "receipts": [],
+      "reason": "No qualifying receipt yet"
+    },
+    {
+      "id": "P02",
+      "gate": "WEFT02",
+      "status": "not_run",
+      "receipts": [],
+      "reason": "No qualifying receipt yet"
+    },
+    {
+      "id": "P03",
+      "gate": "WEFT03",
+      "status": "not_run",
+      "receipts": [],
+      "reason": "No qualifying receipt yet"
+    },
+    {
+      "id": "P04",
+      "gate": "WEFT04",
+      "status": "not_run",
+      "receipts": [],
+      "reason": "No qualifying receipt yet"
+    },
+    {
+      "id": "P05",
+      "gate": "WEFT05",
+      "status": "blocked",
+      "receipts": [],
+      "reason": "Required owner-landed Writfold services unavailable; see plan/06-writfold-handoff.md"
+    },
+    {
+      "id": "P06",
+      "gate": "WEFT06",
+      "status": "blocked",
+      "receipts": [],
+      "reason": "Required owner-landed Writfold services unavailable; see plan/06-writfold-handoff.md"
+    },
+    {
+      "id": "P07",
+      "gate": "WEFT07",
+      "status": "blocked",
+      "receipts": [],
+      "reason": "Required owner-landed Writfold services unavailable; see plan/06-writfold-handoff.md"
+    },
+    {
+      "id": "P08",
+      "gate": "WEFT08",
+      "status": "not_run",
+      "receipts": [],
+      "reason": "No qualifying receipt yet"
+    },
+    {
+      "id": "P09",
+      "gate": "WEFT09",
+      "status": "blocked",
+      "receipts": [],
+      "reason": "Required owner-landed Writfold services unavailable; see plan/06-writfold-handoff.md"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "authority": "handovers/revision-1/weft",
+  "date": "2026-11-04",
+  "manifest_sha256": "dc87588eabfd241c64f7c5558200f1a349572be46d1152c3cf2da1cb355d5a4a",
+  "inventory": {
+    "stages": 10,
+    "gates": 10,
+    "language_theorems": 12,
+    "scenarios": 30
+  },
+  "scope": "Complete requested Weft flow; Writfold changes proposal-only; Lean calculus precedes production evaluator",
+  "source_contract_inputs": {
+    "spec/grammar.ebnf": "7cd224cfd89f20ffecca08ad8efc6ae9de9b4b767c77e63b0d69af4eee5dd73a",
+    "spec/language.md": "286806cd3ae56b43723e92a3208a847869e548721038ad0c19aa1228e9e614a9"
+  },
+  "writfold_admission_changed": false
+}

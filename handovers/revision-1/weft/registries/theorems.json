@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "scope": "Weft revision-1 language requirements; not proof evidence",
+  "theorems": [
+    {
+      "id": "L01",
+      "claim": "Typed evaluation preserves types",
+      "declaration": "Weft.Language.termTypeSound",
+      "required": true
+    },
+    {
+      "id": "L02",
+      "claim": "Elaboration preserves surface meaning",
+      "declaration": "Weft.Language.elaborationSound",
+      "required": true
+    },
+    {
+      "id": "L03",
+      "claim": "Substitution commutes with evaluation",
+      "declaration": "Weft.Logic.substitutionSound",
+      "required": true
+    },
+    {
+      "id": "L04",
+      "claim": "Sugar preserves meaning",
+      "declaration": "Weft.Logic.sugarSound",
+      "required": true
+    },
+    {
+      "id": "L05",
+      "claim": "Finite valuations cover the declared domain",
+      "declaration": "Weft.Logic.valuationsComplete",
+      "required": true
+    },
+    {
+      "id": "L06",
+      "claim": "Logical classification is sound",
+      "declaration": "Weft.Logic.classificationSound",
+      "required": true
+    },
+    {
+      "id": "L07",
+      "claim": "Exhausted budgets yield no logical verdict",
+      "declaration": "Weft.Logic.budgetUnknown",
+      "required": true
+    },
+    {
+      "id": "L08",
+      "claim": "Explicit required dependencies are preserved",
+      "declaration": "Weft.Grounding.explicitNeedsPreserved",
+      "required": true
+    },
+    {
+      "id": "L09",
+      "claim": "Grounded success requires eligible nonhypothetical closure",
+      "declaration": "Weft.Grounding.groundedSound",
+      "required": true
+    },
+    {
+      "id": "L10",
+      "claim": "Reuse preserves exact scope and bindings",
+      "declaration": "Weft.Grounding.reuseSound",
+      "required": true
+    },
+    {
+      "id": "L11",
+      "claim": "Report traces preserve result and dependencies",
+      "declaration": "Weft.Grounding.traceFaithful",
+      "required": true
+    },
+    {
+      "id": "L12",
+      "claim": "Analysis preserves authoritative state",
+      "declaration": "Weft.Grounding.analysisNonAuthority",
+      "required": true
+    }
+  ]
+}

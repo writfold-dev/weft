@@ -2,11 +2,11 @@
 
 Grounded reasoning about proposed changes, using knowledge retained in Writfold.
 
-**Status: design exploration, not an implemented language or verifier.** This
-repository contains a proposed first use case, semantic boundaries, an illustrative
-EBNF grammar, synthetic examples and visuals. None is an executed verification
-report, an admitted Writfold profile or a promise that the required production
-APIs already exist.
+**Status: proof-first implementation under the
+[revision-1 handover](handovers/revision-1/weft/AGENT_START_HERE.md).** The language
+calculus must pass its Lean gate before the production evaluator. Current
+completion belongs in [the status ledger](qualification/status.json), not the
+immutable plan. No final end-to-end release is claimed.
 
 ## The question
 
@@ -63,6 +63,8 @@ This checks the **declared plan against a contract**. It does not prove that an
 implementation behaves like its declaration. That requires separately captured
 implementation evidence under a suitable validation profile.
 
-There is no build, executable, parser, solver integration or live Writfold
-assessment in this repository yet. The deliverable here is a reviewed design
-proposal; implementation requires resolving the decisions listed above.
+The initial examples and mockup remain illustrative. The
+[Writfold integration request](handovers/revision-1/weft/plan/06-writfold-handoff.md)
+is proposal-only for its owning agent; this repository does not modify Writfold.
+The complete planning, grounding, execution and learning flow remains required,
+including any currently blocked external prerequisites.
