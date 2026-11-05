@@ -1,11 +1,46 @@
 # Calculus qualification checkpoint
 
-The original finite propositional/typed-ground fragment passed the complete local
-Lean gate before production Rust implementation began. The subsequently requested
-native finite sets, `:=` bindings, spread and bounded quantifiers are **new scope**;
-this receipt does not qualify those additions.
+The revision-2 finite-set extension passed its complete Lean gate before production
+Rust implementation began. The original revision-1 checkpoint remains separately
+recorded below; it was not retroactively relabelled as a finite-set pass.
 
-## Exercised evidence
+## Revision-2 finite calculus
+
+`finite-022/report.json` passed in the same admitted evidence root as the original
+checkpoint. Receipt SHA256:
+`e2ae0ea54965cedadbf323084a5630d837c18ce2444db7582d86c60e9baa94a8`.
+All 74 recorded source inputs matched immediately after the pass.
+
+- 181 audited declarations cover all L01–L12 and Q01–Q10 obligations and their
+  registered supporting results. Only `propext`, `Quot.sound` and
+  `Classical.choice` occur as foundational axioms.
+- Eight propositional and seventeen finite-calculus cases ran through actual
+  compiled reference executables. Twenty-four semantic mutants were rejected at
+  their registered proof sites; eleven qualification-boundary regressions passed.
+- Sets preserve exact typed membership, first-occurrence representation and all
+  origins across duplicates and empty spreads. Bindings are immutable; substitution
+  and nested quantifier domains preserve lexical scope.
+- Quantifiers agree with independent finite membership semantics. Checked reports
+  preserve complete member coverage, actual substitutions, model-relative
+  witnesses/counterexamples, raw counts, provenance and the no-authority boundary.
+- One remaining-work state passes through capture, Boolean siblings and every
+  quantified instance. Exhaustion after a completed prefix cannot publish a
+  partial result. This is structural admission accounting, not a wall-clock or
+  allocator-complexity theorem.
+
+Exact source/tool/artifact identities are in
+[`qualification/finite-calculus.json`](../qualification/finite-calculus.json).
+Attempts `finite-001`–`finite-021` remain retained, including compilation failures,
+the source-adoption refusal, and diagnostic runs. A dependent `Work.bind`
+projection caused concrete kernel reductions to exhaust resources; destructuring
+the actual result constructors fixed the observed failure without changing
+semantic statements, example inputs or execution budgets. Temporary profiling
+and diagnostic code was removed before the passing run.
+
+This gate does not prove raw parsing or shipping Rust refinement, validate real
+Writfold acquisition, or close the final composed release gate.
+
+## Original revision-1 evidence
 
 - Clean Lean 4.21.0 build with warnings as errors and automatic implicit parameters
   disabled, using the exact locally admitted BuildKit/Compose tool image.

@@ -1,0 +1,13 @@
+// A complete empty declared domain says nothing about discovering all real inputs.
+review empty_domain_laws {
+    context "unresolved-sandbox" at "unresolved-release";
+    profile "weft.symbolic/1";
+    target change = proposal "unresolved-plan";
+
+    empty_domain := {};
+
+    check vacuous:
+        forall item in empty_domain { true };
+    check nonempty:
+        exists item in empty_domain { true };
+}

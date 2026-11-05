@@ -3,10 +3,12 @@
 Grounded reasoning about proposed changes, using knowledge retained in Writfold.
 
 **Status: proof-first implementation under the
-[revision-1 handover](handovers/revision-1/weft/AGENT_START_HERE.md).** The language
-calculus must pass its Lean gate before the production evaluator. Current
-completion belongs in [the status ledger](qualification/status.json), not the
-immutable plan. No final end-to-end release is claimed.
+[revision-2 finite-language supplement](handovers/revision-2/weft/AGENT_START_HERE.md).**
+The original calculus and the native-set/bounded-quantifier extension are
+[qualified in their exact recorded scopes](docs/calculus-assurance.md).
+Rust implementation follows those proof gates. Current completion belongs in
+[the status ledger](qualification/status.json), not the immutable plan.
+No final end-to-end release or shipping-Rust refinement theorem is claimed.
 
 ## The question
 
@@ -29,8 +31,8 @@ findings.
   assessment, freshness and authorized operations. Weft cannot override a refusal.
 - Start with read-only assessment and a report. Retention, execution-history
   attachment and promotion of findings are separate, later admission decisions.
-- Syntax, logical fragment, report schema and exact service mappings remain
-  proposals. A grammar does not settle their semantics.
+- Language and report contracts are selected under the handover. Actual Writfold
+  service mappings remain owner-side proposals; a grammar alone proves nothing.
 
 ## Read visually first
 
@@ -43,7 +45,7 @@ mockup and the proposed relationship to execution/learning history.
   establish, including hypothetical versus established premises.
 - [Report proposal](docs/verification-report.md): independent evidence dimensions,
   findings, dependencies and adversarial cases.
-- [Language notes](spec/language.md) and [illustrative EBNF](spec/grammar.ebnf):
+- [Language notes](spec/language.md) and [EBNF](spec/grammar.ebnf):
   syntax separated from lexical, static and evaluation rules.
 - [Examples](examples/README.md): a declared plan/contract mismatch and conditional
   reasoning, with no invented live citations or production output.
@@ -51,6 +53,11 @@ mockup and the proposed relationship to execution/learning history.
 - [Sources and status](docs/references.md).
 - [Design checks](docs/design-checks.md): exercised syntax, document and visual
   checks, with explicit limits on what they establish.
+- [Finite language direction](docs/finite-language-direction.md): `:=`, sets,
+  lexical quantifiers, provenance and model-scoped witnesses.
+- [Concrete report contract](spec/report-v1.md).
+- [Finite collection request for Writfold](docs/writfold-finite-collections-request.md):
+  proposal-only shared reader prerequisites for its owning agent.
 
 ## First question to work through
 

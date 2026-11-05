@@ -1,0 +1,18 @@
+// Existence need not identify one member that is true in every premise model.
+review nonuniform_witnesses {
+    context "unresolved-sandbox" at "unresolved-release";
+    profile "weft.symbolic/1";
+    target change = proposal "unresolved-plan";
+
+    alternatives := {"a", "b"};
+    assume some_available: available("a") or available("b");
+
+    check existence:
+        exists item in alternatives { available(item) };
+    check universal_question:
+        forall item in alternatives { available(item) };
+
+    assume not_all_available: not available("a") or not available("b");
+    check universal_refutation:
+        forall item in alternatives { available(item) };
+}

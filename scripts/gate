@@ -104,8 +104,8 @@ def lean(attempt: Path, lock: dict) -> dict:
     source_inputs = [
         "formal", "scripts/run_proofs.py", "scripts/evidence.py", "scripts/contracts.py",
         "scripts/test_qualification.py", "scripts/lean_mutations.json",
-        "toolchains.lock.json", "compose.yaml", "handovers/revision-1/weft",
-        "qualification/handover-adoption.json",
+        "toolchains.lock.json", "compose.yaml", "qualification/handover-adoption.json",
+        contract["authority"], *contract["base_authorities"],
     ] + list(contract["source_contract_inputs"])
     inputs = manifest(ROOT, source_inputs)
     capture_sources(ROOT, list(inputs), attempt / "proof-source.zip")

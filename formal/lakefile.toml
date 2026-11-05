@@ -1,6 +1,6 @@
 name = "Weft"
 version = "0.1.0"
-defaultTargets = ["Weft", "weftref"]
+defaultTargets = ["Weft", "weftref", "weftfiniteref"]
 moreLeanArgs = ["-DwarningAsError=true", "-DautoImplicit=false"]
 
 [[lean_lib]]
@@ -9,3 +9,7 @@ name = "Weft"
 [[lean_exe]]
 name = "weftref"
 root = "Weft.Reference"
+
+[[lean_exe]]
+name = "weftfiniteref"
+root = "Weft.FiniteReference"

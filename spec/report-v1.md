@@ -42,10 +42,17 @@ is exactly `unresolved`. These are **requested** references, not durable identit
 claims. Preserve the decoded Writfold citation string without normalization or
 inventing a new citation syntax. Never conflate a local ID with a corpus object ID.
 
-`needs` is the complete ordered set of explicit required binding/hypothesis IDs.
+`needs` is the complete ordered set of explicit required binding/hypothesis/set IDs.
 Each hypothesis retains its label, source span and formula. Reference resolution,
 remote assessments and durable binding records cannot be fabricated by a local
 source file; their eventual transport contract remains WR1-WR5.
+
+Native sets are recorded in `review.sets` with a report-local declaration ID, name,
+source span, element type (or a genuinely parametric empty type), initializer/origin
+DAG, materialization status and exact members when available. IDs are local and
+kind-tagged, not Writfold object IDs. An unresolved set has no invented member list
+or zero cardinality. Preserve duplicate origins and empty-spread dependencies even
+when equal resolved values share one distinct member entry.
 
 ## Check finding
 
@@ -90,6 +97,20 @@ Only prior nodes may appear in `inputs`; every root must exist. Initial kinds:
 - `evaluation`: exact finite query, premise roots, budget and complete valuation
   rows (each assignment, premise truth values and query truth value).
 - `classification`: outcome, coverage, model witnesses and non-grounded basis.
+- `set-binding` / `set-spread`: immutable source binding, complete materialization,
+  exact typed members and all origin dependencies.
+- `quantifier`: kind, source/binder identity, captured domain, enclosing instance,
+  member/instantiated counts, expansion budget, complete coverage and vacuity.
+- `quantifier-instance`: exact member and lexical environment/substitution,
+  instantiated body trace root, dependencies and checked per-model outcomes.
+
+Nested expansions have distinct trace/instance IDs even when they share one source
+binder span. Witnesses and failing members reference a checked valuation row and
+an actual member; uniform per-member entailment/refutation is a separate claim.
+For example, `A or B` entails an existential without identifying one uniformly
+entailed member. Do not downgrade that valid result or invent a uniform witness.
+Keep materialization/search/report completeness and external-inventory completeness
+distinct; no finite result claims a larger domain than its actual bound input.
 
 Rows may be streamed during serialization rather than duplicated in memory, but
 must be complete within the selected report budget. If a full trace cannot be

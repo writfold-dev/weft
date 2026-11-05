@@ -1,8 +1,9 @@
 # Local symbolic development profile
 
-The full release contract remains the revision-1 handover, including real Writfold
-integration. This file selects the storage-independent development behavior; it
-is not an alternative grounding or admission route.
+The full release contract is the revision-1 handover with the revision-2 finite
+language supplement, including real Writfold integration. This file selects the
+storage-independent development behavior; it is not an alternative grounding or
+admission route.
 
 ## Commands and scope
 
@@ -46,6 +47,29 @@ Even a logical tautology remains a local theory result, not a successful grounde
 review of a prospective plan. Empty captured knowledge cannot stand in for a
 resolved context. Every required unavailable binding is listed independently of
 the Boolean result.
+
+## Finite sets and lexical quantification
+
+The local profile includes immutable `name := { ... };` bindings, typed scalar
+sets, spread, extensional equality and bounded `forall`/`exists`. It does not add
+general loops, mutation, recursive functions or effects. Quantifier domains see
+the outer environment; bodies see the newly bound member. Nested binders may
+shadow names, but top-level declarations cannot rebind them.
+
+Check the complete body before expansion, including bodies over empty sets.
+Unification may infer an empty set's element type from a spread or comparison;
+where the type is irrelevant, retain a parametric empty set instead of silently
+choosing a concrete type. An unresolved type needed by a predicate signature or
+field selection is a diagnostic.
+
+Reports retain every materialized member and its source origins before
+deduplication, normalized membership, each instantiated body and the exact
+valuation supporting a witness or counterexample. Empty universals explicitly
+say they are vacuous. An entailed existential need not have a single member
+whose instance is entailed; never promote a model-relative witness into one.
+
+Local finite membership is not a claim of complete KB discovery. The future
+Writfold finite-domain manifest and coverage assessment remain owner prerequisites.
 
 ## Report content
 

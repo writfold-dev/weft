@@ -80,12 +80,15 @@ class QualificationBoundaries(unittest.TestCase):
 
     def copied_contract(self) -> Path:
         destination = self.base / "contract"
-        source = ROOT / "handovers/revision-1/weft"
-        shutil.copytree(source, destination / "handovers/revision-1/weft")
-        (destination / "qualification").mkdir()
+        adoption = json.loads((ROOT / "qualification/handover-adoption.json").read_text())
+        authorities = [adoption["authority"]] + [
+            item["authority"] for item in adoption.get("base_authorities", [])
+        ]
+        for authority in authorities:
+            shutil.copytree(ROOT / authority, destination / authority)
+        (destination / "qualification").mkdir(parents=True)
         shutil.copy2(ROOT / "qualification/handover-adoption.json",
                      destination / "qualification/handover-adoption.json")
-        adoption = json.loads((ROOT / "qualification/handover-adoption.json").read_text())
         related = list(adoption["source_contract_inputs"]) + [
             adoption["proof_profile"]["path"], adoption["mutation_profile"]["path"],
         ]
@@ -98,7 +101,8 @@ class QualificationBoundaries(unittest.TestCase):
     def test_removed_theorem_cannot_redefine_the_audit(self) -> None:
         destination = self.copied_contract()
         contracts.reconcile(destination)
-        path = destination / "handovers/revision-1/weft/registries/theorems.json"
+        adoption = json.loads((destination / "qualification/handover-adoption.json").read_text())
+        path = destination / adoption["authority"] / "registries/theorems.json"
         registry = json.loads(path.read_text())
         registry["theorems"].pop()
         path.write_text(json.dumps(registry))
@@ -107,9 +111,42 @@ class QualificationBoundaries(unittest.TestCase):
 
     def test_unlisted_contract_member_is_refused(self) -> None:
         destination = self.copied_contract()
-        (destination / "handovers/revision-1/weft/unlisted.json").write_text("{}\n")
+        adoption = json.loads((destination / "qualification/handover-adoption.json").read_text())
+        (destination / adoption["authority"] / "unlisted.json").write_text("{}\n")
         with self.assertRaises(ValueError):
             contracts.reconcile(destination)
+
+    def inherited_requirements(self) -> tuple[list[Path], list[dict], list[dict]]:
+        adoption = json.loads((ROOT / "qualification/handover-adoption.json").read_text())
+        authority = ROOT / adoption["authority"]
+        bases = [ROOT / item["authority"] for item in adoption.get("base_authorities", [])]
+        gates = json.loads((authority / "registries/gates.json").read_text())["stages"]
+        theorems = json.loads((authority / "registries/theorems.json").read_text())["theorems"]
+        contracts.conserve_requirements(bases, gates, theorems)
+        return bases, gates, theorems
+
+    def test_base_theorem_cannot_disappear_in_new_revision(self) -> None:
+        bases, gates, theorems = self.inherited_requirements()
+        self.assertTrue(bases, "this acceptance profile requires its immutable base")
+        shortened = [item for item in theorems if item["id"] != "L12"]
+        with self.assertRaises(ValueError):
+            contracts.conserve_requirements(bases, gates, shortened)
+
+    def test_base_execution_prerequisites_cannot_be_dropped(self) -> None:
+        bases, gates, theorems = self.inherited_requirements()
+        for gate in gates:
+            if gate["id"] == "P05":
+                gate["external_prerequisites"] = []
+        with self.assertRaises(ValueError):
+            contracts.conserve_requirements(bases, gates, theorems)
+
+    def test_new_stage_cannot_bypass_prior_proof_dependency(self) -> None:
+        bases, gates, theorems = self.inherited_requirements()
+        for gate in gates:
+            if gate["id"] == "P02":
+                gate["dependencies"] = []
+        with self.assertRaises(ValueError):
+            contracts.conserve_requirements(bases, gates, theorems)
 
 
 if __name__ == "__main__":

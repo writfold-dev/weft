@@ -1,0 +1,22 @@
+// Finite-set specification input; all premises are local hypotheses, not KB facts.
+review finite_cursor_planning {
+    context "unresolved-sandbox" at "unresolved-release";
+    profile "weft.symbolic/1";
+    target change = proposal "unresolved-cursor-plan";
+
+    sdks := {"sdk-v1", "sdk-v2"};
+    all_sdks := {"sdk-v2", ...sdks, "sdk-v3"};
+    need all_sdks;
+
+    assume known_support:
+        forall sdk in sdks { accepts_cursor(sdk) };
+
+    check known_members:
+        forall sdk in sdks { accepts_cursor(sdk) };
+    check wider_domain:
+        forall sdk in all_sdks { accepts_cursor(sdk) };
+    check at_least_one:
+        exists sdk in all_sdks { accepts_cursor(sdk) };
+    check has_inputs:
+        exists sdk in all_sdks { true };
+}

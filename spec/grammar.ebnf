@@ -1,4 +1,4 @@
-(* Weft design sketch, 2026-11-04. Not an implemented or frozen language.
+(* Weft source contract, revision 2. Specification, not an executable parser.
    EBNF: ',' sequence; '|' choice; [ ] optional; { } repetition.
    UPPERCASE names are lexical terminals defined in language.md.
    Quoted strings are exact spellings. Semantics and profiles are separate.
@@ -11,9 +11,10 @@ scope_decl = "context", STRING, "at", STRING, ";" ;
 profile_decl = "profile", STRING, ";" ;
 target_decl = "target", IDENT, "=", "proposal", STRING, ";" ;
 
-statement = binding_decl | need_decl | assumption_decl | check_decl ;
+statement = binding_decl | set_binding | need_decl | assumption_decl | check_decl ;
 binding_decl = binding_kind, IDENT, "=", "citation", STRING, ";" ;
 binding_kind = "claim" | "asset" | "rule" ;
+set_binding = IDENT, ":=", set_expression, ";" ;
 need_decl = "need", IDENT, ";" ;
 assumption_decl = "assume", IDENT, ":", expression, ";" ;
 check_decl = "check", IDENT, ":", expression, [ rule_use ], ";" ;
@@ -23,9 +24,17 @@ expression = or_expr ;
 or_expr = and_expr, { "or", and_expr } ;
 and_expr = not_expr, { "and", not_expr } ;
 not_expr = "not", not_expr | atom ;
-atom = "(", expression, ")" | predicate_call | comparison | BOOLEAN ;
-comparison = value, ( "==" | "!=" ), value ;
+atom = "(", expression, ")" | quantifier | predicate_call | comparison | BOOLEAN ;
+comparison = comparable, ( "==" | "!=" ), comparable ;
+comparable = value | set_literal ;
 predicate_call = IDENT, "(", [ arguments ], ")" ;
 arguments = value, { ",", value } ;
 value = path | STRING | INTEGER | BOOLEAN ;
 path = IDENT, { ".", IDENT } ;
+
+set_expression = set_literal | path ;
+set_literal = "{", [ set_items ], "}" ;
+set_items = set_item, { ",", set_item }, [ "," ] ;
+set_item = value | "...", set_expression ;
+quantifier = ( "forall" | "exists" ), IDENT, "in", set_expression,
+             "{", expression, "}" ;

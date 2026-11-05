@@ -89,8 +89,7 @@ def reference_cases(source: Path) -> list[dict]:
 
 def mutate() -> list[dict]:
     mutations = json.loads((ROOT / "scripts/lean_mutations.json").read_text())["mutations"]
-    registry = json.loads((ROOT / "handovers/revision-1/weft/registries/theorems.json").read_text())
-    required_families = {item["id"] for item in registry["theorems"]}
+    required_families = set(reconcile(ROOT)["theorem_ids"])
     if {item["theorem_family"] for item in mutations} != required_families:
         raise ValueError("semantic mutation inventory omits or invents a required theorem family")
     identifiers = [item["id"] for item in mutations]
@@ -132,6 +131,30 @@ def mutate() -> list[dict]:
     return results
 
 
+def finite_reference_cases(source: Path) -> list[dict]:
+    binary = source / ".lake/build/bin/weftfiniteref"
+    require_success(run_logged(
+        [str(binary)], source, EVIDENCE, "finite-reference-smoke",
+    ))
+    actual = [json.loads(line) for line in
+              (EVIDENCE / "finite-reference-smoke.stdout").read_text().splitlines()]
+    expected = {
+        "duplicate-values-retain-origins", "raw-occurrences-not-distinct-count",
+        "unavailable-member-is-not-deduplicated", "empty-spread-keeps-origins",
+        "malformed-origin-closure-refused", "mixed-scalar-types-refused",
+        "nominal-kind-separation", "duplicate-binding-refused", "empty-forall",
+        "empty-exists", "hygienic-shadowing", "dependent-finite-domains",
+        "zero-budget-refuses", "universal-instance-coverage",
+        "universal-counterexample-member", "existential-witness-member",
+        "existential-complete-absence",
+    }
+    if ({row["id"] for row in actual} != expected or len(actual) != len(expected)
+            or any(row["passed"] is not True for row in actual)):
+        raise ValueError("finite reference obligations failed, duplicated or omitted")
+    shutil.copy2(binary, EVIDENCE / "weftfiniteref")
+    return actual
+
+
 def main() -> int:
     result: dict = {"schema_version": 1, "status": "fail", "scope": "weft-language-calculus-only", "skipped": []}
     try:
@@ -144,8 +167,10 @@ def main() -> int:
             require_success(run_logged(["lake", "build"], source, EVIDENCE, "lean-build", timeout=900))
             result["axioms"] = audit(source)
             result["executed_reference_cases"] = reference_cases(source)
+            result["executed_finite_cases"] = finite_reference_cases(source)
             result["mutants"] = mutate()
             result["reference_binary_sha256"] = digest(EVIDENCE / "weftref")
+            result["finite_reference_binary_sha256"] = digest(EVIDENCE / "weftfiniteref")
             result["status"] = "pass"
     except (OSError, ValueError, KeyError) as error:
         result["error"] = f"{type(error).__name__}: {error}"

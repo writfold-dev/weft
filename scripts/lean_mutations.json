@@ -113,6 +113,86 @@
       "replacement": "else (.unknown, .incomplete, some .budgetExhausted)",
       "expected_error_file": "Weft/Grounding/ReportView.lean",
       "theorem_family": "L11"
+    },
+    {
+      "id": "M15-set-membership",
+      "file": "Weft/Finite/Sets.lean",
+      "search": "x :: (unique xs).filter (fun y => decide (y ≠ x))",
+      "replacement": "(unique xs).filter (fun y => decide (y ≠ x))",
+      "expected_error_file": "Weft/Finite/Sets.lean",
+      "theorem_family": "Q01"
+    },
+    {
+      "id": "M16-set-types",
+      "file": "Weft/Finite/Sets.lean",
+      "search": "if Typed elementType members then some (build elementType members extraOrigins) else none",
+      "replacement": "some (build elementType members extraOrigins)",
+      "expected_error_file": "Weft/Finite/Sets.lean",
+      "theorem_family": "Q02"
+    },
+    {
+      "id": "M17-set-origins",
+      "file": "Weft/Finite/Sets.lean",
+      "search": "unique (extraOrigins ++ memberOrigins members)",
+      "replacement": "unique (memberOrigins members)",
+      "expected_error_file": "Weft/Finite/Sets.lean",
+      "theorem_family": "Q03"
+    },
+    {
+      "id": "M18-immutable-binding",
+      "file": "Weft/Finite/Bindings.lean",
+      "search": "| none, some set =>",
+      "replacement": "| _, some set =>",
+      "expected_error_file": "Weft/Finite/Bindings.lean",
+      "theorem_family": "Q04"
+    },
+    {
+      "id": "M19-binder-capture",
+      "file": "Weft/Finite/Syntax.lean",
+      "search": "| n + 1 => (replacement n).rename Nat.succ",
+      "replacement": "| n + 1 => replacement n",
+      "expected_error_file": "Weft/Finite/SubstitutionTyping.lean",
+      "theorem_family": "Q05"
+    },
+    {
+      "id": "M20-empty-universal",
+      "file": "Weft/Finite/Lowering.lean",
+      "search": "| .nil => .literal true",
+      "replacement": "| .nil => .literal false",
+      "expected_error_file": "Weft/Finite/Quantifiers.lean",
+      "theorem_family": "Q06"
+    },
+    {
+      "id": "M21-empty-existential",
+      "file": "Weft/Finite/Lowering.lean",
+      "search": "| .nil => .literal false",
+      "replacement": "| .nil => .literal true",
+      "expected_error_file": "Weft/Finite/Quantifiers.lean",
+      "theorem_family": "Q07"
+    },
+    {
+      "id": "M22-quantified-trace",
+      "file": "Weft/Finite/Traces.lean",
+      "search": "decide (makeReport budget rowBudget ctx intern env kind source body metadata valuation = some report)",
+      "replacement": "true",
+      "expected_error_file": "Weft/Finite/Traces.lean",
+      "theorem_family": "Q08"
+    },
+    {
+      "id": "M23-capture-budget",
+      "file": "Weft/Finite/CaptureBudget.lean",
+      "search": "if amount ≤ budget then some ((), budget - amount) else none",
+      "replacement": "if True then some ((), budget - amount) else none",
+      "expected_error_file": "Weft/Finite/CaptureBudget.lean",
+      "theorem_family": "Q09"
+    },
+    {
+      "id": "M24-scalar-conservation",
+      "file": "Weft/Finite/Semantics.lean",
+      "search": "Language.denote ctx.legacy ctx.profile interpret resolved.surface = some true",
+      "replacement": "True",
+      "expected_error_file": "Weft/Finite/Quantifiers.lean",
+      "theorem_family": "Q10"
     }
   ]
 }

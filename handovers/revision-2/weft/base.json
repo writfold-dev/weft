@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "authority": "handovers/revision-1/weft",
+  "manifest_sha256": "dc87588eabfd241c64f7c5558200f1a349572be46d1152c3cf2da1cb355d5a4a",
+  "scope": "All original architecture, build, evidence, quality and complete Writfold integration requirements remain mandatory; revision 2 adds finite collection syntax and proof obligations"
+}
