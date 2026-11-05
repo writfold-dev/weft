@@ -1,0 +1,174 @@
+#!/usr/bin/env python3
+"""Source-bound Weft qualification; no Writfold checkout mutation or gate reuse."""
+from __future__ import annotations
+
+import argparse
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+import uuid
+
+sys.dont_write_bytecode = True
+from evidence import capture_sources, digest, manifest, process_env, require_success, run_logged, write_new
+from contracts import reconcile
+from preflight import observe
+
+ROOT = Path(__file__).resolve().parent.parent
+STATE = Path.home() / ".local/share/weft"
+IMAGE_TAG = "weft-tools:qualification"
+TOOL_INPUTS = ["docker/Dockerfile.tools", "compose.yaml", "toolchains.lock.json"]
+
+
+def inspect_image(reference: str) -> dict[str, object]:
+    return json.loads(subprocess.check_output([
+        "docker", "image", "inspect", reference,
+    ], text=True, timeout=30))[0]
+
+
+def verify_tools(image: str, attempt: Path, lock: dict) -> dict[str, str]:
+    args = [
+        "docker", "run", "--rm", "--network=none", "--platform=linux/amd64",
+        "--cpus=8", "--memory=12884901888", "--pids-limit=1024", image,
+        "sha256sum", *lock["tools"],
+    ]
+    require_success(run_logged(args, ROOT, attempt, "tool-bytes"))
+    observed = {}
+    for line in (attempt / "tool-bytes.stdout").read_text().splitlines():
+        checksum, path = line.split(maxsplit=1)
+        observed[path] = checksum
+    if observed != lock["tools"]:
+        raise ValueError("actual tool executable hashes differ from the tool lock")
+    for tool in ("lean", "lake", "rustc", "cargo"):
+        require_success(run_logged([
+            "docker", "run", "--rm", "--network=none", image, tool, "--version",
+        ], ROOT, attempt, f"version-{tool}"))
+    return observed
+
+
+def bootstrap(attempt: Path, lock: dict) -> dict:
+    parent = inspect_image(lock["parent_image"])
+    if (parent["Id"] != lock["parent_image_id"]
+            or parent["Os"] != "linux" or parent["Architecture"] != "amd64"
+            or lock["parent_image"] not in parent.get("RepoDigests", [])):
+        raise ValueError("parent image identity/platform does not match the local admission")
+    inputs = manifest(ROOT, TOOL_INPUTS)
+    # BuildKit's docker driver resolves repo@digest through a registry even when
+    # that exact local-only image is loaded. Bind a Weft-owned alias to the
+    # already verified immutable image ID; verify the alias again after build.
+    alias = f"weft-qualified-base:sha256-{parent['Id'].split(':', 1)[1]}"
+    require_success(run_logged([
+        "docker", "image", "tag", parent["Id"], alias,
+    ], ROOT, attempt, "bind-local-base"))
+    require_success(run_logged([
+        "docker", "buildx", "inspect",
+    ], ROOT, attempt, "buildkit-identity"))
+    require_success(run_logged([
+        "docker", "buildx", "build", "--network=none", "--pull=false", "--load",
+        "--build-arg", f"WEFT_PARENT_IMAGE={alias}",
+        "--file", "docker/Dockerfile.tools", "--tag", IMAGE_TAG, ".",
+    ], ROOT, attempt, "buildkit-tools"))
+    if inspect_image(alias)["Id"] != parent["Id"]:
+        raise ValueError("verified local base alias changed during BuildKit execution")
+    image = inspect_image(IMAGE_TAG)
+    tools = verify_tools(image["Id"], attempt, lock)
+    if inputs != manifest(ROOT, TOOL_INPUTS):
+        raise ValueError("build inputs changed during tool admission")
+    admission = {
+        "schema_version": 1, "image_id": image["Id"], "inputs": inputs,
+        "tools": tools, "receipt_directory": str(attempt),
+    }
+    STATE.mkdir(parents=True, exist_ok=True)
+    pointer = STATE / "tool-admission.json"
+    temporary = STATE / f"tool-admission-{uuid.uuid4().hex}.json"
+    write_new(temporary, admission)
+    os.replace(temporary, pointer)
+    return admission
+
+
+def admitted_image(lock: dict) -> str:
+    admission = json.loads((STATE / "tool-admission.json").read_text())
+    if admission["inputs"] != manifest(ROOT, TOOL_INPUTS):
+        raise ValueError("tool recipe/lock changed; a fresh bootstrap is required")
+    image = inspect_image(admission["image_id"])
+    if image["Id"] != admission["image_id"] or admission["tools"] != lock["tools"]:
+        raise ValueError("stored tool admission is not applicable")
+    return image["Id"]
+
+
+def lean(attempt: Path, lock: dict) -> dict:
+    image = admitted_image(lock)
+    verify_tools(image, attempt, lock)
+    contract = reconcile(ROOT)
+    source_inputs = [
+        "formal", "scripts/run_proofs.py", "scripts/evidence.py", "scripts/contracts.py",
+        "scripts/test_qualification.py", "scripts/lean_mutations.json",
+        "toolchains.lock.json", "compose.yaml", "handovers/revision-1/weft",
+        "qualification/handover-adoption.json",
+    ] + list(contract["source_contract_inputs"])
+    inputs = manifest(ROOT, source_inputs)
+    capture_sources(ROOT, list(inputs), attempt / "proof-source.zip")
+    name = f"weft-lean-{uuid.uuid4().hex}"
+    args = [
+        "docker", "compose", "run", "--rm", "--name", name,
+        "qualify", "timeout", "--signal=TERM", "--kill-after=30", "1800",
+        "python3", "scripts/run_proofs.py",
+    ]
+    try:
+        require_success(run_logged(
+            args, ROOT, attempt, "compose-lean",
+            env=process_env(WEFT_TOOL_IMAGE=image, WEFT_ATTEMPT=str(attempt)),
+            timeout=1900,
+        ))
+    finally:
+        # The name is uniquely owned by this attempt. Never prune or touch a
+        # different service if the client was interrupted before --rm finished.
+        subprocess.run(["docker", "rm", "--force", name], capture_output=True, check=False)
+    if inputs != manifest(ROOT, source_inputs):
+        raise ValueError("proof inputs changed during qualification")
+    result = json.loads((attempt / "lean-results.json").read_text())
+    if result["status"] != "pass":
+        raise ValueError("Lean producer did not complete every required obligation")
+    return {"image_id": image, "source_manifest": inputs, "producer": result}
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("gate", choices=["bootstrap", "lean"])
+    parser.add_argument("--receipt", required=True, type=Path)
+    args = parser.parse_args()
+    receipt = args.receipt.expanduser().resolve()
+    if receipt.is_relative_to(ROOT):
+        parser.error("receipts must be outside the source checkout")
+    receipt.parent.mkdir(parents=True, exist_ok=False)
+    record: dict[str, object] = {
+        "schema_version": 1, "gate": args.gate, "status": "fail",
+        "scope": "weft-tools-only" if args.gate == "bootstrap" else "weft-language-calculus-only",
+        "skipped": [],
+    }
+    try:
+        producer_inputs = [
+            "scripts/gate", "scripts/evidence.py", "scripts/preflight.py", "scripts/contracts.py",
+        ]
+        record["producer_inputs"] = manifest(ROOT, producer_inputs)
+        record["producer_snapshot"] = capture_sources(
+            ROOT, producer_inputs + TOOL_INPUTS, receipt.parent / "producer-source.zip",
+        )
+        record["contract"] = reconcile(ROOT)
+        record["preflight"] = observe(ROOT)
+        lock = json.loads((ROOT / "toolchains.lock.json").read_text())
+        record["tool_lock_sha256"] = digest(ROOT / "toolchains.lock.json")
+        record["result"] = bootstrap(receipt.parent, lock) if args.gate == "bootstrap" else lean(receipt.parent, lock)
+        if record["producer_inputs"] != manifest(ROOT, producer_inputs):
+            raise ValueError("qualification producer changed while executing")
+        record["status"] = "pass"
+    except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
+        record["error"] = f"{type(error).__name__}: {error}"
+    write_new(receipt, record)
+    print(json.dumps({"status": record["status"], "receipt": str(receipt)}, indent=2))
+    return 0 if record["status"] == "pass" else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "scope": "Independent copied-source semantic mutations; expected proof rejection, not executed evidence",
+  "mutations": [
+    {
+      "id": "M01-type-check",
+      "file": "Weft/Language/Core.lean",
+      "search": "if value.type = expected then some value else none",
+      "replacement": "some value",
+      "expected_error_file": "Weft/Language/Core.lean",
+      "theorem_family": "L01"
+    },
+    {
+      "id": "M02-inequality",
+      "file": "Weft/Language/Elaboration.lean",
+      "search": "(fun value => .neg (.literal value))",
+      "replacement": "Weft.Logic.Formula.literal",
+      "expected_error_file": "Weft/Language/Elaboration.lean",
+      "theorem_family": "L02"
+    },
+    {
+      "id": "M03-substitution",
+      "file": "Weft/Logic/Syntax.lean",
+      "search": "| .atom id => replacement id",
+      "replacement": "| .atom id => .atom id",
+      "expected_error_file": "Weft/Logic/Syntax.lean",
+      "theorem_family": "L03"
+    },
+    {
+      "id": "M04-implication",
+      "file": "Weft/Logic/Syntax.lean",
+      "search": "def implication (left right : Formula) : Formula := .disj (.neg left) right",
+      "replacement": "def implication (left right : Formula) : Formula := .disj left right",
+      "expected_error_file": "Weft/Logic/Syntax.lean",
+      "theorem_family": "L04"
+    },
+    {
+      "id": "M05-enumeration",
+      "file": "Weft/Logic/Enumeration.lean",
+      "search": "smaller.map (false :: ·) ++ smaller.map (true :: ·)",
+      "replacement": "smaller.map (false :: ·)",
+      "expected_error_file": "Weft/Logic/Enumeration.lean",
+      "theorem_family": "L05"
+    },
+    {
+      "id": "M06-inconsistency",
+      "file": "Weft/Logic/Classification.lean",
+      "search": "| false, false => .inconsistent",
+      "replacement": "| false, false => .entailed",
+      "expected_error_file": "Weft/Logic/Classification.lean",
+      "theorem_family": "L06"
+    },
+    {
+      "id": "M07-budget",
+      "file": "Weft/Logic/Classification.lean",
+      "search": "if budget < requiredBudget atomCount then .unknown",
+      "replacement": "if budget < requiredBudget atomCount then .entailed",
+      "expected_error_file": "Weft/Logic/Classification.lean",
+      "theorem_family": "L07"
+    },
+    {
+      "id": "M08-required-needs",
+      "file": "Weft/Grounding/Model.lean",
+      "search": "def required (r : Review) : List Binding := r.explicitNeeds ++ r.usedInputs",
+      "replacement": "def required (r : Review) : List Binding := r.usedInputs",
+      "expected_error_file": "Weft/Grounding/Model.lean",
+      "theorem_family": "L08"
+    },
+    {
+      "id": "M09-stale-evidence",
+      "file": "Weft/Grounding/Model.lean",
+      "search": "a.freshness = .current",
+      "replacement": "a.freshness = a.freshness",
+      "expected_error_file": "Weft/Grounding/Examples.lean",
+      "theorem_family": "L09"
+    },
+    {
+      "id": "M10-reuse-scope",
+      "file": "Weft/Grounding/Model.lean",
+      "search": "decide (reuseKey old = reuseKey fresh)",
+      "replacement": "decide (old.scope.context = fresh.scope.context)",
+      "expected_error_file": "Weft/Grounding/Model.lean",
+      "theorem_family": "L10"
+    },
+    {
+      "id": "M11-projection",
+      "file": "Weft/Grounding/Trace.lean",
+      "search": "if candidate = reportFor r t then some candidate else none",
+      "replacement": "if True then some candidate else none",
+      "expected_error_file": "Weft/Grounding/Trace.lean",
+      "theorem_family": "L11"
+    },
+    {
+      "id": "M12-authority",
+      "file": "Weft/Grounding/Trace.lean",
+      "search": "⟨⟨state.authority, state.reports ++ [report]⟩, some report, none⟩",
+      "replacement": "⟨⟨{ state.authority with revision := state.authority.revision + 1 }, state.reports ++ [report]⟩, some report, none⟩",
+      "expected_error_file": "Weft/Grounding/Trace.lean",
+      "theorem_family": "L12"
+    },
+    {
+      "id": "M13-ground-comparison",
+      "file": "Weft/Language/Core.lean",
+      "search": "if a.type = b.type then some (decide (a = b)) else none",
+      "replacement": "if a.type = b.type then some true else none",
+      "expected_error_file": "Weft/Language/Semantics.lean",
+      "theorem_family": "L02"
+    },
+    {
+      "id": "M14-invalid-domain-category",
+      "file": "Weft/Grounding/ReportView.lean",
+      "search": "else (.notEvaluated, .failed, some .invalidDomain)",
+      "replacement": "else (.unknown, .incomplete, some .budgetExhausted)",
+      "expected_error_file": "Weft/Grounding/ReportView.lean",
+      "theorem_family": "L11"
+    }
+  ]
+}

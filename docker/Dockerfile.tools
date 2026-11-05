@@ -1,0 +1,8 @@
+ARG WEFT_PARENT_IMAGE
+FROM ${WEFT_PARENT_IMAGE}
+WORKDIR /work/weft
+ENV CARGO_TARGET_DIR=/cache/target/rust-1.98.0 \
+    CARGO_BUILD_JOBS=8 \
+    PYTHONDONTWRITEBYTECODE=1
+LABEL org.opencontainers.image.title="Weft qualification tools" \
+      org.opencontainers.image.description="Isolated Weft configuration over the exact admitted local tool image"

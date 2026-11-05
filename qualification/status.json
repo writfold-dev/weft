@@ -5,16 +5,27 @@
     {
       "id": "P00",
       "gate": "WEFT00",
-      "status": "not_run",
-      "receipts": [],
-      "reason": "No qualifying receipt yet"
+      "status": "pass",
+      "receipts": ["~/.local/share/weft/evidence/implementation-20261104T232254539927Z/tools-002/report.json"],
+      "failed_attempts": ["~/.local/share/weft/evidence/implementation-20261104T232254539927Z/tools-001/report.json"],
+      "reason": "Exact local image/tool bytes and versions admitted after BuildKit build against the operator's unchanged storage policy. Tool-image scope only, not product qualification."
     },
     {
       "id": "P01",
       "gate": "WEFT01",
-      "status": "not_run",
-      "receipts": [],
-      "reason": "No qualifying receipt yet"
+      "status": "pass",
+      "receipts": ["~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-009/report.json"],
+      "failed_attempts": [
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-001/report.json",
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-002/report.json",
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-003/report.json",
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-004/report.json",
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-005/report.json",
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-006/report.json",
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-007/report.json",
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-008/report.json"
+      ],
+      "reason": "Original typed-ground/propositional calculus qualified: 43 audited declarations, 8 executed reference cases and 14 rejected semantic mutants. Source AST scope only; no raw parser/Rust refinement/live Writfold claim. Newly requested finite sets and quantifiers require separate qualification."
     },
     {
       "id": "P02",

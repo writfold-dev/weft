@@ -1,0 +1,13 @@
+// Local hypotheses only: no admitted knowledge or execution permission is claimed.
+review cursor_planning {
+    context "unresolved-sandbox" at "unresolved-release";
+    profile "weft.symbolic/1";
+    target change = proposal "unresolved-cursor-plan";
+
+    assume client_acceptance: accepts_cursor("sdk-v1");
+    assume cursor_rule: not accepts_cursor("sdk-v1") or cursor_ready("sdk-v1");
+
+    check readiness: cursor_ready("sdk-v1");
+    check rejected_assumption: not accepts_cursor("sdk-v1");
+    check remaining_question: accepts_page_numbers("sdk-v1");
+}

@@ -1,0 +1,11 @@
+name = "Weft"
+version = "0.1.0"
+defaultTargets = ["Weft", "weftref"]
+moreLeanArgs = ["-DwarningAsError=true", "-DautoImplicit=false"]
+
+[[lean_lib]]
+name = "Weft"
+
+[[lean_exe]]
+name = "weftref"
+root = "Weft.Reference"

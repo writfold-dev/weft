@@ -1,0 +1,37 @@
+name: weft
+
+services:
+  qualify:
+    image: ${WEFT_TOOL_IMAGE:?Run scripts/gate bootstrap first}
+    pull_policy: never
+    platform: linux/amd64
+    working_dir: /work/weft
+    network_mode: none
+    cpus: 8
+    mem_limit: 12884901888
+    pids_limit: 1024
+    init: true
+    environment:
+      CARGO_TARGET_DIR: /cache/target/rust-1.98.0
+      CARGO_BUILD_JOBS: 8
+      PYTHONDONTWRITEBYTECODE: "1"
+    volumes:
+      - type: bind
+        source: .
+        target: /work/weft
+        read_only: true
+      - type: bind
+        source: ${WEFT_ATTEMPT:?Select a fresh out-of-tree evidence directory}
+        target: /evidence
+      - target:/cache/target
+      - registry:/opt/cargo/registry
+      - git:/opt/cargo/git
+    command: [python3, scripts/run_proofs.py]
+
+volumes:
+  target:
+    name: weft-rust-1.98.0-target
+  registry:
+    name: weft-rust-1.98.0-registry
+  git:
+    name: weft-rust-1.98.0-git

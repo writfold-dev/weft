@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "authority": "handovers/revision-1/weft",
+  "date": "2026-11-04",
+  "manifest_sha256": "dc87588eabfd241c64f7c5558200f1a349572be46d1152c3cf2da1cb355d5a4a",
+  "inventory": {
+    "stages": 10,
+    "gates": 10,
+    "language_theorems": 12,
+    "scenarios": 30
+  },
+  "scope": "Complete requested Weft flow; Writfold changes proposal-only; Lean calculus precedes production evaluator",
+  "source_contract_inputs": {
+    "spec/grammar.ebnf": "7cd224cfd89f20ffecca08ad8efc6ae9de9b4b767c77e63b0d69af4eee5dd73a",
+    "spec/language.md": "286806cd3ae56b43723e92a3208a847869e548721038ad0c19aa1228e9e614a9",
+    "docs/implementation-profile.md": "7970a359ff2d657c5d25a8f11254b420696ef563aad35aaa1a2165dc907e1fe3",
+    "spec/report-v1.md": "3e372723e425e89fbeb9d69d59c25df2c6b9c38d7b353da05931492f70021a88"
+  },
+  "proof_profile": {
+    "path": "formal/audit-targets.json",
+    "sha256": "dbe44b0ddcc9f496f56328452d1f14fa77cc01fea921b41af17b84851cd8a021",
+    "additional_declarations": 31,
+    "scope": "Strengthened independent ground semantics, interner coverage, report axes/details and jointly inhabited composed soundness; no Writfold admission change"
+  },
+  "mutation_profile": {
+    "path": "scripts/lean_mutations.json",
+    "sha256": "dce92759045f95d1c9e5629d8814d4114c08e366f8372dd9595fbcf3b3cdfb68",
+    "mutations": 14
+  },
+  "writfold_admission_changed": false
+}
