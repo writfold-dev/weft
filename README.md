@@ -2,29 +2,52 @@
 
 Grounded reasoning about proposed changes, using knowledge retained in Writfold.
 
-**Status: proof-first implementation under the
-[revision-2 finite-language supplement](handovers/revision-2/weft/AGENT_START_HERE.md).**
-The original calculus and the native-set/bounded-quantifier extension are
-[qualified in their exact recorded scopes](docs/calculus-assurance.md).
-Rust implementation follows those proof gates. Current completion belongs in
-[the status ledger](qualification/status.json), not the immutable plan.
-No final end-to-end release or shipping-Rust refinement theorem is claimed.
+**Status: qualified local symbolic development binary.**
+The original and finite-set Lean calculus passed before Rust implementation.
+The Rust frontend, finite evaluator and source-linked reports are now exercised
+under [revision 2](handovers/revision-2/weft/AGENT_START_HERE.md).
+[Runtime assurance](docs/runtime-assurance.md) records the exact boundary.
+Real Writfold integration and the final composed release remain blocked; no
+shipping-Rust refinement theorem or effect authority is claimed.
+
+## Try the actual binary
+
+Download the Linux x86_64 musl archive from the
+[private development release](https://github.com/writfold-dev/weft/releases/tag/v0.1.0-dev.1).
+No Rust, Lean, Python or companion is needed for these local commands.
+From this checkout, point `WEFT` at the unpacked executable:
+
+```sh
+WEFT=/path/to/unpacked/weft
+"$WEFT" --version
+"$WEFT" analyze examples/sets.weft
+"$WEFT" prove examples/sets.weft --human
+```
+
+JSON is the default; `--json` and `--human` select the view. Analysis exits 0 on
+local structural success. A complete hypothetical proof result exits 1—even
+when entailed. Malformed, unresolved or incomplete work exits 2. Read the finding
+categories, not an exit code as an approval token.
+
+The set example entails the checks over assumed SDK support, but extending the
+domain with an unsupported SDK remains undetermined. Every result retains
+`writfold_grounded: false` and `effect_authority: false`.
 
 ## The question
 
 > Given this exact proposed change, this knowledge snapshot and this intended
 > use, which obligations are justified, contradicted, conditional or unresolved?
 
-The first proposed deliverable is a **grounded-plan verification report**, not an
-executable plan, an authorization token or an assertion that arbitrary code is
-correct. A report explains its dependencies and gaps as carefully as its positive
-findings.
+The current deliverable is a **local verification report**: outcomes, explanations,
+source/assumption links, complete finite traces and explicit unresolved inputs.
+It is not an executable plan, an authorization token or a claim that arbitrary code
+is correct. The full grounded-plan workflow remains the required integration goal.
 
 ## Decisions from the discussion
 
-- Weft is an ordinary Writfold client, using the same structured stdio interface
-  as an agent. No Weft-specific Writfold opcodes, bytecode VM, recipe ingestion
-  endpoint or second execution engine.
+- Weft is designed to drive Writfold through the same structured stdio interface
+  as an agent. The production client is blocked on owner-landed services/contracts;
+  no Weft-specific opcodes, bytecode VM, recipe endpoint or second effect engine.
 - Weft owns its language, semantic analysis, local evaluation and explanations.
   Any future proof backend has its own explicitly qualified boundary.
 - Writfold remains responsible for knowledge identity, admission, context-specific
@@ -47,8 +70,8 @@ mockup and the proposed relationship to execution/learning history.
   findings, dependencies and adversarial cases.
 - [Language notes](spec/language.md) and [EBNF](spec/grammar.ebnf):
   syntax separated from lexical, static and evaluation rules.
-- [Examples](examples/README.md): a declared plan/contract mismatch and conditional
-  reasoning, with no invented live citations or production output.
+- [Examples](examples/README.md): five executed local theories and two external
+  contract proposals that correctly refuse without real Writfold inputs.
 - [Decisions and open questions](docs/decisions.md).
 - [Sources and status](docs/references.md).
 - [Design checks](docs/design-checks.md): exercised syntax, document and visual
@@ -58,6 +81,12 @@ mockup and the proposed relationship to execution/learning history.
 - [Concrete report contract](spec/report-v1.md).
 - [Finite collection request for Writfold](docs/writfold-finite-collections-request.md):
   proposal-only shared reader prerequisites for its owning agent.
+- [Build and qualification](docs/build-and-qualification.md): exact local producer
+  commands, resource boundaries and the static runtime package.
+- [Rust implementation](docs/rust-implementation.md): crate dependencies,
+  bounded passes, trace representation and calibrated source policies.
+- [Complete traceability](qualification/traceability.json): all 22 theorem
+  families, 11 gates and 44 scenarios, including explicit external blockers.
 
 ## First question to work through
 
@@ -70,8 +99,9 @@ This checks the **declared plan against a contract**. It does not prove that an
 implementation behaves like its declaration. That requires separately captured
 implementation evidence under a suitable validation profile.
 
-The initial examples and mockup remain illustrative. The
+The external examples and original report mockup remain illustrative. The
 [Writfold integration request](handovers/revision-1/weft/plan/06-writfold-handoff.md)
-is proposal-only for its owning agent; this repository does not modify Writfold.
-The complete planning, grounding, execution and learning flow remains required,
-including any currently blocked external prerequisites.
+is proposal-only for its owning agent; this work does not modify Writfold.
+The complete planning, grounding, execution and learning flow remains required.
+Current completion belongs in [the status ledger](qualification/status.json),
+not the immutable plan.

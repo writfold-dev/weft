@@ -7,15 +7,21 @@ admission route.
 
 ## Commands and scope
 
-- `weft analyze FILE`: parse the complete review syntax, check declaration order,
-  duplicate/unknown/wrong-kind names and report exact binding/profile requirements.
+- `weft analyze FILE [--json|--human]`: parse the complete review syntax and check
+  declarations, names, kinds and locally decidable types; report exact binding/profile requirements.
   External references stay unresolved. Success means local structural analysis,
   not proof, grounding, admission or permission.
-- `weft prove FILE`: for the explicit local profile `weft.symbolic/1`, elaborate
+- `weft prove FILE [--json|--human]`: for the explicit local profile `weft.symbolic/1`, elaborate
   literal comparisons and typed ground symbolic predicates, retain explicit
   assumptions and classify each check with the proved finite semantics. Preserve
   all requested bindings and needs. No result is marked Writfold-grounded.
 - `weft --version`: identify the actual development artifact/profile.
+
+JSON is the default. `--` ends option parsing; help is available as `--help`/`-h`.
+Local analysis exits 0 on complete structural success. A complete hypothetical
+proof outcome exits 1, including refuted/undetermined/inconsistent outcomes.
+Malformed, unresolved or resource-incomplete paths exit 2. There is no local
+grounded-success exit.
 
 Other profile names require the owner-landed Writfold profile/assessment contract.
 Unknown profiles, unresolved fields and `by` rules whose qualified definition is
@@ -61,6 +67,10 @@ Unification may infer an empty set's element type from a spread or comparison;
 where the type is irrelevant, retain a parametric empty set instead of silently
 choosing a concrete type. An unresolved type needed by a predicate signature or
 field selection is a diagnostic.
+Deferred type variables may be constrained by a later consistent predicate use;
+unresolved required types are diagnosed at the original occurrence. The admitted
+parser/AST depth is at most 64; implementation/resource details are in
+[the Rust boundary record](rust-implementation.md).
 
 Reports retain every materialized member and its source origins before
 deduplication, normalized membership, each instantiated body and the exact
@@ -88,6 +98,13 @@ Execution and report budgets are explicit. If a complete trace cannot be emitted
 within the selected budget, return an explicit incomplete outcome; no truncated
 trace may claim complete reusable evidence. Machine diagnostics carry stable code,
 phase, primary/secondary spans, expected/actual details and a repair suggestion.
+
+Ordinary semantic failures retain safe earlier checks and block later checks
+whose premises failed. Exhaustion that prevents complete metadata construction
+returns diagnostics, not an incomplete assessment disguised as complete.
+The report includes a separate source-origin DAG and model-relative instance
+links. A library caller must supply the actual trusted frontend/kernel records;
+the output projector is not an untrusted certificate-verification endpoint.
 
 This profile makes compiler/proof/report behavior executable before the owning
 Writfold agent supplies WR1-WR8. It does not close P05-P07 or the final release gate.

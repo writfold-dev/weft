@@ -70,8 +70,20 @@ def reference_cases(source: Path) -> list[dict]:
         ("invalid-domain", 0, [], atom(0), 1, "unknown"),
         ("empty-domain", 0, [], literal(False), 1, "refuted"),
     ]
+    witnesses = {
+        "entailed": [([True], True, True), ([False], True, False)],
+        "refuted": [([False], False, True), ([True], False, False)],
+        "wrong-polarity": [([True], False, True), ([True], True, False)],
+        "two-models": [([True], True, True), ([False], False, True)],
+        "inconsistent": [([True], True, False), ([False], True, False)],
+        "no-budget": [],
+        "invalid-domain": [([], False, False)],
+        "empty-domain": [([], False, True)],
+    }
     requests = [{"id": name, "atoms": atoms, "premises": premises,
-                 "query": query, "budget": budget}
+                 "query": query, "budget": budget,
+                 "witnesses": [{"assignment": values, "polarity": polarity}
+                               for values, polarity, _valid in witnesses[name]]}
                 for name, atoms, premises, query, budget, _ in cases]
     request_file = EVIDENCE / "reference-inputs.jsonl"
     request_file.write_text("".join(json.dumps(row) + "\n" for row in requests))
@@ -80,7 +92,9 @@ def reference_cases(source: Path) -> list[dict]:
         [str(binary), str(request_file)], source, EVIDENCE, "reference-smoke",
     ))
     actual = [json.loads(line) for line in (EVIDENCE / "reference-smoke.stdout").read_text().splitlines()]
-    expected = [{"id": row[0], "verdict": row[-1]} for row in cases]
+    expected = [{"id": row[0], "verdict": row[-1],
+                 "witness_checks": [valid for _values, _polarity, valid in witnesses[row[0]]]}
+                for row in cases]
     if actual != expected:
         raise ValueError(f"reference semantic results differ: {actual}")
     shutil.copy2(binary, EVIDENCE / "weftref")

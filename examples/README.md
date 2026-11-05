@@ -1,9 +1,24 @@
-# Illustrative examples
+# Executed local examples and external proposals
 
-These are specification examples, **not runnable commands or executed reports**.
-All `example-*` references are intentionally non-live labels. No real corpus
-records, admissions, approvals, hashes or receipts are fabricated. The EBNF smoke
-checks only syntax recognition, not the behaviors described below.
+The local `weft.symbolic/1` examples run through the actual static Rust binary.
+They do not resolve the deliberately unavailable context/proposal references or
+claim admitted KB facts. Exact evidence is in
+[runtime assurance](../docs/runtime-assurance.md).
+
+| Source | Exercised logical results |
+| --- | --- |
+| [symbolic.weft](symbolic.weft) | Entailed readiness; refuted contrary premise; undetermined unrelated predicate |
+| [inconsistent.weft](inconsistent.weft) | Inconsistent premises, never an unrelated entailed conclusion |
+| [sets.weft](sets.weft) | Entailed known members; undetermined wider domain; entailed existence/non-emptiness |
+| [quantifier-models.weft](quantifier-models.weft) | Existential entailment without a uniform member; undetermined then refuted universal |
+| [empty-domain.weft](empty-domain.weft) | Explicit vacuous universal and refuted non-emptiness |
+
+Run `weft prove FILE` for JSON or add `--human`. Complete local proof outcomes
+exit 1; they remain hypothetical, non-grounded and non-authoritative.
+
+The two external examples below are still **design proposals**. Their syntax and
+unresolved-input refusal were exercised; no live field/rule interpretation was
+invented. All `example-*` references are non-live labels.
 
 ## Declared ordering contract
 
@@ -63,5 +78,6 @@ never a grounded pass. The hypothesis could later be discharged only through an
 explicit valid evidence-to-premise bridge for that exact client/format binding.
 An admitted record saying "we assume the client accepts cursors" would not suffice.
 
-No rule evaluator, solver or proof checker was run for this example. This is a
-way to discuss inference semantics before choosing an implementation.
+The local CLI refuses this external profile/field/rule path rather than supplying
+the imagined values. That refusal is exercised; the proposed real derivation is
+not a qualified Writfold capability.

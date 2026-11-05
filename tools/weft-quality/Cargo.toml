@@ -1,0 +1,15 @@
+[package]
+name = "weft-quality"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.98"
+publish = false
+license = "LicenseRef-Proprietary"
+
+[workspace]
+
+[dependencies]
+proc-macro2 = { version = "=1.0.107", features = ["span-locations"] }
+syn = { version = "=2.0.119", features = ["full", "visit"] }
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.151"

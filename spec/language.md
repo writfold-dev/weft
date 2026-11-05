@@ -2,10 +2,11 @@
 
 Selected surface contract under the
 [revision-2 supplement](../handovers/revision-2/weft/AGENT_START_HERE.md).
-The original resolved-AST calculus is qualified; the finite-set/binder extension
-requires its own new proof gate. This file and the [EBNF](grammar.ebnf) are not an
-implemented parser or a shipping-Rust refinement theorem. Syntax, lexing and meaning
-remain separate, following Sovel's specification discipline rather than its language.
+The original and finite-set/binder calculi are qualified in their recorded scopes.
+The selected local Rust frontend/evaluator is exercised; this specification and
+the [EBNF](grammar.ebnf) are not a parser-refinement theorem. Syntax, lexing and
+meaning remain separate, following Sovel's specification discipline rather than
+its language. See [runtime assurance](../docs/runtime-assurance.md).
 
 ## Why EBNF is only one part
 
@@ -157,13 +158,13 @@ here authorizes effects or promotes a report into the knowledge base.
 | Syntax family | Formation/evaluation obligation | Current status |
 | --- | --- | --- |
 | Review/header | Exact authorized scope, profile and subject; no ambient context | Owner-side services remain external prerequisites |
-| Evidence binding | Kind-safe resolution; durable binding; assessment preservation | Calculus boundary stated; live service mapping unresolved |
-| Field/comparison | Independent typed interpretation and exact equality | Original resolved-AST calculus qualified; Rust correspondence pending |
-| Predicate/rule use | Signature, interpretation, sound application and dependency closure | Original calculus qualified under explicit assumptions |
-| `need` / `assume` | Preserve requirements and hypothetical origins; no authority | Original calculus qualified; set extension requires new proof |
-| `check`/connectives | Honest finite outcomes and consistency; no effects | Original calculus qualified; implementation pending |
-| `:=` / set literal / spread | Homogeneous finite membership, immutable state, complete origins | New revision-2 proof/implementation obligations |
-| `forall` / `exists` | Hygienic binders, complete finite expansion, vacuity and instance traces | New revision-2 proof/implementation obligations |
+| Evidence binding | Kind-safe resolution; durable binding; assessment preservation | Typed requests/refusals exercised; live service mapping remains blocked |
+| Field/comparison | Independent typed interpretation and exact equality | Lean calculus and local typed equality exercised; external fields remain unresolved |
+| Predicate/rule use | Signature, interpretation, sound application and dependency closure | Local typed symbolic predicates exercised; qualified external rule use remains blocked |
+| `need` / `assume` | Preserve requirements and hypothetical origins; no authority | Lean and local runtime closure/invalid-premise cases exercised |
+| `check`/connectives | Honest finite outcomes and consistency; no effects | Lean-qualified semantics and source-bound runtime conformance |
+| `:=` / set literal / spread | Homogeneous finite membership, immutable state, complete origins | Revision-2 proofs plus actual normalization, spread/diamond and failure cases |
+| `forall` / `exists` | Hygienic binders, complete finite expansion, vacuity and instance traces | Revision-2 proofs plus actual shadowing, alpha-renaming, witness and budget cases |
 
 No grammar family gets a default "safe" case. New source forms require their own
 meaning, proof and implementation evidence; the prior calculus or grammar smoke

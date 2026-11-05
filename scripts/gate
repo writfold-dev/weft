@@ -132,10 +132,16 @@ def lean(attempt: Path, lock: dict) -> dict:
         raise ValueError("Lean producer did not complete every required obligation")
     return {"image_id": image, "source_manifest": inputs, "producer": result}
 
+def rust(attempt: Path, lock: dict, prepare: bool) -> dict:
+    from rust_gate import run
+    image = admitted_image(lock)
+    verify_tools(image, attempt, lock)
+    return run(ROOT, attempt, image, prepare)
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("gate", choices=["bootstrap", "lean"])
+    parser.add_argument("gate", choices=["bootstrap", "lean", "prepare-rust", "rust"])
     parser.add_argument("--receipt", required=True, type=Path)
     args = parser.parse_args()
     receipt = args.receipt.expanduser().resolve()
@@ -144,13 +150,21 @@ def main() -> int:
     receipt.parent.mkdir(parents=True, exist_ok=False)
     record: dict[str, object] = {
         "schema_version": 1, "gate": args.gate, "status": "fail",
-        "scope": "weft-tools-only" if args.gate == "bootstrap" else "weft-language-calculus-only",
+        "scope": {
+            "bootstrap": "weft-tools-only", "lean": "weft-language-calculus-only",
+            "prepare-rust": "weft-rust-preparation-only", "rust": "weft-local-symbolic-runtime-only",
+        }[args.gate],
         "skipped": [],
     }
     try:
         producer_inputs = [
             "scripts/gate", "scripts/evidence.py", "scripts/preflight.py", "scripts/contracts.py",
         ]
+        if args.gate in {"prepare-rust", "rust"}:
+            producer_inputs += ["scripts/rust_gate.py", "scripts/prepare_rust.py"]
+        if args.gate == "rust":
+            producer_inputs += ["scripts/run_rust.py", "scripts/rust_smoke.py", "scripts/nominal_cases.py",
+                                "scripts/rust_differential.py", "scripts/rust_scenarios.py", "scripts/lint_cases.py"]
         record["producer_inputs"] = manifest(ROOT, producer_inputs)
         record["producer_snapshot"] = capture_sources(
             ROOT, producer_inputs + TOOL_INPUTS, receipt.parent / "producer-source.zip",
@@ -159,7 +173,12 @@ def main() -> int:
         record["preflight"] = observe(ROOT)
         lock = json.loads((ROOT / "toolchains.lock.json").read_text())
         record["tool_lock_sha256"] = digest(ROOT / "toolchains.lock.json")
-        record["result"] = bootstrap(receipt.parent, lock) if args.gate == "bootstrap" else lean(receipt.parent, lock)
+        if args.gate == "bootstrap":
+            record["result"] = bootstrap(receipt.parent, lock)
+        elif args.gate == "lean":
+            record["result"] = lean(receipt.parent, lock)
+        else:
+            record["result"] = rust(receipt.parent, lock, args.gate == "prepare-rust")
         if record["producer_inputs"] != manifest(ROOT, producer_inputs):
             raise ValueError("qualification producer changed while executing")
         record["status"] = "pass"

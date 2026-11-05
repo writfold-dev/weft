@@ -27,6 +27,10 @@ Required fields:
 - `review`: present only after a review header was actually parsed.
 - `checks`: ordered findings, empty when source cannot be elaborated.
 - `trace`: ordered DAG nodes with backward-only local references.
+- `budgets`: the selected source/token/depth/construction/member/instance/atom/
+  valuation/evaluation-step/trace/output bounds and actual construction accounting.
+- `origins`: present for compiled theories; a separate backward-only provenance
+  DAG. Origin IDs and logical trace IDs are distinct local domains.
 
 No invented placeholder contexts, artifact hashes or producer identities. The
 source digest is an ordinary named SHA256 field, not a Writfold fingerprint kind.
@@ -42,10 +46,11 @@ is exactly `unresolved`. These are **requested** references, not durable identit
 claims. Preserve the decoded Writfold citation string without normalization or
 inventing a new citation syntax. Never conflate a local ID with a corpus object ID.
 
-`needs` is the complete ordered set of explicit required binding/hypothesis/set IDs.
-Each hypothesis retains its label, source span and formula. Reference resolution,
-remote assessments and durable binding records cannot be fabricated by a local
-source file; their eventual transport contract remains WR1-WR5.
+`needs` retains the complete ordered explicit requirement occurrences. Each
+hypothesis retains its declaration and expression spans; a formula root appears
+only after successful materialization. Analysis does not fabricate a formula for
+an invalid or unelaborated assumption. Reference resolution, remote assessments
+and durable bindings remain WR1-WR5.
 
 Native sets are recorded in `review.sets` with a report-local declaration ID, name,
 source span, element type (or a genuinely parametric empty type), initializer/origin
@@ -71,8 +76,10 @@ Each check has:
 - `coverage`: `atom_count`, `required_valuations` (decimal string when computed),
   `checked_valuations`, `complete`. An unrepresentable/excessive domain uses an
   explicit `required_power_of_two` exponent instead of overflowing a counter.
-- `models`: optional `positive`/`negative` complete Boolean assignments, indexed by
-  `atoms`. Do not serialize a missing model as an empty valid assignment.
+- `models`: optional `positive`/`negative` objects containing `valuation`,
+  `assignment` and `node_values`. Assignment positions follow the exact active
+  `atoms` order, first atom most significant. A missing model is not an empty
+  assignment.
 - `trace_root`: present only for an actually constructed trace.
 
 Each predicate argument is `{ kind: "boolean", value: bool }`,
@@ -97,8 +104,9 @@ Only prior nodes may appear in `inputs`; every root must exist. Initial kinds:
 - `evaluation`: exact finite query, premise roots, budget and complete valuation
   rows (each assignment, premise truth values and query truth value).
 - `classification`: outcome, coverage, model witnesses and non-grounded basis.
-- `set-binding` / `set-spread`: immutable source binding, complete materialization,
-  exact typed members and all origin dependencies.
+- `set-binding`: named or anonymous immutable materialization, typed members and
+  linked origin root. Spread operations are explicit nodes in the separate
+  origin DAG, not a second invented logical operation.
 - `quantifier`: kind, source/binder identity, captured domain, enclosing instance,
   member/instantiated counts, expansion budget, complete coverage and vacuity.
 - `quantifier-instance`: exact member and lexical environment/substitution,
@@ -111,6 +119,14 @@ For example, `A or B` entails an existential without identifying one uniformly
 entailed member. Do not downgrade that valid result or invent a uniform witness.
 Keep materialization/search/report completeness and external-inventory completeness
 distinct; no finite result claims a larger domain than its actual bound input.
+Allocated intermediates from failed lowering are labelled
+`unreferenced-intermediate`; allocation does not establish successful declaration
+materialization or complete quantified coverage. Named unmaterialized sets have
+no invented members or zero cardinality.
+
+The qualified CLI supplies actual kernel results. The Rust projection library
+checks coverage/linkage invariants, but does not authenticate arbitrary caller
+records or constitute a standalone untrusted proof-certificate checker.
 
 Rows may be streamed during serialization rather than duplicated in memory, but
 must be complete within the selected report budget. If a full trace cannot be

@@ -1,0 +1,19 @@
+[package]
+name = "weft-wire"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[dependencies]
+weft-domain.workspace = true
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true
+weft-frontend.workspace = true
+weft-kernel.workspace = true
+sha2.workspace = true

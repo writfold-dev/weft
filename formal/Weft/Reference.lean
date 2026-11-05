@@ -30,6 +30,16 @@ def verdictName : Verdict → String
   | .inconsistent => "inconsistent-premises"
   | .unknown => "unknown"
 
+/-- Check a supplied polarity witness using the actual calculus evaluator.
+This does not search for a witness or promote one model into universal truth. -/
+def checkWitness (atoms : Nat) (premises : List Formula) (query : Formula)
+    (input : Json) : Except String Bool := do
+  let raw ← (← input.getObjVal? "assignment").getArr?
+  let values ← raw.toList.mapM Json.getBool?
+  let polarity ← (← input.getObjVal? "polarity").getBool?
+  return inputsInBounds atoms premises query && (values.length == atoms) &&
+    satisfies premises (extend values) && (evaluate (extend values) query == polarity)
+
 def evaluateRequest (input : Json) : Except String Json := do
   let id ← (← input.getObjVal? "id").getStr?
   let atoms ← (← input.getObjVal? "atoms").getNat?
@@ -38,8 +48,14 @@ def evaluateRequest (input : Json) : Except String Json := do
   let rawPremises ← (← input.getObjVal? "premises").getArr?
   let premises ← rawPremises.toList.mapM (decodeFormula 256)
   let query ← decodeFormula 256 (← input.getObjVal? "query")
+  let witnesses ← match input.getObjVal? "witnesses" with
+    | .ok value => value.getArr?
+    | .error _ => pure #[]
+  if witnesses.size > 2 then throw "reference witness bound exceeded"
+  let checks ← witnesses.toList.mapM (checkWitness atoms premises query)
   return Json.mkObj [("id", .str id),
-    ("verdict", .str (verdictName (classify atoms premises query budget)))]
+    ("verdict", .str (verdictName (classify atoms premises query budget))),
+    ("witness_checks", Json.arr ((checks.map Json.bool).toArray))]
 
 def respond (line : String) : Json :=
   match Json.parse line >>= evaluateRequest with

@@ -1,0 +1,2114 @@
+{
+  "schema_version": 1,
+  "authority": "handovers/revision-2/weft",
+  "inventory": {
+    "theorems": 22,
+    "gates": 11,
+    "scenarios": 44
+  },
+  "assumptions": {
+    "local-symbolic": "Predicate interpretations are explicit local hypotheses, not admitted KB facts; source references remain requests.",
+    "trusted-implementation": "Exact recorded compiler/std/dependency/frontend/kernel/projection bodies are trusted at runtime. Differential agreement is not refinement; output projection is not an untrusted certificate checker.",
+    "finite-scope": "Only the captured finite domain and complete admitted work/valuation/trace bounds are claimed. No larger KB inventory completeness follows.",
+    "external-world": "GroundedSound assumes EvidenceSound plus faithful acquisition, interpretation, assessment and exact closure. Real services and authorization remain WR1-WR8 blockers."
+  },
+  "receipts": {
+    "tools-admission": {
+      "path": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/tools-002/report.json",
+      "sha256": "0ff985d740992708cafd78c7d029203cab98d8d1f57905f59c94b0f6b1859ad9"
+    },
+    "scalar-calculus": {
+      "path": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-009/report.json",
+      "sha256": "09bdef80d9b624af441ae8788b95f9b0e4523b483d67282dfbc51d59fa9d9ecf"
+    },
+    "initial-calculus": {
+      "path": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-022/report.json",
+      "sha256": "e2ae0ea54965cedadbf323084a5630d837c18ce2444db7582d86c60e9baa94a8"
+    },
+    "finite-reference": {
+      "path": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-023/report.json",
+      "sha256": "898bb3b98fb05de5015efe28821fe967951922f3915ba91045b96b9e5fe46e42"
+    },
+    "rust-runtime": {
+      "path": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json",
+      "sha256": "98e12486e780f059ce558403b239253425181633b46172af949a322e9185a61e"
+    },
+    "scratch-runtime": {
+      "path": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/runtime-package-001/report.json",
+      "sha256": "f57e858cb4eb451e5f5fe22d31538213f0bdc03fc3c1c95f0ecf3fa611fcbe06"
+    },
+    "owner-boundary": {
+      "path": "../writfold/qualification/weft-integration.json",
+      "sha256": "6199f41d6d508287336d8cb9219404bec845d067c27b2902278f4b27d82b3361",
+      "scope": "read-only requirements/status observation, not service qualification"
+    }
+  },
+  "theorems": [
+    {
+      "id": "L01",
+      "claim": "Typed evaluation preserves types",
+      "declaration": "Weft.Language.termTypeSound",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Language/Core.lean",
+        "sha256": "cb2fbd8a76ca17d516774bc50dfefb91d09d852cfced44315c2feaced101b308"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-domain/src/value.rs",
+          "symbol": "has_type",
+          "sha256": "aa77ecd84bc052fcf8ca53d0a6207bb85061ee23c1a26c4d48dee5cf63ae83c0"
+        },
+        {
+          "path": "crates/weft-frontend/src/types.rs",
+          "symbol": "unify",
+          "sha256": "f15ef8bd6ca8b27f85bbce69d06f09ba95414faa30cbd6cbae0044ce72a5dbd2"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "L02",
+      "claim": "Elaboration preserves surface meaning",
+      "declaration": "Weft.Language.elaborationSound",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Language/Elaboration.lean",
+        "sha256": "53629af1e8dd4bc28cf5443b21706cf54907817d56cb06d9414eb2107d7ed54b"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-frontend/src/typing.rs",
+          "symbol": "expression",
+          "sha256": "5e25aeba2c989278275044242a0b32c48c858a28623561a8c993ac937c81b369"
+        },
+        {
+          "path": "crates/weft-frontend/src/lower_expr.rs",
+          "symbol": "expression",
+          "sha256": "b20ed9df712e22b1d5e9f7633fa9c872db8b83f0ef06f1c3cc7c8a758a1ab128"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/parser/tests.rs",
+          "sha256": "1c56c5c2b7bcd25079d95a6a00259cadc8a38e9e02a0ebae26e0512db6888f6e"
+        },
+        {
+          "path": "scripts/rust_differential.py",
+          "sha256": "f53a655a9591a8cc02e63fa032f4cdaaef63b15c2a7790612fa92d92c423d5b1"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "L03",
+      "claim": "Substitution commutes with evaluation",
+      "declaration": "Weft.Logic.substitutionSound",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Logic/Syntax.lean",
+        "sha256": "10eec8fa9a21e75c602e10e78761d2397f02c4f9210bbab22b8fdc607076c36b"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-frontend/src/lower_quantifier.rs",
+          "symbol": "quantifier",
+          "sha256": "c3e1cd57df434fd15a81665bca10e9469c29c0b7405b0cead204d4bcaae47db7"
+        },
+        {
+          "path": "crates/weft-frontend/src/lower_sets.rs",
+          "symbol": "bound_value",
+          "sha256": "c164201cdc1379479ac6d015beeb542e13e7fb6cc8069ac6dd99c241ac315c78"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "L04",
+      "claim": "Sugar preserves meaning",
+      "declaration": "Weft.Logic.sugarSound",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Logic/Syntax.lean",
+        "sha256": "10eec8fa9a21e75c602e10e78761d2397f02c4f9210bbab22b8fdc607076c36b"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-frontend/src/lower_expr.rs",
+          "symbol": "compare",
+          "sha256": "b20ed9df712e22b1d5e9f7633fa9c872db8b83f0ef06f1c3cc7c8a758a1ab128"
+        },
+        {
+          "path": "crates/weft-kernel/src/replay.rs",
+          "symbol": "evaluate",
+          "sha256": "a1d13804ef58c4add1e074494e8858ed348eb7656cef653d7e599d57e612e6fd"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "examples/symbolic.weft",
+          "sha256": "b66b122e4632aa4a7116854fb3b19b455bb6e311e13f9a0bc73b6d149b196653"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "L05",
+      "claim": "Finite valuations cover the declared domain",
+      "declaration": "Weft.Logic.valuationsComplete",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Logic/Enumeration.lean",
+        "sha256": "98e73f474f8f66120ab37f39c685009e400ba36cb7d1371b74a5d5dbe3863d69"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-kernel/src/preflight.rs",
+          "symbol": "cardinalities",
+          "sha256": "8ac375417fc9c643116636bdab012940f53917314c7a9dd93010813b6c9223b3"
+        },
+        {
+          "path": "crates/weft-kernel/src/lib.rs",
+          "symbol": "enumerate",
+          "sha256": "b83b59bd974086a421845d46faad444084903b202b687ca67a2d88e5f046f9c0"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-kernel/src/tests/models.rs",
+          "sha256": "f15a30781b2c4e2131a8f733bbcc25c9ab3544d6fde035e03a6ae3cffc80216d"
+        },
+        {
+          "path": "crates/weft-kernel/src/tests/budgets.rs",
+          "sha256": "4e5912ef56a20b47265097a9ec1661f4ef6c4bac61b4bbb6bfa089f180ef676a"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "L06",
+      "claim": "Logical classification is sound",
+      "declaration": "Weft.Logic.classificationSound",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Logic/Classification.lean",
+        "sha256": "af62c2c4a7208d142265b87da6664376ca3f17fd9a4cc2fc8047f8817a9b9420"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-kernel/src/lib.rs",
+          "symbol": "assess",
+          "sha256": "b83b59bd974086a421845d46faad444084903b202b687ca67a2d88e5f046f9c0"
+        },
+        {
+          "path": "crates/weft-kernel/src/lib.rs",
+          "symbol": "enumerate",
+          "sha256": "b83b59bd974086a421845d46faad444084903b202b687ca67a2d88e5f046f9c0"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-kernel/src/tests/mod.rs",
+          "sha256": "766e1437b58239e6e343b9ab0d867e929800c3a7fc1e86f01fc1d937d463e2c7"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "L07",
+      "claim": "Exhausted budgets yield no logical verdict",
+      "declaration": "Weft.Logic.budgetUnknown",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Logic/Classification.lean",
+        "sha256": "af62c2c4a7208d142265b87da6664376ca3f17fd9a4cc2fc8047f8817a9b9420"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-kernel/src/preflight.rs",
+          "symbol": "preflight",
+          "sha256": "8ac375417fc9c643116636bdab012940f53917314c7a9dd93010813b6c9223b3"
+        },
+        {
+          "path": "crates/weft-kernel/src/lib.rs",
+          "symbol": "assess",
+          "sha256": "b83b59bd974086a421845d46faad444084903b202b687ca67a2d88e5f046f9c0"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-kernel/src/tests/budgets.rs",
+          "sha256": "4e5912ef56a20b47265097a9ec1661f4ef6c4bac61b4bbb6bfa089f180ef676a"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "L08",
+      "claim": "Explicit required dependencies are preserved",
+      "declaration": "Weft.Grounding.explicitNeedsPreserved",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Grounding/Model.lean",
+        "sha256": "823832f0e18bd9dd8115057ad00c5e914e473f09400bb503e9bb1c76da8e5b6c"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-frontend/src/lower/finish.rs",
+          "symbol": "required_inputs",
+          "sha256": "ac2df0f1b247298d45f047a47109ab2b0dbbf3622b9d9e86e9c23d9decd7769e"
+        },
+        {
+          "path": "crates/weft-domain/src/document/compile.rs",
+          "symbol": "prepare_check",
+          "sha256": "24a6134158846a4c323f77b756fb87c5944c35f1b0a51e39f66b1f07acee39e1"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "L09",
+      "claim": "Grounded success requires eligible nonhypothetical closure",
+      "declaration": "Weft.Grounding.groundedSound",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Grounding/Model.lean",
+        "sha256": "823832f0e18bd9dd8115057ad00c5e914e473f09400bb503e9bb1c76da8e5b6c"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [],
+      "implementation_relation": "formal model only; real grounded assessment/reuse remains blocked",
+      "fixtures": [
+        {
+          "path": "formal/Weft/Grounding/Examples.lean",
+          "sha256": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21"
+        }
+      ],
+      "assumptions": [
+        "external-world"
+      ],
+      "runtime_receipt": null
+    },
+    {
+      "id": "L10",
+      "claim": "Reuse preserves exact scope and bindings",
+      "declaration": "Weft.Grounding.reuseSound",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Grounding/Model.lean",
+        "sha256": "823832f0e18bd9dd8115057ad00c5e914e473f09400bb503e9bb1c76da8e5b6c"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [],
+      "implementation_relation": "formal model only; real grounded assessment/reuse remains blocked",
+      "fixtures": [
+        {
+          "path": "formal/Weft/Grounding/ReportExamples.lean",
+          "sha256": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e"
+        }
+      ],
+      "assumptions": [
+        "external-world"
+      ],
+      "runtime_receipt": null
+    },
+    {
+      "id": "L11",
+      "claim": "Report traces preserve result and dependencies",
+      "declaration": "Weft.Grounding.traceFaithful",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Grounding/Trace.lean",
+        "sha256": "d389f23f4cf269dc73a4f6f469986837affd4ebce6f47cea85a7c574e5cd7463"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-wire/src/trace.rs",
+          "symbol": "trace",
+          "sha256": "4c817c90416cc9428dd0d244aa3c706a7e3cdbd045fd81171a72b22c1258adc4"
+        },
+        {
+          "path": "crates/weft-wire/src/publication.rs",
+          "symbol": "collect",
+          "sha256": "8251516c6a5460dbd1c7237cdd92ab58b15c452d5a1c385bed67abea08e858d3"
+        },
+        {
+          "path": "crates/weft-wire/src/rows.rs",
+          "symbol": "valuation_rows",
+          "sha256": "3be46e435fae9a324648ff34c2ab932e59315192d7e35ef31702acef382f02c5"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-wire/tests/semantics.rs",
+          "sha256": "06c237cb19df6a45bedf1d865c715cb7cda3c039124b97fc5e761cdbfc1fc38f"
+        },
+        {
+          "path": "scripts/rust_differential.py",
+          "sha256": "f53a655a9591a8cc02e63fa032f4cdaaef63b15c2a7790612fa92d92c423d5b1"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "L12",
+      "claim": "Analysis preserves authoritative state",
+      "declaration": "Weft.Grounding.analysisNonAuthority",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Grounding/Trace.lean",
+        "sha256": "d389f23f4cf269dc73a4f6f469986837affd4ebce6f47cea85a7c574e5cd7463"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-wire/src/envelope.rs",
+          "symbol": "envelope",
+          "sha256": "c7ff36d185e7f17be93033f9f80f49b67d9adf34364bab07e604b6f68d9c9eca"
+        },
+        {
+          "path": "crates/weft-frontend/src/lib.rs",
+          "symbol": "analyze",
+          "sha256": "f1eb5154993100fe9e2c1e9b6f953f7ae5933d088c68b8de390e940acb0b6a9d"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-cli/tests/cli.rs",
+          "sha256": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "Q01",
+      "claim": "Finite normalization preserves extensional membership",
+      "declaration": "Weft.Finite.Sets.normalizeMembership",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Sets.lean",
+        "sha256": "863d5530eb87ee8cbb3a66824b2f5b5352a1c05664fdef607e6f97432db9358c"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-domain/src/theory/finite.rs",
+          "symbol": "add_set",
+          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+        },
+        {
+          "path": "crates/weft-domain/src/theory/finite.rs",
+          "symbol": "sets_equal",
+          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "Q02",
+      "claim": "Normalized finite sets retain homogeneous types",
+      "declaration": "Weft.Finite.Sets.normalizeTyped",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Sets.lean",
+        "sha256": "863d5530eb87ee8cbb3a66824b2f5b5352a1c05664fdef607e6f97432db9358c"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-frontend/src/typing.rs",
+          "symbol": "set_type",
+          "sha256": "5e25aeba2c989278275044242a0b32c48c858a28623561a8c993ac937c81b369"
+        },
+        {
+          "path": "crates/weft-domain/src/theory/finite.rs",
+          "symbol": "add_set",
+          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "Q03",
+      "claim": "Spread and deduplication preserve every origin",
+      "declaration": "Weft.Finite.Sets.spreadPreservesOrigins",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Sets.lean",
+        "sha256": "863d5530eb87ee8cbb3a66824b2f5b5352a1c05664fdef607e6f97432db9358c"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-frontend/src/lower_sets.rs",
+          "symbol": "spread",
+          "sha256": "c164201cdc1379479ac6d015beeb542e13e7fb6cc8069ac6dd99c241ac315c78"
+        },
+        {
+          "path": "crates/weft-domain/src/theory/finite.rs",
+          "symbol": "add_set",
+          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "Q04",
+      "claim": "Immutable binding preserves prior values and failure atomicity",
+      "declaration": "Weft.Finite.Bindings.extensionPreservesPrior",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Bindings.lean",
+        "sha256": "4022da36b52379c8e454c4fb0850aac014ed2fecf029b5da037a62860be0dc05"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-domain/src/document.rs",
+          "symbol": "insert",
+          "sha256": "501cbb46f353d4869d5d1f1255258ee09f42178699db3f0bc91e1452f4eed1da"
+        },
+        {
+          "path": "crates/weft-frontend/src/resolve.rs",
+          "symbol": "declare",
+          "sha256": "b37e6f4ea9d58a60262cf041d0dc214b011c922ac2cf9333b5bf3c402738c5ee"
+        },
+        {
+          "path": "crates/weft-frontend/src/lower.rs",
+          "symbol": "statement",
+          "sha256": "e2428701027028932bcf9202d061c8e38d182a0dde989c0692bb641af76f3606"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "Q05",
+      "claim": "Bound-variable substitution preserves meaning without capture",
+      "declaration": "Weft.Finite.Syntax.substitutionMeaning",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Substitution.lean",
+        "sha256": "08587a8b061bf82981a97d57d6cf8e956085884217feb05183aef2365ff7679c"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-frontend/src/resolve.rs",
+          "symbol": "path",
+          "sha256": "b37e6f4ea9d58a60262cf041d0dc214b011c922ac2cf9333b5bf3c402738c5ee"
+        },
+        {
+          "path": "crates/weft-frontend/src/lower_quantifier.rs",
+          "symbol": "quantifier",
+          "sha256": "c3e1cd57df434fd15a81665bca10e9469c29c0b7405b0cead204d4bcaae47db7"
+        },
+        {
+          "path": "crates/weft-frontend/src/lower_sets.rs",
+          "symbol": "bound_value",
+          "sha256": "c164201cdc1379479ac6d015beeb542e13e7fb6cc8069ac6dd99c241ac315c78"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "Q06",
+      "claim": "Finite universal lowering preserves independent meaning",
+      "declaration": "Weft.Finite.Quantifiers.forallSound",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Quantifiers.lean",
+        "sha256": "3d98fd443d5a12fea1cd6dce02639279558235fa2913a9bad862397e89a1d623"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-domain/src/theory/finite.rs",
+          "symbol": "quantify",
+          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+        },
+        {
+          "path": "crates/weft-domain/src/theory/finite.rs",
+          "symbol": "quantifier_fold",
+          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "examples/sets.weft",
+          "sha256": "8d8aa4eda06fe0c0ac15c928177174d394ede7b77cf2a92ff15866e40b672816"
+        },
+        {
+          "path": "examples/empty-domain.weft",
+          "sha256": "9d7c17819c3728c4ad73c14b3c29ceb2aff8988dc0455e54bc1b8e43090e8089"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "Q07",
+      "claim": "Finite existential lowering preserves meaning and valuation-scoped witnesses",
+      "declaration": "Weft.Finite.Quantifiers.existsSound",
+      "supporting_declarations": [
+        "Weft.Finite.Traces.existentialWitness",
+        "Weft.Finite.Traces.existentialSuccessHasWitness"
+      ],
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Quantifiers.lean",
+        "sha256": "3d98fd443d5a12fea1cd6dce02639279558235fa2913a9bad862397e89a1d623"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-domain/src/theory/finite.rs",
+          "symbol": "quantify",
+          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+        },
+        {
+          "path": "crates/weft-wire/src/rows.rs",
+          "symbol": "instance_model",
+          "sha256": "3be46e435fae9a324648ff34c2ab932e59315192d7e35ef31702acef382f02c5"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "examples/quantifier-models.weft",
+          "sha256": "5673c0e98be8f599ba6dd4c1f64c08f8d66ac40e5a22b46257e20a9a7be9246c"
+        },
+        {
+          "path": "crates/weft-kernel/src/tests/models.rs",
+          "sha256": "f15a30781b2c4e2131a8f733bbcc25c9ab3544d6fde035e03a6ae3cffc80216d"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "Q08",
+      "claim": "Quantified traces preserve domains, instances and origins",
+      "declaration": "Weft.Finite.Traces.quantifiedTraceFaithful",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Traces.lean",
+        "sha256": "01c0fb53be021429e0c0f4d18ec17f8e48e40efd4c3739a770626f06d4d78677"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-wire/src/finite.rs",
+          "symbol": "environment",
+          "sha256": "21c4d21d56fa1108974415ec52c22ed07fc51632e6d6bb8d63c09860772a1b0d"
+        },
+        {
+          "path": "crates/weft-wire/src/trace.rs",
+          "symbol": "quantifiers",
+          "sha256": "4c817c90416cc9428dd0d244aa3c706a7e3cdbd045fd81171a72b22c1258adc4"
+        },
+        {
+          "path": "crates/weft-wire/src/finite.rs",
+          "symbol": "origins",
+          "sha256": "21c4d21d56fa1108974415ec52c22ed07fc51632e6d6bb8d63c09860772a1b0d"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-wire/tests/semantics.rs",
+          "sha256": "06c237cb19df6a45bedf1d865c715cb7cda3c039124b97fc5e761cdbfc1fc38f"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "Q09",
+      "claim": "Incomplete expansion cannot produce a completed result",
+      "declaration": "Weft.Finite.Quantifiers.budgetRefusesPartial",
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Quantifiers.lean",
+        "sha256": "3d98fd443d5a12fea1cd6dce02639279558235fa2913a9bad862397e89a1d623"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-domain/src/theory/builder.rs",
+          "symbol": "charge",
+          "sha256": "e7878cf6bdd4f09e9eba06f77f2b6d15a67b9e40fd6e801b981588f0fa14f8f1"
+        },
+        {
+          "path": "crates/weft-domain/src/theory/check.rs",
+          "symbol": "charge_preparation",
+          "sha256": "7c944ae2b81b52a37430e9998a69c5d3d1f613af4c5c68617fd348bc5b54a0b4"
+        },
+        {
+          "path": "crates/weft-frontend/src/lower/finish.rs",
+          "symbol": "snapshot_work",
+          "sha256": "ac2df0f1b247298d45f047a47109ab2b0dbbf3622b9d9e86e9c23d9decd7769e"
+        },
+        {
+          "path": "crates/weft-kernel/src/preflight.rs",
+          "symbol": "preflight",
+          "sha256": "8ac375417fc9c643116636bdab012940f53917314c7a9dd93010813b6c9223b3"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "Q10",
+      "claim": "Earlier scalar semantics and authority are conserved",
+      "declaration": "Weft.Finite.Quantifiers.scalarConservation",
+      "supporting_declarations": [
+        "Weft.Finite.Traces.reportNoAuthority",
+        "Weft.Finite.Traces.traceInventoryNotUpgraded"
+      ],
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Quantifiers.lean",
+        "sha256": "3d98fd443d5a12fea1cd6dce02639279558235fa2913a9bad862397e89a1d623"
+      },
+      "proof_receipt": "finite-reference",
+      "rust": [
+        {
+          "path": "crates/weft-kernel/src/lib.rs",
+          "symbol": "assess",
+          "sha256": "b83b59bd974086a421845d46faad444084903b202b687ca67a2d88e5f046f9c0"
+        },
+        {
+          "path": "crates/weft-wire/src/envelope.rs",
+          "symbol": "envelope",
+          "sha256": "c7ff36d185e7f17be93033f9f80f49b67d9adf34364bab07e604b6f68d9c9eca"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "examples/symbolic.weft",
+          "sha256": "b66b122e4632aa4a7116854fb3b19b455bb6e311e13f9a0bc73b6d149b196653"
+        },
+        {
+          "path": "examples/inconsistent.weft",
+          "sha256": "911f9d2c11e4236d69d29698c1774a866a3cc120bf1d6c91597d0bf00374bf51"
+        }
+      ],
+      "assumptions": [
+        "local-symbolic",
+        "trusted-implementation",
+        "finite-scope"
+      ],
+      "runtime_receipt": "rust-runtime"
+    }
+  ],
+  "gates": [
+    {
+      "id": "P00",
+      "gate": "WEFT00",
+      "dependencies": [],
+      "external_prerequisites": [],
+      "title": "Tool/storage/build admission",
+      "required": true,
+      "status": "pass",
+      "receipts": [
+        "tools-admission"
+      ],
+      "scope": "Exact component scope; no promotion of downstream gates."
+    },
+    {
+      "id": "P01",
+      "gate": "WEFT01",
+      "dependencies": [
+        "P00"
+      ],
+      "external_prerequisites": [],
+      "title": "Complete Lean language calculus",
+      "required": true,
+      "status": "pass",
+      "receipts": [
+        "scalar-calculus"
+      ],
+      "scope": "Exact component scope; no promotion of downstream gates."
+    },
+    {
+      "id": "P01S",
+      "gate": "WEFT01S",
+      "dependencies": [
+        "P01"
+      ],
+      "external_prerequisites": [],
+      "title": "Native finite set and binder soundness",
+      "required": true,
+      "status": "pass",
+      "receipts": [
+        "initial-calculus",
+        "finite-reference"
+      ],
+      "scope": "Exact component scope; no promotion of downstream gates."
+    },
+    {
+      "id": "P02",
+      "gate": "WEFT02",
+      "dependencies": [
+        "P01S"
+      ],
+      "external_prerequisites": [],
+      "title": "Frontend specification and reference",
+      "required": true,
+      "status": "pass",
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Exact component scope; no promotion of downstream gates."
+    },
+    {
+      "id": "P03",
+      "gate": "WEFT03",
+      "dependencies": [
+        "P02"
+      ],
+      "external_prerequisites": [],
+      "title": "Rust frontend and evaluator",
+      "required": true,
+      "status": "pass",
+      "receipts": [
+        "rust-runtime"
+      ],
+      "scope": "Exact component scope; no promotion of downstream gates."
+    },
+    {
+      "id": "P04",
+      "gate": "WEFT04",
+      "dependencies": [
+        "P03"
+      ],
+      "external_prerequisites": [],
+      "title": "Reports, traces, diagnostics and CLI",
+      "required": true,
+      "status": "pass",
+      "receipts": [
+        "rust-runtime"
+      ],
+      "scope": "Exact component scope; no promotion of downstream gates."
+    },
+    {
+      "id": "P05",
+      "gate": "WEFT05",
+      "dependencies": [
+        "P04"
+      ],
+      "external_prerequisites": [
+        "WR1",
+        "WR2",
+        "WR3",
+        "WR4",
+        "WR5"
+      ],
+      "title": "Live Writfold citation and assessment",
+      "required": true,
+      "status": "blocked-external",
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required."
+    },
+    {
+      "id": "P06",
+      "gate": "WEFT06",
+      "dependencies": [
+        "P05"
+      ],
+      "external_prerequisites": [
+        "WR6"
+      ],
+      "title": "Retained report and run binding",
+      "required": true,
+      "status": "blocked-external",
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required."
+    },
+    {
+      "id": "P07",
+      "gate": "WEFT07",
+      "dependencies": [
+        "P06"
+      ],
+      "external_prerequisites": [
+        "WR7",
+        "WR8"
+      ],
+      "title": "Execution and learning admission",
+      "required": true,
+      "status": "blocked-external",
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required."
+    },
+    {
+      "id": "P08",
+      "gate": "WEFT08",
+      "dependencies": [
+        "P04"
+      ],
+      "external_prerequisites": [],
+      "title": "Quality and musl runtime artifact",
+      "required": true,
+      "status": "pass",
+      "receipts": [
+        "rust-runtime",
+        "scratch-runtime"
+      ],
+      "scope": "Exact component scope; no promotion of downstream gates."
+    },
+    {
+      "id": "P09",
+      "gate": "WEFT09",
+      "dependencies": [
+        "P05",
+        "P06",
+        "P07",
+        "P08"
+      ],
+      "external_prerequisites": [],
+      "title": "Full composed release",
+      "required": true,
+      "status": "blocked-external",
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Full composed release remains blocked."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "S01",
+      "requirement": "UTF-8 and exact byte spans",
+      "status": "local-pass",
+      "theorem_families": [
+        "L01",
+        "L02"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/parser/tests.rs",
+          "sha256": "1c56c5c2b7bcd25079d95a6a00259cadc8a38e9e02a0ebae26e0512db6888f6e"
+        },
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        },
+        {
+          "path": "scripts/rust_differential.py",
+          "sha256": "f53a655a9591a8cc02e63fa032f4cdaaef63b15c2a7790612fa92d92c423d5b1"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S02",
+      "requirement": "Malformed strings/control characters",
+      "status": "local-pass",
+      "theorem_families": [
+        "L02"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/parser/tests.rs",
+          "sha256": "1c56c5c2b7bcd25079d95a6a00259cadc8a38e9e02a0ebae26e0512db6888f6e"
+        },
+        {
+          "path": "scripts/rust_differential.py",
+          "sha256": "f53a655a9591a8cc02e63fa032f4cdaaef63b15c2a7790612fa92d92c423d5b1"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S03",
+      "requirement": "Precedence and non-chaining comparisons",
+      "status": "local-pass",
+      "theorem_families": [
+        "L02",
+        "L04"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/parser/tests.rs",
+          "sha256": "1c56c5c2b7bcd25079d95a6a00259cadc8a38e9e02a0ebae26e0512db6888f6e"
+        },
+        {
+          "path": "examples/symbolic.weft",
+          "sha256": "b66b122e4632aa4a7116854fb3b19b455bb6e311e13f9a0bc73b6d149b196653"
+        },
+        {
+          "path": "scripts/rust_differential.py",
+          "sha256": "f53a655a9591a8cc02e63fa032f4cdaaef63b15c2a7790612fa92d92c423d5b1"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S04",
+      "requirement": "Duplicate/forward/wrong-kind names",
+      "status": "local-pass",
+      "theorem_families": [
+        "L01",
+        "Q04"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S05",
+      "requirement": "Boolean/natural/text/nominal mismatch",
+      "status": "local-pass",
+      "theorem_families": [
+        "L01",
+        "Q02"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S06",
+      "requirement": "Missing/unsupported field or profile",
+      "status": "local-pass",
+      "theorem_families": [
+        "L02",
+        "L08"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/parser/tests.rs",
+          "sha256": "1c56c5c2b7bcd25079d95a6a00259cadc8a38e9e02a0ebae26e0512db6888f6e"
+        },
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "scripts/rust_differential.py",
+          "sha256": "f53a655a9591a8cc02e63fa032f4cdaaef63b15c2a7790612fa92d92c423d5b1"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S07",
+      "requirement": "All finite logical outcomes",
+      "status": "local-pass",
+      "theorem_families": [
+        "L06"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-kernel/src/tests/mod.rs",
+          "sha256": "766e1437b58239e6e343b9ab0d867e929800c3a7fc1e86f01fc1d937d463e2c7"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S08",
+      "requirement": "Inconsistent hypotheses do not explode",
+      "status": "local-pass",
+      "theorem_families": [
+        "L06"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-kernel/src/tests/mod.rs",
+          "sha256": "766e1437b58239e6e343b9ab0d867e929800c3a7fc1e86f01fc1d937d463e2c7"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S09",
+      "requirement": "Finite-domain completeness and bounds",
+      "status": "local-pass",
+      "theorem_families": [
+        "L05"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-kernel/src/tests/budgets.rs",
+          "sha256": "4e5912ef56a20b47265097a9ec1661f4ef6c4bac61b4bbb6bfa089f180ef676a"
+        },
+        {
+          "path": "crates/weft-kernel/src/tests/models.rs",
+          "sha256": "f15a30781b2c4e2131a8f733bbcc25c9ab3544d6fde035e03a6ae3cffc80216d"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S10",
+      "requirement": "Exhausted computation is unknown",
+      "status": "local-pass",
+      "theorem_families": [
+        "L07",
+        "Q09"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        },
+        {
+          "path": "crates/weft-kernel/src/tests/budgets.rs",
+          "sha256": "4e5912ef56a20b47265097a9ec1661f4ef6c4bac61b4bbb6bfa089f180ef676a"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S11",
+      "requirement": "Explicit unused needs retained",
+      "status": "local-pass",
+      "theorem_families": [
+        "L08"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S12",
+      "requirement": "Hypothesis is not observation",
+      "status": "local-pass",
+      "theorem_families": [
+        "L09",
+        "L12"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-cli/tests/cli.rs",
+          "sha256": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697"
+        },
+        {
+          "path": "formal/Weft/Grounding/Examples.lean",
+          "sha256": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S13",
+      "requirement": "Positive/negative trace closure",
+      "status": "local-pass",
+      "theorem_families": [
+        "L11"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-wire/tests/semantics.rs",
+          "sha256": "06c237cb19df6a45bedf1d865c715cb7cda3c039124b97fc5e761cdbfc1fc38f"
+        },
+        {
+          "path": "scripts/rust_differential.py",
+          "sha256": "f53a655a9591a8cc02e63fa032f4cdaaef63b15c2a7790612fa92d92c423d5b1"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S14",
+      "requirement": "No false reuse after subject change",
+      "status": "scoped-evidence",
+      "theorem_families": [
+        "L10"
+      ],
+      "fixtures": [
+        {
+          "path": "formal/Weft/Grounding/ReportExamples.lean",
+          "sha256": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Formal exact-scope reuse is proved; there is no shipping reuse command or live owner-binding reuse qualification."
+    },
+    {
+      "id": "S15",
+      "requirement": "Real durable citations",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L09"
+      ],
+      "fixtures": [
+        {
+          "path": "formal/Weft/Grounding/Examples.lean",
+          "sha256": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S16",
+      "requirement": "Alias generation/reconnect expiry",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L10"
+      ],
+      "fixtures": [
+        {
+          "path": "formal/Weft/Grounding/ReportExamples.lean",
+          "sha256": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S17",
+      "requirement": "Scoped same-spelled external identifiers",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L01",
+        "L10"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        },
+        {
+          "path": "formal/Weft/Grounding/ReportExamples.lean",
+          "sha256": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S18",
+      "requirement": "Denied/revoked access",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L09"
+      ],
+      "fixtures": [
+        {
+          "path": "formal/Weft/Grounding/Examples.lean",
+          "sha256": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S19",
+      "requirement": "Stale/unknown validation",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L09"
+      ],
+      "fixtures": [
+        {
+          "path": "formal/Weft/Grounding/Examples.lean",
+          "sha256": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S20",
+      "requirement": "Byte-selector/representation/provenance mismatch",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L09",
+        "L10"
+      ],
+      "fixtures": [
+        {
+          "path": "formal/Weft/Grounding/Examples.lean",
+          "sha256": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21"
+        },
+        {
+          "path": "formal/Weft/Grounding/ReportExamples.lean",
+          "sha256": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S21",
+      "requirement": "Partial search is not exhaustive absence",
+      "status": "scoped-evidence",
+      "theorem_families": [
+        "Q06",
+        "Q07",
+        "Q08"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-kernel/src/tests/models.rs",
+          "sha256": "f15a30781b2c4e2131a8f733bbcc25c9ab3544d6fde035e03a6ae3cffc80216d"
+        },
+        {
+          "path": "crates/weft-wire/tests/semantics.rs",
+          "sha256": "06c237cb19df6a45bedf1d865c715cb7cda3c039124b97fc5e761cdbfc1fc38f"
+        },
+        {
+          "path": "examples/empty-domain.weft",
+          "sha256": "9d7c17819c3728c4ad73c14b3c29ceb2aff8988dc0455e54bc1b8e43090e8089"
+        },
+        {
+          "path": "examples/quantifier-models.weft",
+          "sha256": "5673c0e98be8f599ba6dd4c1f64c08f8d66ac40e5a22b46257e20a9a7be9246c"
+        },
+        {
+          "path": "examples/sets.weft",
+          "sha256": "8d8aa4eda06fe0c0ac15c928177174d394ede7b77cf2a92ff15866e40b672816"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local finite coverage is exercised and never labelled KB inventory completeness; real corpus search remains blocked."
+    },
+    {
+      "id": "S22",
+      "requirement": "Malformed/oversized/stale peer responses",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L10"
+      ],
+      "fixtures": [
+        {
+          "path": "formal/Weft/Grounding/ReportExamples.lean",
+          "sha256": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S23",
+      "requirement": "Exact report retention",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L11"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-wire/tests/semantics.rs",
+          "sha256": "06c237cb19df6a45bedf1d865c715cb7cda3c039124b97fc5e761cdbfc1fc38f"
+        },
+        {
+          "path": "scripts/rust_differential.py",
+          "sha256": "f53a655a9591a8cc02e63fa032f4cdaaef63b15c2a7790612fa92d92c423d5b1"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S24",
+      "requirement": "Expected-head conflict/lost acknowledgement",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L10"
+      ],
+      "fixtures": [
+        {
+          "path": "formal/Weft/Grounding/ReportExamples.lean",
+          "sha256": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S25",
+      "requirement": "Trusted producer receipt binding",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L09",
+        "L11"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-wire/tests/semantics.rs",
+          "sha256": "06c237cb19df6a45bedf1d865c715cb7cda3c039124b97fc5e761cdbfc1fc38f"
+        },
+        {
+          "path": "formal/Weft/Grounding/Examples.lean",
+          "sha256": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21"
+        },
+        {
+          "path": "scripts/rust_differential.py",
+          "sha256": "f53a655a9591a8cc02e63fa032f4cdaaef63b15c2a7790612fa92d92c423d5b1"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S26",
+      "requirement": "Real effect authorization",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L12"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-cli/tests/cli.rs",
+          "sha256": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S27",
+      "requirement": "Unknown-effect reconciliation without replay",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L12"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-cli/tests/cli.rs",
+          "sha256": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S28",
+      "requirement": "Reviewed learning with contrary evidence",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L09"
+      ],
+      "fixtures": [
+        {
+          "path": "formal/Weft/Grounding/Examples.lean",
+          "sha256": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S29",
+      "requirement": "Static installed runtime",
+      "status": "local-pass",
+      "theorem_families": [
+        "L12"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-cli/tests/cli.rs",
+          "sha256": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697"
+        },
+        {
+          "path": "docker/Dockerfile.runtime",
+          "sha256": "cf523a91c8d43fb231b6f13df8e4428de48065274cffc87be50a03af2ee5010a"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime",
+        "scratch-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S30",
+      "requirement": "Complete composed flow",
+      "status": "blocked-external",
+      "theorem_families": [
+        "L09",
+        "L10",
+        "L11",
+        "L12"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-cli/tests/cli.rs",
+          "sha256": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697"
+        },
+        {
+          "path": "crates/weft-wire/tests/semantics.rs",
+          "sha256": "06c237cb19df6a45bedf1d865c715cb7cda3c039124b97fc5e761cdbfc1fc38f"
+        },
+        {
+          "path": "formal/Weft/Grounding/Examples.lean",
+          "sha256": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21"
+        },
+        {
+          "path": "formal/Weft/Grounding/ReportExamples.lean",
+          "sha256": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e"
+        },
+        {
+          "path": "scripts/rust_differential.py",
+          "sha256": "f53a655a9591a8cc02e63fa032f4cdaaef63b15c2a7790612fa92d92c423d5b1"
+        }
+      ],
+      "receipts": [
+        "owner-boundary"
+      ],
+      "scope": "Real owner services required; not exercised by local reports."
+    },
+    {
+      "id": "S31",
+      "requirement": "Finite literal/duplicate normalization",
+      "status": "local-pass",
+      "theorem_families": [
+        "Q01"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S32",
+      "requirement": "Same text with distinct nominal kind/realm",
+      "status": "local-pass",
+      "theorem_families": [
+        "Q02"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S33",
+      "requirement": "Repeated and diamond spread origins",
+      "status": "local-pass",
+      "theorem_families": [
+        "Q03"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S34",
+      "requirement": "Missing/expired member not deduplicated away",
+      "status": "scoped-evidence",
+      "theorem_families": [
+        "Q03",
+        "Q09"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Missing local inputs and formal expired-member cases are checked; actual Writfold expiry/acquisition remains blocked."
+    },
+    {
+      "id": "S35",
+      "requirement": "Immutable bindings and atomic failures",
+      "status": "local-pass",
+      "theorem_families": [
+        "Q04"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S36",
+      "requirement": "Nested shadowing/outer reference/alpha-renaming",
+      "status": "local-pass",
+      "theorem_families": [
+        "Q05"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S37",
+      "requirement": "Universal success and model-scoped failures",
+      "status": "local-pass",
+      "theorem_families": [
+        "Q06"
+      ],
+      "fixtures": [
+        {
+          "path": "examples/empty-domain.weft",
+          "sha256": "9d7c17819c3728c4ad73c14b3c29ceb2aff8988dc0455e54bc1b8e43090e8089"
+        },
+        {
+          "path": "examples/sets.weft",
+          "sha256": "8d8aa4eda06fe0c0ac15c928177174d394ede7b77cf2a92ff15866e40b672816"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S38",
+      "requirement": "Existential witnesses/nonuniform entailment/absence",
+      "status": "local-pass",
+      "theorem_families": [
+        "Q07"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-kernel/src/tests/models.rs",
+          "sha256": "f15a30781b2c4e2131a8f733bbcc25c9ab3544d6fde035e03a6ae3cffc80216d"
+        },
+        {
+          "path": "examples/quantifier-models.weft",
+          "sha256": "5673c0e98be8f599ba6dd4c1f64c08f8d66ac40e5a22b46257e20a9a7be9246c"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S39",
+      "requirement": "Empty-domain vacuity and invalid-body refusal",
+      "status": "local-pass",
+      "theorem_families": [
+        "Q06",
+        "Q07",
+        "Q08"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-kernel/src/tests/models.rs",
+          "sha256": "f15a30781b2c4e2131a8f733bbcc25c9ab3544d6fde035e03a6ae3cffc80216d"
+        },
+        {
+          "path": "crates/weft-wire/tests/semantics.rs",
+          "sha256": "06c237cb19df6a45bedf1d865c715cb7cda3c039124b97fc5e761cdbfc1fc38f"
+        },
+        {
+          "path": "examples/empty-domain.weft",
+          "sha256": "9d7c17819c3728c4ad73c14b3c29ceb2aff8988dc0455e54bc1b8e43090e8089"
+        },
+        {
+          "path": "examples/quantifier-models.weft",
+          "sha256": "5673c0e98be8f599ba6dd4c1f64c08f8d66ac40e5a22b46257e20a9a7be9246c"
+        },
+        {
+          "path": "examples/sets.weft",
+          "sha256": "8d8aa4eda06fe0c0ac15c928177174d394ede7b77cf2a92ff15866e40b672816"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S40",
+      "requirement": "Mixed/ambiguous typing and scalar/set misuse",
+      "status": "local-pass",
+      "theorem_families": [
+        "Q02"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S41",
+      "requirement": "Nested expansion exhaustion without partial result",
+      "status": "local-pass",
+      "theorem_families": [
+        "Q09"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/semantic_tests.rs",
+          "sha256": "3f3efe440668bfca39f686b36e3f3207865e6e51f96a7b164b6f09383708e051"
+        },
+        {
+          "path": "crates/weft-frontend/src/type_boundary_tests.rs",
+          "sha256": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S42",
+      "requirement": "External inventory cannot become broader complete domain",
+      "status": "scoped-evidence",
+      "theorem_families": [
+        "Q08",
+        "Q10"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-wire/tests/semantics.rs",
+          "sha256": "06c237cb19df6a45bedf1d865c715cb7cda3c039124b97fc5e761cdbfc1fc38f"
+        },
+        {
+          "path": "examples/inconsistent.weft",
+          "sha256": "911f9d2c11e4236d69d29698c1774a866a3cc120bf1d6c91597d0bf00374bf51"
+        },
+        {
+          "path": "examples/symbolic.weft",
+          "sha256": "b66b122e4632aa4a7116854fb3b19b455bb6e311e13f9a0bc73b6d149b196653"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Declared finite domains retain no broader-inventory claim; external captured discovery manifest service is unavailable."
+    },
+    {
+      "id": "S43",
+      "requirement": "Per-member traces/origins/forged witness refusal",
+      "status": "scoped-evidence",
+      "theorem_families": [
+        "Q08"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-wire/tests/semantics.rs",
+          "sha256": "06c237cb19df6a45bedf1d865c715cb7cda3c039124b97fc5e761cdbfc1fc38f"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Lean forged quantified reports and Rust incomplete/mismatched projection records are checked; the Rust output library is not an untrusted certificate-ingestion endpoint."
+    },
+    {
+      "id": "S44",
+      "requirement": "Prior scalar semantics and authority conservation",
+      "status": "local-pass",
+      "theorem_families": [
+        "Q10"
+      ],
+      "fixtures": [
+        {
+          "path": "examples/inconsistent.weft",
+          "sha256": "911f9d2c11e4236d69d29698c1774a866a3cc120bf1d6c91597d0bf00374bf51"
+        },
+        {
+          "path": "examples/symbolic.weft",
+          "sha256": "b66b122e4632aa4a7116854fb3b19b455bb6e311e13f9a0bc73b6d149b196653"
+        }
+      ],
+      "receipts": [
+        "finite-reference",
+        "rust-runtime"
+      ],
+      "scope": "Selected local profile only; no live Writfold claim."
+    }
+  ]
+}

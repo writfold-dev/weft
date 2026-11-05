@@ -68,23 +68,30 @@
     {
       "id": "P02",
       "gate": "WEFT02",
-      "status": "not_run",
-      "receipts": [],
-      "reason": "No qualifying receipt yet"
+      "status": "pass",
+      "receipts": [
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-023/report.json",
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json"
+      ],
+      "reason": "Bounded source grammar/parser/type behavior and actual Lean reference vectors exercised; local profile scope, no parser-refinement theorem. See traceability.json and local-runtime.json."
     },
     {
       "id": "P03",
       "gate": "WEFT03",
-      "status": "not_run",
-      "receipts": [],
-      "reason": "No qualifying receipt yet"
+      "status": "pass",
+      "receipts": [
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json"
+      ],
+      "reason": "Actual nominal Rust frontend and finite interpreter: 66 behavioral regressions, nominal compiler controls, 29 Lean/Rust outcomes and 32 checked model witnesses. Exact source-symbol mapping retained; real owner inputs remain P05."
     },
     {
       "id": "P04",
       "gate": "WEFT04",
-      "status": "not_run",
-      "receipts": [],
-      "reason": "No qualifying receipt yet"
+      "status": "pass",
+      "receipts": [
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json"
+      ],
+      "reason": "Actual JSON/human CLI reports with exact source bytes, hypotheses/needs, origin and formula DAGs, finite instances, model-relative findings and honest incomplete/refused outcomes. No external grounding or authority claim."
     },
     {
       "id": "P05",
@@ -110,9 +117,12 @@
     {
       "id": "P08",
       "gate": "WEFT08",
-      "status": "not_run",
-      "receipts": [],
-      "reason": "No qualifying receipt yet"
+      "status": "pass",
+      "receipts": [
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json",
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/runtime-package-001/report.json"
+      ],
+      "reason": "Pinned offline format/compiler/AST/nominal/dependency gates and actual static musl binary/scratch image exercised. Source-size soft warnings and unavailable advisory snapshot disclosed. Development component only; final composed release remains blocked."
     },
     {
       "id": "P09",
@@ -122,5 +132,8 @@
       "reason": "Required owner-landed Writfold services unavailable; see plan/06-writfold-handoff.md"
     }
   ],
-  "base_evidence": "qualification/revision-1-status.json"
+  "base_evidence": "qualification/revision-1-status.json",
+  "current_runtime": "qualification/local-runtime.json",
+  "traceability": "qualification/traceability.json",
+  "scope": "Seven exact component passes; P05, P06, P07 and P09 remain required and blocked. No Writfold service or final release pass inferred."
 }
