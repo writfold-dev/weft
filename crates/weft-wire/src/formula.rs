@@ -44,11 +44,21 @@ pub(crate) fn node(
                 operation,
                 left,
                 right,
+                counterexample,
             } => {
                 j.text("kind", "comparison")?;
                 j.text("operator", comparison(operation))?;
                 j.count("left_set", left.index())?;
                 j.count("right_set", right.index())?;
+                if let Some(member) = counterexample {
+                    j.field("counterexample", |j| values::value(j, theory, member))?;
+                }
+            }
+            NodeDetail::Membership { value, set } => {
+                j.text("kind", "comparison")?;
+                j.text("operator", "in")?;
+                j.field("left", |j| values::value(j, theory, value))?;
+                j.count("right_set", set.index())?;
             }
             _ => j.text(
                 "kind",
@@ -68,6 +78,8 @@ fn comparison(comparison: Comparison) -> &'static str {
     match comparison {
         Comparison::Equal => "==",
         Comparison::NotEqual => "!=",
+        Comparison::Member => "in",
+        Comparison::Subset => "<=",
     }
 }
 fn operation(j: &mut Json, theory: &Theory, operation: FormulaOp) -> Result<()> {

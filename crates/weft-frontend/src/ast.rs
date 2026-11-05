@@ -1,5 +1,5 @@
 use std::borrow::Cow;
-use weft_domain::{Comparison, DeclarationKind, QuantifierKind, SourceSpan};
+use weft_domain::{Comparison, DeclarationKind, QuantifierKind, SetOperation, SourceSpan};
 
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Name<'s> {
@@ -99,6 +99,11 @@ pub(crate) enum SetItem<'s> {
 pub(crate) enum SetKind<'s> {
     Literal(Vec<SetItem<'s>>),
     Path(Path<'s>),
+    Binary {
+        operation: SetOperation,
+        left: SetExprId,
+        right: SetExprId,
+    },
 }
 #[derive(Clone, Debug)]
 pub(crate) struct SetExpr<'s> {

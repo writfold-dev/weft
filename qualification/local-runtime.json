@@ -2,14 +2,13 @@
   "schema_version": 1,
   "status": "pass",
   "scope": "weft-local-symbolic-runtime-only",
-  "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json",
-  "receipt_sha256": "98e12486e780f059ce558403b239253425181633b46172af949a322e9185a61e",
+  "receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-3/report.json",
+  "receipt_sha256": "aa1bfd51da63f60b6f7e7b3e8fef7fa1759bbddf7db60a2457cc3ec20b6149a6",
   "binary": {
-    "filename": "weft",
-    "sha256": "68872ca283d91d1ad6be6e3a090ed6a50c0b890a3291dddf3aaa03450993851a",
-    "bytes": 819848,
-    "build_source_sha256": "8c64b1848367230be6db076ec8d7747433c21bfa69db22628371e5f6c225e16f",
-    "target": "x86_64-unknown-linux-musl"
+    "sha256": "ae0ea52131b1e87d70b31e774485d3f82110012f7e45cf0e31108bbb40e5ee5e",
+    "path": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-3/weft",
+    "triple": "x86_64-unknown-linux-musl",
+    "static": true
   },
   "tool_image_id": "sha256:52e3bad8e6b7a7e770437a4e35fe04c7d77c9b7fee0eb03e509d40e72dbc8db3",
   "tool_lock_sha256": "1daa41f68708aa69aeba247df9a6770c44f6015de3c56a893dc001687490aed9",
@@ -140,62 +139,10 @@
     "docker/Dockerfile.runtime": "cf523a91c8d43fb231b6f13df8e4428de48065274cffc87be50a03af2ee5010a"
   },
   "proof_prerequisite": {
-    "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-023/report.json",
-    "sha256": "898bb3b98fb05de5015efe28821fe967951922f3915ba91045b96b9e5fe46e42",
-    "initial_calculus_receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-022/report.json",
-    "initial_calculus_sha256": "e2ae0ea54965cedadbf323084a5630d837c18ce2444db7582d86c60e9baa94a8",
-    "formal_source": {
-      "formal/Weft/Composition.lean": "9f1bd14faa8c2c1c31d1ba7469532e0471e0f5953ff2ef36f7b5751df7776de3",
-      "formal/Weft/Finite/Bindings.lean": "4022da36b52379c8e454c4fb0850aac014ed2fecf029b5da037a62860be0dc05",
-      "formal/Weft/Finite/CaptureBudget.lean": "d7f3a441b91e9f0e74d898c5ec2ff3907d214382efb7a17f0b7ced458ab6f555",
-      "formal/Weft/Finite/CaptureBudgetExamples.lean": "86ff4a5929ac5e1e8cd0f691a6769e9b92a686a8cabcf9458218adc0f406d380",
-      "formal/Weft/Finite/Lowering.lean": "41de80969f954bb1911654418ceb049636486972288b8edbb404dea4dc557fca",
-      "formal/Weft/Finite/QuantifierExamples.lean": "b726605027116904f5ef1ab3bbaf132cd0c71635bd37518c9cb996eba143025c",
-      "formal/Weft/Finite/Quantifiers.lean": "3d98fd443d5a12fea1cd6dce02639279558235fa2913a9bad862397e89a1d623",
-      "formal/Weft/Finite/Semantics.lean": "b9e038a9f177752be9a1b81fbdab984ccb12b64cdbbf461f1f322cbf02957e0c",
-      "formal/Weft/Finite/SetExamples.lean": "f1a65531944e2068ed52c9b5f301b979f98d22e68ca030de8ad80f6ebbf4d011",
-      "formal/Weft/Finite/Sets/Properties.lean": "9c431886d6e6f30cfe3731df95ce1787d8dbf5017607e7336c255ea02488a473",
-      "formal/Weft/Finite/Sets.lean": "863d5530eb87ee8cbb3a66824b2f5b5352a1c05664fdef607e6f97432db9358c",
-      "formal/Weft/Finite/Substitution.lean": "08587a8b061bf82981a97d57d6cf8e956085884217feb05183aef2365ff7679c",
-      "formal/Weft/Finite/SubstitutionTyping.lean": "278bde7106a5525c1d0e429c21de4f3d26ebb7be44381637d06bd90282cc1d9c",
-      "formal/Weft/Finite/Syntax.lean": "679161445793284c0e7691a1bbc27fbdc288b5abfb0e2973314658aa1d52ec6a",
-      "formal/Weft/Finite/TraceContext.lean": "77b1b244d7e6d14ddaff137e5a918ceea69c81604d8169cfc2bef38add09db0f",
-      "formal/Weft/Finite/TraceExamples.lean": "3573289420db5c8b6ef7318e46d531d31215cbb381d2ef79702b2fd4a46bacca",
-      "formal/Weft/Finite/Traces.lean": "01c0fb53be021429e0c0f4d18ec17f8e48e40efd4c3739a770626f06d4d78677",
-      "formal/Weft/Finite/Typing.lean": "9262b56902c49b1196fa29aa1b3c62a58d362878c6a47c0208206e959449672a",
-      "formal/Weft/Finite.lean": "3f913c5526152681eecf3b38793ca08a2b10b8b753872b23e568870a2d29d7cf",
-      "formal/Weft/FiniteReference.lean": "c7f3a09dd0609a2fd2f81349402d87fcf4fee2d531e72608659c848e3b02a42c",
-      "formal/Weft/Grounding/DetailedTrace.lean": "279688c8e58322f1414d8cbc275f68b50f70462afbb0ab332353cf859bf8809c",
-      "formal/Weft/Grounding/Examples.lean": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21",
-      "formal/Weft/Grounding/Model.lean": "823832f0e18bd9dd8115057ad00c5e914e473f09400bb503e9bb1c76da8e5b6c",
-      "formal/Weft/Grounding/ReportExamples.lean": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e",
-      "formal/Weft/Grounding/ReportView.lean": "e5e921cd7b573f115be9af17d2db71498eac5f2796bafe84963162c99ea54b59",
-      "formal/Weft/Grounding/Trace.lean": "d389f23f4cf269dc73a4f6f469986837affd4ebce6f47cea85a7c574e5cd7463",
-      "formal/Weft/Grounding.lean": "b23e7452405438bb223a9d34940525c1341288615a097c68a98b0ef0f22e4ee1",
-      "formal/Weft/Language/Core.lean": "cb2fbd8a76ca17d516774bc50dfefb91d09d852cfced44315c2feaced101b308",
-      "formal/Weft/Language/Elaboration.lean": "53629af1e8dd4bc28cf5443b21706cf54907817d56cb06d9414eb2107d7ed54b",
-      "formal/Weft/Language/Examples.lean": "eac474a7d467eb3b959b49624705f95d0f3d9a3482e90d839d6c573d61b2d3a4",
-      "formal/Weft/Language/Semantics.lean": "ec5ee162ae5b5fa55b0fd9de3e4d82a04c56c2ad90391ad260176e15ef675caf",
-      "formal/Weft/Language.lean": "1f50923df8bc2e7974254266aaba48baf5cdf746f3814386603bde7a6c390883",
-      "formal/Weft/Logic/Classification.lean": "af62c2c4a7208d142265b87da6664376ca3f17fd9a4cc2fc8047f8817a9b9420",
-      "formal/Weft/Logic/Enumeration.lean": "98e73f474f8f66120ab37f39c685009e400ba36cb7d1371b74a5d5dbe3863d69",
-      "formal/Weft/Logic/Examples.lean": "e0467494f81faac9450d6debd412a26416a5495539d8dc39468431dffd51fb0f",
-      "formal/Weft/Logic/Search.lean": "17cb20891fc88cc1295b0b046b60f66461e8b53b0bd69c1d48f957d9994c983c",
-      "formal/Weft/Logic/Syntax.lean": "10eec8fa9a21e75c602e10e78761d2397f02c4f9210bbab22b8fdc607076c36b",
-      "formal/Weft/Logic.lean": "3038067c51d65cef66983d4689011e0ddf660abd3ab62f486d853d477db59b82",
-      "formal/Weft/Reference.lean": "253e3b83ed3e9945cb430c3db97b56eb7e91b1be625fa0a873f2a26c4bcfb31c",
-      "formal/Weft.lean": "71dd126015e772132905fce67731d5212fce73cb3d6775944dd658a0634f1f86",
-      "formal/audit-targets.json": "aa862e2a589823f8bbee16acb61e488120a355258bb1a61bbe5c830d590b6082",
-      "formal/lake-manifest.json": "6052aa0b98ce100c828ef45409755c07f133972a58e13a56f905bd7acd9d1b08",
-      "formal/lakefile.toml": "7096a213a184e5102d50499a6dfe170c8314a6b577c8ed6bd7b037ab01e53a3c",
-      "formal/lean-toolchain": "d24fed434d3b13adfaab57724a0a7f270ea8bf1c818b5ae5cf25cbce24dd685c"
-    },
-    "artifacts": {
-      "weftref": "9b9e9d6a639424c65c589a440bc54b464105969702d7bb7f4b53fc5aa87c071d",
-      "weftfiniteref": "9b1103b2e78a7fd6ab1691d8b155737061f2dfa0d4bc7af37614fb74537b3161"
-    },
-    "image_id": "sha256:52e3bad8e6b7a7e770437a4e35fe04c7d77c9b7fee0eb03e509d40e72dbc8db3",
-    "scope": "exact calculus bodies and authority; reference protocol separately requalified without relabelling the first proof checkpoint"
+    "reference_receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-reference/report.json",
+    "reference_sha256": "4627cf69d53d9123d96a64706d04a3fbf95752cda34952a2da31fb69ce55f767",
+    "calculus_ledger": "qualification/finite-calculus.json",
+    "calculus_sha256": "c45bc72616ba97d0bc212e3b7183260bde13822d0bd67e1d10f12c6749c632d1"
   },
   "verification": {
     "behavioral_regressions": 66,
@@ -210,113 +157,57 @@
     "source_size_soft_warnings": 22,
     "source_size_errors": 0
   },
-  "cli_cases": [
-    {
-      "id": "example-symbolic",
-      "status": "pass"
+  "cli_cases": {
+    "examples": {
+      "symbolic": [
+        "entailed",
+        "refuted",
+        "undetermined"
+      ],
+      "inconsistent": [
+        "inconsistent-premises"
+      ],
+      "sets": [
+        "entailed",
+        "undetermined",
+        "entailed",
+        "entailed"
+      ],
+      "quantifier-models": [
+        "entailed",
+        "undetermined",
+        "refuted"
+      ],
+      "empty-domain": [
+        "entailed",
+        "refuted"
+      ],
+      "set-algebra": [
+        "entailed",
+        "entailed",
+        "entailed",
+        "entailed",
+        "entailed",
+        "entailed",
+        "entailed",
+        "refuted",
+        "entailed",
+        "refuted",
+        "entailed"
+      ]
     },
-    {
-      "id": "example-inconsistent",
-      "status": "pass"
-    },
-    {
-      "id": "example-sets",
-      "status": "pass"
-    },
-    {
-      "id": "example-quantifier-models",
-      "status": "pass"
-    },
-    {
-      "id": "example-empty-domain",
-      "status": "pass"
-    },
-    {
-      "id": "large-naturals",
-      "status": "pass"
-    },
-    {
-      "id": "shadowing",
-      "status": "pass"
-    },
-    {
-      "id": "dependent-domain",
-      "status": "pass"
-    },
-    {
-      "id": "set-membership",
-      "status": "pass"
-    },
-    {
-      "id": "diamond-origins",
-      "status": "pass"
-    },
-    {
-      "id": "alpha-original",
-      "status": "pass"
-    },
-    {
-      "id": "alpha-renamed",
-      "status": "pass"
-    },
-    {
-      "id": "failed-set-atomicity",
-      "status": "pass"
-    },
-    {
-      "id": "nonuniform-witness",
-      "status": "pass"
-    },
-    {
-      "id": "required-unused",
-      "status": "pass"
-    },
-    {
-      "id": "invalid-assumption",
-      "status": "pass"
-    },
-    {
-      "id": "empty-body-validation",
-      "status": "pass"
-    },
-    {
-      "id": "mixed-set",
-      "status": "pass"
-    },
-    {
-      "id": "no-let-alias",
-      "status": "pass"
-    },
-    {
-      "id": "typed-no-coercion",
-      "status": "pass"
-    },
-    {
-      "id": "valuation-limit",
-      "status": "pass"
-    },
-    {
-      "id": "output-limit",
-      "status": "pass"
-    },
-    {
-      "id": "invalid-utf8",
-      "status": "pass"
-    },
-    {
-      "id": "external-ordering",
-      "status": "pass"
-    },
-    {
-      "id": "external-conditional",
-      "status": "pass"
-    }
-  ],
+    "scenario_count": 32,
+    "smoke_cases": 40,
+    "differential_checks": 62,
+    "differential_witnesses": 65,
+    "algebra_differential_pairs": 9,
+    "finite_reference_cases": 27
+  },
   "scratch_runtime": {
-    "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/runtime-package-001/report.json",
-    "sha256": "f57e858cb4eb451e5f5fe22d31538213f0bdc03fc3c1c95f0ecf3fa611fcbe06",
-    "image_id": "sha256:e938b0fe9f784169da17603ef04ca9a5422e29ae17c78684aaedcb43015e214c",
-    "binary_sha256": "68872ca283d91d1ad6be6e3a090ed6a50c0b890a3291dddf3aaa03450993851a"
+    "receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-runtime-package-001/report.json",
+    "sha256": "dbb57d4c451440d821bb5cd327c9ebc043c8fa9aebf11003176821672e341dd0",
+    "image_id": "sha256:ad0e603f586fc8495f6eddcf42cec6547d505ce81406b52cb2410bd3de46fc2e",
+    "binary_sha256": "ae0ea52131b1e87d70b31e774485d3f82110012f7e45cf0e31108bbb40e5ee5e"
   },
   "license_packaging": {
     "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/license-package-001/report.json",
@@ -370,6 +261,11 @@
     {
       "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-010/report.json",
       "sha256": "b74b6cb409831273ed4ec5aabc2c8cf8b8c03eff631f02404641d4a439a057a0"
+    },
+    {
+      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json",
+      "sha256": "98e12486e780f059ce558403b239253425181633b46172af949a322e9185a61e",
+      "scope": "revision-2 runtime pass; preserved historical snapshot (qualification/revision-2-local-runtime.json)"
     }
   ],
   "limitations": [

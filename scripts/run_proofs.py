@@ -18,12 +18,14 @@ CACHE = Path("/cache/target/lean-4.21.0")
 
 
 @contextmanager
-def clean_copy(label: str) -> Iterator[Path]:
+def clean_copy(label: str, warm_lib: Path | None = None) -> Iterator[Path]:
     CACHE.mkdir(parents=True, exist_ok=True)
     owned = Path(tempfile.mkdtemp(prefix=f"{label}-", dir=CACHE))
     target = owned / "formal"
     try:
         shutil.copytree(ROOT / "formal", target, ignore=shutil.ignore_patterns(".lake"))
+        if warm_lib is not None and warm_lib.is_dir():
+            shutil.copytree(warm_lib, target / ".lake/build/lib")
         yield target
     finally:
         shutil.rmtree(owned)
@@ -116,9 +118,16 @@ def mutate() -> list[dict]:
             path = Path(mutation[key])
             if path.is_absolute() or ".." in path.parts or path.parts[0] != "Weft" or path.suffix != ".lean":
                 raise ValueError("mutation must remain inside the owned Lean source namespace")
+    # Reuse the baseline build's compiled libraries so each mutant only
+    # rebuilds the mutated module and its dependents. The mutated source is
+    # still fully re-elaborated by lake before it can be rejected.
+    warm_lib = CACHE / "baseline-lib"
+    if warm_lib.is_dir():
+        shutil.rmtree(warm_lib)
+    shutil.copytree(BASELINE_LIB, warm_lib)
     results = []
     for mutation in mutations:
-        with clean_copy(mutation["id"]) as source:
+        with clean_copy(mutation["id"], warm_lib=warm_lib) as source:
             target = source / mutation["file"]
             original = target.read_text()
             if original.count(mutation["search"]) != 1:
@@ -161,6 +170,13 @@ def finite_reference_cases(source: Path) -> list[dict]:
         "zero-budget-refuses", "universal-instance-coverage",
         "universal-counterexample-member", "existential-witness-member",
         "existential-complete-absence",
+        # Revision-3 set-algebra cases: the five operations on real typed
+        # inputs through the actual extended evaluators.
+        "algebra-union-membership-order", "algebra-intersection-merges-origins",
+        "algebra-difference-retains-right-closure", "algebra-typed-empty-results",
+        "algebra-mixed-types-refused", "algebra-membership-hit-miss",
+        "algebra-subset-counterexample", "algebra-unavailable-operand-refused",
+        "algebra-shadowing-not-capture", "algebra-zero-budget-refused",
     }
     if ({row["id"] for row in actual} != expected or len(actual) != len(expected)
             or any(row["passed"] is not True for row in actual)):
@@ -172,6 +188,7 @@ def finite_reference_cases(source: Path) -> list[dict]:
 def main() -> int:
     result: dict = {"schema_version": 1, "status": "fail", "scope": "weft-language-calculus-only", "skipped": []}
     try:
+        global BASELINE_LIB
         with clean_copy("baseline") as source:
             require_success(run_logged(
                 ["python3", "scripts/test_qualification.py"], ROOT, EVIDENCE,
@@ -179,6 +196,7 @@ def main() -> int:
             ))
             result["formal_source"] = manifest(ROOT, ["formal"])
             require_success(run_logged(["lake", "build"], source, EVIDENCE, "lean-build", timeout=900))
+            BASELINE_LIB = source / ".lake/build/lib"
             result["axioms"] = audit(source)
             result["executed_reference_cases"] = reference_cases(source)
             result["executed_finite_cases"] = finite_reference_cases(source)

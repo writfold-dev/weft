@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "status": "pass",
+  "scope": "qualified executable reference witness checking; original calculus scope preserved",
+  "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-023/report.json",
+  "receipt_sha256": "898bb3b98fb05de5015efe28821fe967951922f3915ba91045b96b9e5fe46e42",
+  "calculus_prerequisite": {
+    "path": "qualification/finite-calculus.json",
+    "sha256": "ddde31740bddeee03ed13aa469b1e843a6430064bdba45b3d75ba52a0056d1de"
+  },
+  "changed_formal_sources": [
+    "formal/Weft/Reference.lean"
+  ],
+  "unchanged_calculus_body_sources": [
+    "formal/Weft/Composition.lean",
+    "formal/Weft/Finite/Bindings.lean",
+    "formal/Weft/Finite/CaptureBudget.lean",
+    "formal/Weft/Finite/CaptureBudgetExamples.lean",
+    "formal/Weft/Finite/Lowering.lean",
+    "formal/Weft/Finite/QuantifierExamples.lean",
+    "formal/Weft/Finite/Quantifiers.lean",
+    "formal/Weft/Finite/Semantics.lean",
+    "formal/Weft/Finite/SetExamples.lean",
+    "formal/Weft/Finite/Sets/Properties.lean",
+    "formal/Weft/Finite/Sets.lean",
+    "formal/Weft/Finite/Substitution.lean",
+    "formal/Weft/Finite/SubstitutionTyping.lean",
+    "formal/Weft/Finite/Syntax.lean",
+    "formal/Weft/Finite/TraceContext.lean",
+    "formal/Weft/Finite/TraceExamples.lean",
+    "formal/Weft/Finite/Traces.lean",
+    "formal/Weft/Finite/Typing.lean",
+    "formal/Weft/Finite.lean",
+    "formal/Weft/FiniteReference.lean",
+    "formal/Weft/Grounding/DetailedTrace.lean",
+    "formal/Weft/Grounding/Examples.lean",
+    "formal/Weft/Grounding/Model.lean",
+    "formal/Weft/Grounding/ReportExamples.lean",
+    "formal/Weft/Grounding/ReportView.lean",
+    "formal/Weft/Grounding/Trace.lean",
+    "formal/Weft/Grounding.lean",
+    "formal/Weft/Language/Core.lean",
+    "formal/Weft/Language/Elaboration.lean",
+    "formal/Weft/Language/Examples.lean",
+    "formal/Weft/Language/Semantics.lean",
+    "formal/Weft/Language.lean",
+    "formal/Weft/Logic/Classification.lean",
+    "formal/Weft/Logic/Enumeration.lean",
+    "formal/Weft/Logic/Examples.lean",
+    "formal/Weft/Logic/Search.lean",
+    "formal/Weft/Logic/Syntax.lean",
+    "formal/Weft/Logic.lean",
+    "formal/Weft.lean",
+    "formal/audit-targets.json",
+    "formal/lake-manifest.json",
+    "formal/lakefile.toml",
+    "formal/lean-toolchain"
+  ],
+  "reference_binary_sha256": "9b9e9d6a639424c65c589a440bc54b464105969702d7bb7f4b53fc5aa87c071d",
+  "finite_reference_binary_sha256": "9b1103b2e78a7fd6ab1691d8b155737061f2dfa0d4bc7af37614fb74537b3161",
+  "reference_cases": [
+    {
+      "witness_checks": [
+        true,
+        false
+      ],
+      "verdict": "entailed",
+      "id": "entailed"
+    },
+    {
+      "witness_checks": [
+        true,
+        false
+      ],
+      "verdict": "refuted",
+      "id": "refuted"
+    },
+    {
+      "witness_checks": [
+        true,
+        false
+      ],
+      "verdict": "refuted",
+      "id": "wrong-polarity"
+    },
+    {
+      "witness_checks": [
+        true,
+        true
+      ],
+      "verdict": "undetermined",
+      "id": "two-models"
+    },
+    {
+      "witness_checks": [
+        false,
+        false
+      ],
+      "verdict": "inconsistent-premises",
+      "id": "inconsistent"
+    },
+    {
+      "witness_checks": [],
+      "verdict": "unknown",
+      "id": "no-budget"
+    },
+    {
+      "witness_checks": [
+        false
+      ],
+      "verdict": "unknown",
+      "id": "invalid-domain"
+    },
+    {
+      "witness_checks": [
+        true
+      ],
+      "verdict": "refuted",
+      "id": "empty-domain"
+    }
+  ],
+  "witness_check_scope": "Explicit supplied assignments are checked by Lean satisfies/evaluate under exact atom bounds; a polarity model is not universal truth or effect authority."
+}

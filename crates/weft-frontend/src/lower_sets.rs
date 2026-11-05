@@ -55,6 +55,29 @@ impl<'s> Lower<'_, 's> {
             .ok_or_else(|| self.invalid(self.parsed.header.span, "missing set expression"))?;
         match &expression.kind {
             ast::SetKind::Path(path) => self.set_path(path),
+            ast::SetKind::Binary {
+                operation,
+                left,
+                right,
+            } => {
+                let left = self.set(*left)?;
+                let right = self.set(*right)?;
+                let result = match operation {
+                    weft_domain::SetOperation::Union => {
+                        self.checked.builder.set_union(left, right, expression.span)
+                    }
+                    weft_domain::SetOperation::Intersection => self
+                        .checked
+                        .builder
+                        .set_intersection(left, right, expression.span),
+                    weft_domain::SetOperation::Difference => {
+                        self.checked
+                            .builder
+                            .set_difference(left, right, expression.span)
+                    }
+                };
+                result.map_err(|error| self.failure(error, expression.span))
+            }
             ast::SetKind::Literal(items) => {
                 let mut raw = Vec::new();
                 let mut extras = Vec::new();

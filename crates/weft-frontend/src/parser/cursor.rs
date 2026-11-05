@@ -3,13 +3,14 @@ use crate::{
     ast::{Name, Text},
     lexer::{Kind, Token},
 };
-use std::{iter::Peekable, vec::IntoIter};
+
 use weft_domain::{Code, Diagnostic, Limits, Phase, SourceSpan, limits::MAX_SOURCE_DEPTH};
 
 pub(super) struct Cursor<'s, 'l> {
     pub source: &'s str,
     pub limits: &'l Limits,
-    tokens: Peekable<IntoIter<Token<'s>>>,
+    tokens: Vec<Token<'s>>,
+    next: usize,
     eof: SourceSpan,
     pub last: SourceSpan,
     nodes: usize,
@@ -23,7 +24,8 @@ impl<'s, 'l> Cursor<'s, 'l> {
         Ok(Self {
             source,
             limits,
-            tokens: tokens.into_iter().peekable(),
+            tokens,
+            next: 0,
             eof,
             last: eof,
             nodes: 0,
@@ -32,22 +34,34 @@ impl<'s, 'l> Cursor<'s, 'l> {
     }
 
     pub fn kind(&mut self) -> Kind {
-        match self.tokens.peek() {
-            Some(token) => token.kind,
-            None => Kind::End,
-        }
+        self.tokens
+            .get(self.next)
+            .map_or(Kind::End, |token| token.kind)
+    }
+
+    /// Bounded parse-position snapshot for the single set-group alternative
+    /// in `atom`: restoring rewinds only the token index and last-span, never
+    /// node budgets or the depth guard, so speculative work stays charged.
+    pub fn snapshot(&self) -> (usize, SourceSpan) {
+        (self.next, self.last)
+    }
+
+    pub fn restore(&mut self, saved: (usize, SourceSpan)) {
+        self.next = saved.0;
+        self.last = saved.1;
     }
 
     pub fn position(&mut self) -> SourceSpan {
-        match self.tokens.peek() {
-            Some(token) => token.span,
-            None => self.eof,
-        }
+        self.tokens
+            .get(self.next)
+            .map_or(self.eof, |token| token.span)
     }
 
     pub fn take(&mut self) -> ParseResult<Token<'s>> {
-        match self.tokens.next() {
+        match self.tokens.get(self.next) {
             Some(token) => {
+                let token = token.clone();
+                self.next += 1;
                 self.last = token.span;
                 Ok(token)
             }
@@ -100,7 +114,7 @@ impl<'s, 'l> Cursor<'s, 'l> {
 
     pub fn expected(&mut self, expected: &str, help: &str) -> Box<Diagnostic> {
         let span = self.position();
-        let actual = match self.tokens.peek() {
+        let actual = match self.tokens.get(self.next) {
             Some(token) => format!("{} {:?}", token.kind.description(), token.lexeme),
             None => "end of source".into(),
         };

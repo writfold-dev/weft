@@ -1,3 +1,4 @@
+import Weft.Finite.Algebra
 import Weft.Finite.SetExamples
 import Weft.Finite.QuantifierExamples
 import Weft.Finite.TraceExamples

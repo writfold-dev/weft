@@ -70,6 +70,7 @@ def run(root: Path, attempt: Path, image: str, prepare: bool) -> dict:
     if not prepare:
         inputs += ['scripts/run_rust.py', 'scripts/rust_smoke.py', 'scripts/nominal_cases.py',
                    'scripts/rust_differential.py', 'scripts/rust_scenarios.py', 'scripts/lint_cases.py',
+                   'scripts/algebra_differential.py',
                    'examples', 'spec', 'docs/implementation-profile.md', 'docs/rust-implementation.md',
                    'docker/Dockerfile.runtime']
         if not (root / 'Cargo.lock').is_file() or not (root / 'tools/weft-quality/Cargo.lock').is_file():

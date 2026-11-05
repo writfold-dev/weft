@@ -1,8 +1,37 @@
 # Calculus qualification checkpoint
 
-The revision-2 finite-set extension passed its complete Lean gate before production
-Rust implementation began. The original revision-1 checkpoint remains separately
-recorded below; it was not retroactively relabelled as a finite-set pass.
+The revision-3 set-algebra extension passed its complete Lean gate before the
+production Rust implementation began. The revision-2 finite-set checkpoint and
+the original revision-1 checkpoint remain separately recorded below; neither was
+retroactively relabelled.
+
+## Revision-3 set algebra
+
+`algebra-calculus-3/report.json` and the matching reference checkpoint
+`algebra-reference/report.json` passed in the admitted evidence root
+`~/.local/share/weft/evidence/algebra-20261105T185401992646349Z`. Receipt SHA256:
+`69ea3a9ea12b475d4eb8c66d8740ee792d60df648cc5e1e75fc5bff920f6340a` (calculus) and `4627cf69d53d9123d96a64706d04a3fbf95752cda34952a2da31fb69ce55f767` (reference). Two earlier failed attempts
+(`algebra-calculus`, `algebra-calculus-2`) are retained unmodified in the same
+root; both were mutation-profile metadata corrections, not weakened checks.
+
+- 327 audited declarations cover all L01–L12, Q01–Q10 and A01–A08 obligations
+  and their registered supporting results. Only `propext`, `Quot.sound` and
+  `Classical.choice` occur as foundational axioms.
+- Eight propositional and twenty-seven finite-calculus cases (seventeen
+  inherited plus ten set-algebra cases) ran through actual compiled reference
+  executables. Thirty-six semantic mutants — including at least one substantive
+  mutant per A family — were rejected at their registered proof sites.
+- Union, intersection and difference preserve exact extensional membership,
+  homogeneous operand types (typed empties included), deterministic
+  first-occurrence order and complete operand origin closure, including removed
+  members and the entire right operand of a difference.
+- `in`/`<=` resolve to checked Boolean literals of the algebra operations;
+  unavailable operands have no Boolean denotation and a false subset keeps its
+  deterministic first-left counterexample.
+- Budgeted algebra agrees with unbudgeted meaning on success, charges both whole
+  operands before filtering and refuses incomplete work without partial results.
+- Source AST semantics and executable agreement are the proven scope: this is
+  not a raw-source parser theorem or a Lean-to-Rust refinement theorem.
 
 ## Revision-2 finite calculus
 

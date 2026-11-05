@@ -53,6 +53,8 @@ theorem setSubstitutionMeaning (ctx : Context) (source target : Env)
   | singleton term =>
       simp only [SetExpr.substitute, evalSet, termSubstitutionMeaning ctx source target replacement compatible]
   | union ty a b ihA ihB => simp only [SetExpr.substitute, evalSet, ihA, ihB]
+  | intersection ty a b ihA ihB => simp only [SetExpr.substitute, evalSet, ihA, ihB]
+  | difference ty a b ihA ihB => simp only [SetExpr.substitute, evalSet, ihA, ihB]
   | named ty index => rfl
   | select ty base selector =>
       simp only [SetExpr.substitute, evalSet, termSubstitutionMeaning ctx source target replacement compatible]
@@ -85,6 +87,13 @@ theorem atomSubstitutionMeaning (ctx : Context) (source target : Env)
       simp only [Atom.substitute, resolveAtom,
         argumentsSubstitutionMeaning ctx source target replacement compatible]
   | setEqual a b =>
+      simp only [Atom.substitute, resolveAtom,
+        setSubstitutionMeaning ctx source target replacement compatible]
+  | member term set =>
+      simp only [Atom.substitute, resolveAtom,
+        termSubstitutionMeaning ctx source target replacement compatible,
+        setSubstitutionMeaning ctx source target replacement compatible]
+  | subset a b =>
       simp only [Atom.substitute, resolveAtom,
         setSubstitutionMeaning ctx source target replacement compatible]
 

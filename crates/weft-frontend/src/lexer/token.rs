@@ -20,6 +20,10 @@ pub(crate) enum Kind {
     Assign,
     Equal,
     NotEqual,
+    SubsetOrEqual,
+    Pipe,
+    Ampersand,
+    Minus,
     End,
 }
 
@@ -71,12 +75,16 @@ impl Kind {
             Self::Assign => "=",
             Self::Equal => "==",
             Self::NotEqual => "!=",
+            Self::SubsetOrEqual => "<=",
+            Self::Pipe => "|",
+            Self::Ampersand => "&",
+            Self::Minus => "-",
             Self::End => "end of source",
         }
     }
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub(crate) struct Token<'s> {
     pub kind: Kind,
     pub lexeme: &'s str,

@@ -1,3 +1,5 @@
+#[cfg(test)]
+mod algebra_tests;
 mod cursor;
 mod declarations;
 mod expressions;

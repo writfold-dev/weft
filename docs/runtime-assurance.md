@@ -9,22 +9,25 @@ release, an authorization token, or a shipping-Rust refinement theorem.
 
 | Obligation | Recorded result |
 | --- | --- |
-| Lean theorem families | All 22 L01–L12 / Q01–Q10 families; 181 audited declarations |
-| Lean executable reference cases | 8 propositional and 17 finite-calculus cases |
-| Semantic mutation calibration | 24 rejected mutants |
-| Rust behavioral regressions | 66 passed; none failed or ignored |
+| Lean theorem families | All 30 L01–L12 / Q01–Q10 / A01–A08 families; 327 audited declarations |
+| Lean executable reference cases | 8 propositional and 27 finite-calculus cases (17 inherited + 10 set-algebra) |
+| Semantic mutation calibration | 36 rejected mutants, at least one substantive mutant per A family |
+| Rust behavioral regressions | 87 passed; none failed or ignored |
 | AST policy regressions | 42 passed; none failed or ignored |
 | Compiler/macro operation controls | 23 cases, preserving the observed compiler macro-lint gap |
 | Nominal compiler controls | 1 valid consumer and 4 rejected cross-kind/raw/private/promoted-input cases |
-| Actual CLI semantic/refusal scenarios | 25, plus direct analysis and human-view execution |
-| Lean/Rust differential checks | 29 logical outcomes and 32 supplied model witnesses |
-| Requirement/source mapping | 22 theorem families, 11 gates, 44 scenarios, 46 shipping-symbol links; 6 negative controls |
+| Actual CLI semantic/refusal scenarios | 32, plus direct analysis and human-view execution |
+| Lean/Rust differential checks | 29 logical outcomes, 32 supplied model witnesses, 9 set-algebra operation pairs |
+| Requirement/source mapping | 30 theorem families, 12 gates, 60 scenarios, 54 shipping-symbol links; 6 negative controls |
 | Runtime packaging | Non-root, read-only, network-disabled scratch image exercised |
 
 The original calculus gate preceded Rust implementation. The finite extension
 received its own complete gate; the original pass was not relabelled. A later
 reference-only update added actual Lean checking of supplied polarity models,
-while retaining every previously qualified calculus body.
+while retaining every previously qualified calculus body. Revision 3 added the
+set-algebra gate (A01–A08) before any feature Rust landed, then requalified the
+frontend, evaluator, reports and musl artifact with native `|`, `&`, `-`, `in`
+and `<=`; no earlier pass was relabelled.
 
 Machine records:
 

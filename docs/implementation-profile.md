@@ -1,9 +1,9 @@
 # Local symbolic development profile
 
 The full release contract is the revision-1 handover with the revision-2 finite
-language supplement, including real Writfold integration. This file selects the
-storage-independent development behavior; it is not an alternative grounding or
-admission route.
+language supplement and the revision-3 set-algebra supplement, including real
+Writfold integration. This file selects the storage-independent development
+behavior; it is not an alternative grounding or admission route.
 
 ## Commands and scope
 
@@ -28,6 +28,50 @@ Unknown profiles, unresolved fields and `by` rules whose qualified definition is
 unavailable produce precise unresolved-input diagnostics, not invented values or
 an unchecked rule application. Do not add a fake live `check`, `admit` or `run`
 command while those contracts are unavailable.
+
+
+## Finite set algebra
+
+`a | b`, `a & b` and `a - b` compute union, intersection and left difference
+over same-element-type operands; `x in a` decides typed membership of a scalar
+or reference; `a <= b` decides inclusive subset including equality. `|` and `-`
+share one precedence level, left-associative; `&` binds tighter;
+`==`/`!=`/`in`/`<=` form one non-chaining comparison level under `not`.
+Set expressions are accepted in every set position: binding right-hand sides,
+spread operands, quantifier domains and comparisons, with parentheses composing
+across those contexts.
+
+Both operands are fully materialized and typed before any member is filtered.
+An unavailable, malformed, denied or wrong-type operand refuses the whole
+operation or predicate: `a - a`, `{} & a`, `{} <= a` and an already-true
+membership probe are not shortcuts. Eliminated members and the entire right
+operand remain reachable as operand evidence with their origins; per-member
+origin attribution stays faithful, and a difference never relabels right-operand
+origins onto surviving left values. Union merges origins of both operands;
+intersection retains contributing origins from both sides for retained
+identities; difference keeps surviving left origins plus the complete right
+operand closure at operation level.
+
+A zero-member result keeps its inferred element type; intersection and
+difference cannot erase a type mismatch behind emptiness. `{} <= {}` and
+`{} == {}` stay parametric-true. Display order is deterministic first
+occurrence: union appends unseen right members after the left members,
+intersection and difference keep qualifying left order. `raw_occurrences`
+counts the members supplied to this result's normalization (union: both
+normalized operand lists; intersection/difference: each qualifying or
+surviving left member once, hence result cardinality), while both complete
+operand traversals are charged as real work separately — a nested membership
+or subset scan is metered at its actual comparison count, not a linear
+member count, and exhaustion refuses without partial results.
+
+Reports identify the operator, both operand records with spans, typed result
+membership and order, normalization input counts, and the full dependency
+closure including removed members. A false subset explanation carries a
+deterministic first-left counterexample member. Absence is relative to the
+exact supplied finite sets: difference, membership failure, subset success or
+an empty domain never claims complete real-world inventory discovery, and
+every local result remains non-grounded and non-authoritative. Complement is
+out of scope; express it as an explicit `universe - selected`.
 
 ## `weft.symbolic/1`
 
@@ -57,10 +101,11 @@ the Boolean result.
 ## Finite sets and lexical quantification
 
 The local profile includes immutable `name := { ... };` bindings, typed scalar
-sets, spread, extensional equality and bounded `forall`/`exists`. It does not add
-general loops, mutation, recursive functions or effects. Quantifier domains see
-the outer environment; bodies see the newly bound member. Nested binders may
-shadow names, but top-level declarations cannot rebind them.
+sets, spread, set algebra (`|`, `&`, `-`), membership/subset predicates
+(`in`, `<=`), extensional equality and bounded `forall`/`exists`. It does not
+add general loops, mutation, recursive functions or effects. Quantifier
+domains see the outer environment; bodies see the newly bound member. Nested
+binders may shadow names, but top-level declarations cannot rebind them.
 
 Check the complete body before expansion, including bodies over empty sets.
 Unification may infer an empty set's element type from a spread or comparison;

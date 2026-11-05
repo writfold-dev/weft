@@ -1,3 +1,4 @@
+mod algebra;
 mod builder;
 mod check;
 mod finite;

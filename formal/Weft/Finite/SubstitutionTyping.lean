@@ -44,7 +44,9 @@ theorem setTypeSubstitution (ctx : Context) (source target : TypeEnv)
   cases set with
   | empty ty => rfl
   | singleton term => exact termTypeSubstitution ctx source target replacement compatible term
-  | union ty a b => rfl
+  | intersection ty a b => rfl
+  | difference ty a b => rfl
+   | union ty a b => rfl
   | named ty index => rfl
   | select ty base selector => rfl
 
@@ -58,6 +60,12 @@ theorem checkSetSubstitution (ctx : Context) (source target : TypeEnv)
       simp only [SetExpr.substitute, Typing.checkSet,
         termTypeSubstitution ctx source target replacement compatible]
   | union ty a b ihA ihB =>
+      simp only [SetExpr.substitute, Typing.checkSet, ihA, ihB,
+        setTypeSubstitution ctx source target replacement compatible]
+  | intersection ty a b ihA ihB =>
+      simp only [SetExpr.substitute, Typing.checkSet, ihA, ihB,
+        setTypeSubstitution ctx source target replacement compatible]
+  | difference ty a b ihA ihB =>
       simp only [SetExpr.substitute, Typing.checkSet, ihA, ihB,
         setTypeSubstitution ctx source target replacement compatible]
   | named ty index => rfl

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "authority": "handovers/revision-2/weft",
+  "authority": "handovers/revision-3/weft",
   "stages": [
     {
       "id": "P00",
@@ -66,32 +66,41 @@
       "reason": "Complete inherited and finite-extension calculus gate: 181 audited declarations, 25 executed reference cases, 24 rejected semantic mutants and 11 qualification-boundary regressions. Exact 74 source inputs matched after pass. No parser/Rust refinement or live Writfold qualification; see finite-calculus.json."
     },
     {
+      "id": "P01A",
+      "gate": "WEFT01A",
+      "status": "pass",
+      "receipts": [
+        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus-3/report.json",
+        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-reference/report.json"
+      ],
+      "reason": "Complete extended-calculus gate under revision 3: 327 audited declarations (L01-L12, Q01-Q10, A01-A08), 8 propositional and 27 finite reference cases through the actual weftref/weftfiniteref executables, 36 rejected semantic mutants incl. one substantive mutant per A family. Source AST scope; no parser/Rust refinement or live Writfold claim. Two retained failed attempts were mutation-metadata corrections."
+    },
+    {
       "id": "P02",
       "gate": "WEFT02",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-023/report.json",
-        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json"
+        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-3/report.json"
       ],
-      "reason": "Bounded source grammar/parser/type behavior and actual Lean reference vectors exercised; local profile scope, no parser-refinement theorem. See traceability.json and local-runtime.json."
+      "reason": "Revision-3 component requalification with native set algebra through the actual musl binary (specification/reference); local profile scope only."
     },
     {
       "id": "P03",
       "gate": "WEFT03",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json"
+        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-3/report.json"
       ],
-      "reason": "Actual nominal Rust frontend and finite interpreter: 66 behavioral regressions, nominal compiler controls, 29 Lean/Rust outcomes and 32 checked model witnesses. Exact source-symbol mapping retained; real owner inputs remain P05."
+      "reason": "Revision-3 component requalification with native set algebra through the actual musl binary (frontend/evaluator); local profile scope only."
     },
     {
       "id": "P04",
       "gate": "WEFT04",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json"
+        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-3/report.json"
       ],
-      "reason": "Actual JSON/human CLI reports with exact source bytes, hypotheses/needs, origin and formula DAGs, finite instances, model-relative findings and honest incomplete/refused outcomes. No external grounding or authority claim."
+      "reason": "Revision-3 component requalification with native set algebra through the actual musl binary (reports/CLI); local profile scope only."
     },
     {
       "id": "P05",
@@ -119,10 +128,10 @@
       "gate": "WEFT08",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json",
-        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/runtime-package-001/report.json"
+        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-3/report.json",
+        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-runtime-package-001/report.json"
       ],
-      "reason": "Pinned offline format/compiler/AST/nominal/dependency gates and actual static musl binary/scratch image exercised. Source-size soft warnings and unavailable advisory snapshot disclosed. Development component only; final composed release remains blocked."
+      "reason": "Revision-3 component requalification with native set algebra through the actual musl binary (quality+musl artifact); local profile scope only."
     },
     {
       "id": "P09",
@@ -132,8 +141,16 @@
       "reason": "Required owner-landed Writfold services unavailable; see plan/06-writfold-handoff.md"
     }
   ],
-  "base_evidence": "qualification/revision-1-status.json",
+  "base_evidence": "qualification/revision-2-status.json",
   "current_runtime": "qualification/local-runtime.json",
   "traceability": "qualification/traceability.json",
-  "scope": "Seven exact component passes; P05, P06, P07 and P09 remain required and blocked. No Writfold service or final release pass inferred."
+  "scope": "Revision 3 delivered: extended calculus (P01A) plus requalified P02/P03/P04/P08 with native set algebra; P00 retained on unchanged admitted tools; P05/P06/P07/P09 remain required and blocked on owner-side Writfold services (see plans/writfold-integration-sync-2026-11-05.md and docs/writfold-interface-status.md).",
+  "failed_attempts": {
+    "algebra-calculus-1": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus/report.json",
+    "algebra-calculus-2": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus-2/report.json",
+    "algebra-rust-1": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust/report.json",
+    "algebra-rust-2": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-2/report.json"
+  },
+  "qualification_status": "local_runtime_component_pass_full_release_blocked",
+  "writfold_integration_note": "Owner-side stdio host and pinned shared contract still unavailable; WR1-WR8 not run at the service boundary."
 }

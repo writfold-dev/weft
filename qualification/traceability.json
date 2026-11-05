@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "authority": "handovers/revision-2/weft",
+  "authority": "handovers/revision-3/weft",
   "inventory": {
     "theorems": 22,
     "gates": 11,
-    "scenarios": 44
+    "scenarios": 60
   },
   "assumptions": {
     "local-symbolic": "Predicate interpretations are explicit local hypotheses, not admitted KB facts; source references remain requests.",
@@ -26,21 +26,30 @@
       "sha256": "e2ae0ea54965cedadbf323084a5630d837c18ce2444db7582d86c60e9baa94a8"
     },
     "finite-reference": {
-      "path": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-023/report.json",
-      "sha256": "898bb3b98fb05de5015efe28821fe967951922f3915ba91045b96b9e5fe46e42"
+      "path": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-reference/report.json",
+      "sha256": "4627cf69d53d9123d96a64706d04a3fbf95752cda34952a2da31fb69ce55f767",
+      "scope": "revision-3 extended calculus reference checkpoint binding the current formal tree"
     },
     "rust-runtime": {
-      "path": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json",
-      "sha256": "98e12486e780f059ce558403b239253425181633b46172af949a322e9185a61e"
+      "path": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-3/report.json",
+      "sha256": "aa1bfd51da63f60b6f7e7b3e8fef7fa1759bbddf7db60a2457cc3ec20b6149a6"
     },
     "scratch-runtime": {
-      "path": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/runtime-package-001/report.json",
-      "sha256": "f57e858cb4eb451e5f5fe22d31538213f0bdc03fc3c1c95f0ecf3fa611fcbe06"
+      "path": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-runtime-package-001/report.json",
+      "sha256": "dbb57d4c451440d821bb5cd327c9ebc043c8fa9aebf11003176821672e341dd0"
     },
     "owner-boundary": {
       "path": "../writfold/qualification/weft-integration.json",
-      "sha256": "6199f41d6d508287336d8cb9219404bec845d067c27b2902278f4b27d82b3361",
-      "scope": "read-only requirements/status observation, not service qualification"
+      "sha256": "9fcdcdf7d731094038c24d45ea56204bc35a87d35d3f5052a261b7902a90cbb7",
+      "scope": "read-only owner-side observation refreshed 2026-11-05 after the integration sync note; owner status remains requirements_adopted_not_service_qualification, WR1-WR8 not run; P05/P06/P07/P09 stay blocked"
+    },
+    "algebra-calculus": {
+      "path": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus-3/report.json",
+      "sha256": "69ea3a9ea12b475d4eb8c66d8740ee792d60df648cc5e1e75fc5bff920f6340a"
+    },
+    "algebra-reference": {
+      "path": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-reference/report.json",
+      "sha256": "4627cf69d53d9123d96a64706d04a3fbf95752cda34952a2da31fb69ce55f767"
     }
   },
   "theorems": [
@@ -94,12 +103,12 @@
         {
           "path": "crates/weft-frontend/src/typing.rs",
           "symbol": "expression",
-          "sha256": "5e25aeba2c989278275044242a0b32c48c858a28623561a8c993ac937c81b369"
+          "sha256": "f3ea74a3371f695c61064b221a5e9f1ed72eb1c24e04cbd618e783f06ffcb54d"
         },
         {
           "path": "crates/weft-frontend/src/lower_expr.rs",
           "symbol": "expression",
-          "sha256": "b20ed9df712e22b1d5e9f7633fa9c872db8b83f0ef06f1c3cc7c8a758a1ab128"
+          "sha256": "2120f1283761dd6ae4b386dd4751aea8173ead33c770d0de98b5adb06a4f607d"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -139,7 +148,7 @@
         {
           "path": "crates/weft-frontend/src/lower_sets.rs",
           "symbol": "bound_value",
-          "sha256": "c164201cdc1379479ac6d015beeb542e13e7fb6cc8069ac6dd99c241ac315c78"
+          "sha256": "21864086d23bfb5dcdd8ff26e2d8f6d88fafa798ce4fdab9ef9ec22ad91a5430"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -170,7 +179,7 @@
         {
           "path": "crates/weft-frontend/src/lower_expr.rs",
           "symbol": "compare",
-          "sha256": "b20ed9df712e22b1d5e9f7633fa9c872db8b83f0ef06f1c3cc7c8a758a1ab128"
+          "sha256": "2120f1283761dd6ae4b386dd4751aea8173ead33c770d0de98b5adb06a4f607d"
         },
         {
           "path": "crates/weft-kernel/src/replay.rs",
@@ -186,7 +195,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "assumptions": [
@@ -338,7 +347,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "assumptions": [
@@ -413,7 +422,7 @@
         {
           "path": "crates/weft-wire/src/publication.rs",
           "symbol": "collect",
-          "sha256": "8251516c6a5460dbd1c7237cdd92ab58b15c452d5a1c385bed67abea08e858d3"
+          "sha256": "c8977a06234948142e665e770b99b4885c60f716751ea65a6428b77d21a54125"
         },
         {
           "path": "crates/weft-wire/src/rows.rs",
@@ -458,7 +467,7 @@
         {
           "path": "crates/weft-frontend/src/lib.rs",
           "symbol": "analyze",
-          "sha256": "f1eb5154993100fe9e2c1e9b6f953f7ae5933d088c68b8de390e940acb0b6a9d"
+          "sha256": "3bd8ded3b4a6cf89af05f3bfde568bf9f56137fb3d8c15791df1ec843b9ab107"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -505,7 +514,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "assumptions": [
@@ -529,7 +538,7 @@
         {
           "path": "crates/weft-frontend/src/typing.rs",
           "symbol": "set_type",
-          "sha256": "5e25aeba2c989278275044242a0b32c48c858a28623561a8c993ac937c81b369"
+          "sha256": "f3ea74a3371f695c61064b221a5e9f1ed72eb1c24e04cbd618e783f06ffcb54d"
         },
         {
           "path": "crates/weft-domain/src/theory/finite.rs",
@@ -565,7 +574,7 @@
         {
           "path": "crates/weft-frontend/src/lower_sets.rs",
           "symbol": "spread",
-          "sha256": "c164201cdc1379479ac6d015beeb542e13e7fb6cc8069ac6dd99c241ac315c78"
+          "sha256": "21864086d23bfb5dcdd8ff26e2d8f6d88fafa798ce4fdab9ef9ec22ad91a5430"
         },
         {
           "path": "crates/weft-domain/src/theory/finite.rs",
@@ -581,7 +590,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "assumptions": [
@@ -639,7 +648,7 @@
       "required": true,
       "lean_source": {
         "path": "formal/Weft/Finite/Substitution.lean",
-        "sha256": "08587a8b061bf82981a97d57d6cf8e956085884217feb05183aef2365ff7679c"
+        "sha256": "4ac448708aa7219f1e89b599e120ce390700bef46d002d92d0b9e8112afe33b9"
       },
       "proof_receipt": "finite-reference",
       "rust": [
@@ -656,7 +665,7 @@
         {
           "path": "crates/weft-frontend/src/lower_sets.rs",
           "symbol": "bound_value",
-          "sha256": "c164201cdc1379479ac6d015beeb542e13e7fb6cc8069ac6dd99c241ac315c78"
+          "sha256": "21864086d23bfb5dcdd8ff26e2d8f6d88fafa798ce4fdab9ef9ec22ad91a5430"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -667,7 +676,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "assumptions": [
@@ -775,7 +784,7 @@
         {
           "path": "crates/weft-wire/src/finite.rs",
           "symbol": "environment",
-          "sha256": "21c4d21d56fa1108974415ec52c22ed07fc51632e6d6bb8d63c09860772a1b0d"
+          "sha256": "a92e91329fa572035bd34979061ad8e545c5a2d2ba8a2b8ec06c63ab9eb6622d"
         },
         {
           "path": "crates/weft-wire/src/trace.rs",
@@ -785,7 +794,7 @@
         {
           "path": "crates/weft-wire/src/finite.rs",
           "symbol": "origins",
-          "sha256": "21c4d21d56fa1108974415ec52c22ed07fc51632e6d6bb8d63c09860772a1b0d"
+          "sha256": "a92e91329fa572035bd34979061ad8e545c5a2d2ba8a2b8ec06c63ab9eb6622d"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -816,7 +825,7 @@
         {
           "path": "crates/weft-domain/src/theory/builder.rs",
           "symbol": "charge",
-          "sha256": "e7878cf6bdd4f09e9eba06f77f2b6d15a67b9e40fd6e801b981588f0fa14f8f1"
+          "sha256": "4a11b2e13e07ba9aff091352c8280a3ce451dbe1c616fbc629311358cdd4482c"
         },
         {
           "path": "crates/weft-domain/src/theory/check.rs",
@@ -846,7 +855,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "assumptions": [
@@ -899,6 +908,277 @@
         "finite-scope"
       ],
       "runtime_receipt": "rust-runtime"
+    },
+    {
+      "id": "A01",
+      "claim": "Finite set operators preserve exact extensional membership and deterministic display order",
+      "declaration": "Weft.Finite.Algebra.operationsSound",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.unionMembership",
+        "Weft.Finite.Algebra.intersectionMembership",
+        "Weft.Finite.Algebra.differenceMembership",
+        "Weft.Finite.Algebra.displayOrderSound",
+        "Weft.Finite.Algebra.unionLaws",
+        "Weft.Finite.Algebra.intersectionLaws",
+        "Weft.Finite.Algebra.differenceLaws"
+      ],
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Algebra/Operations.lean",
+        "sha256": "07188267d820232a8d6a29437ce9b8d81e338c28099092b8a35ba4ede0b9982e"
+      },
+      "proof_receipt": "algebra-reference",
+      "rust": [
+        {
+          "path": "crates/weft-domain/src/theory/algebra.rs",
+          "symbol": "set_union",
+          "sha256": "e5999f0e898f101c5c7c798972945fb6b6cb66e1ff50112af7e57b76c813a94e"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/algebra_differential.py",
+          "sha256": "c0e6de447d459a531a15e37eb8661b5e17389ddb7a6171de34fca94fb1d8cb2a"
+        }
+      ]
+    },
+    {
+      "id": "A02",
+      "claim": "Set algebra preserves homogeneous operand and result types, including typed empties",
+      "declaration": "Weft.Finite.Algebra.operationsTyped",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.emptyResultRetainsType",
+        "Weft.Finite.Algebra.mixedTypesRefused"
+      ],
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Algebra/Operations.lean",
+        "sha256": "07188267d820232a8d6a29437ce9b8d81e338c28099092b8a35ba4ede0b9982e"
+      },
+      "proof_receipt": "algebra-reference",
+      "rust": [
+        {
+          "path": "crates/weft-domain/src/theory/algebra.rs",
+          "symbol": "unified_element_type",
+          "sha256": "e5999f0e898f101c5c7c798972945fb6b6cb66e1ff50112af7e57b76c813a94e"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/algebra_differential.py",
+          "sha256": "c0e6de447d459a531a15e37eb8661b5e17389ddb7a6171de34fca94fb1d8cb2a"
+        }
+      ]
+    },
+    {
+      "id": "A03",
+      "claim": "Membership and inclusive subset predicates agree with typed finite semantics and faithful counterexamples",
+      "declaration": "Weft.Finite.Algebra.predicatesSound",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.membershipPredicateSound",
+        "Weft.Finite.Algebra.subsetPredicateSound",
+        "Weft.Finite.Algebra.subsetLaws",
+        "Weft.Finite.Algebra.subsetCounterexample"
+      ],
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Algebra/Predicates.lean",
+        "sha256": "55fd91cf043c89dad50416d24d34c3920ff2e697d2e6ebd1e894dbcd22871683"
+      },
+      "proof_receipt": "algebra-reference",
+      "rust": [
+        {
+          "path": "crates/weft-domain/src/theory/algebra.rs",
+          "symbol": "set_subset",
+          "sha256": "e5999f0e898f101c5c7c798972945fb6b6cb66e1ff50112af7e57b76c813a94e"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/algebra_differential.py",
+          "sha256": "c0e6de447d459a531a15e37eb8661b5e17389ddb7a6171de34fca94fb1d8cb2a"
+        }
+      ]
+    },
+    {
+      "id": "A04",
+      "claim": "Algebra and predicates preserve complete operand closure and cannot hide failure or removed origins",
+      "declaration": "Weft.Finite.Algebra.operandClosurePreserved",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.failedOperandRefusesResult",
+        "Weft.Finite.Algebra.operationsComplete"
+      ],
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Algebra/Closure.lean",
+        "sha256": "85dbef90e4c892db36e70299067277b652b1dd416e3d8b6e3f0df70244c29fee"
+      },
+      "proof_receipt": "algebra-reference",
+      "rust": [
+        {
+          "path": "crates/weft-domain/src/theory/algebra.rs",
+          "symbol": "set_intersection",
+          "sha256": "e5999f0e898f101c5c7c798972945fb6b6cb66e1ff50112af7e57b76c813a94e"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/algebra_differential.py",
+          "sha256": "c0e6de447d459a531a15e37eb8661b5e17389ddb7a6171de34fca94fb1d8cb2a"
+        }
+      ]
+    },
+    {
+      "id": "A05",
+      "claim": "Extended substitution, typing and lowering preserve independent meaning without capture",
+      "declaration": "Weft.Finite.Algebra.loweringSound",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.substitutionMeaning",
+        "Weft.Finite.Algebra.substitutionTyped"
+      ],
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Algebra/Lowering.lean",
+        "sha256": "fd5641a673be1037ae3bffa83d0277261b360e0cd797e0173b3fb5a8a66ad156"
+      },
+      "proof_receipt": "algebra-reference",
+      "rust": [
+        {
+          "path": "crates/weft-frontend/src/lower_expr.rs",
+          "symbol": "membership",
+          "sha256": "2120f1283761dd6ae4b386dd4751aea8173ead33c770d0de98b5adb06a4f607d"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/algebra_differential.py",
+          "sha256": "c0e6de447d459a531a15e37eb8661b5e17389ddb7a6171de34fca94fb1d8cb2a"
+        }
+      ]
+    },
+    {
+      "id": "A06",
+      "claim": "Algebra traces and capture accounting remain faithful and binding failure remains atomic",
+      "declaration": "Weft.Finite.Algebra.traceFaithful",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.captureAccountingSound",
+        "Weft.Finite.Algebra.bindingFailureAtomic"
+      ],
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Algebra/Traces.lean",
+        "sha256": "b724c35e8877a829b2bfc5c58eba9342fe0cf72b721ff62fd8bfbed1727271d3"
+      },
+      "proof_receipt": "algebra-reference",
+      "rust": [
+        {
+          "path": "crates/weft-wire/src/publication.rs",
+          "symbol": "collect",
+          "sha256": "c8977a06234948142e665e770b99b4885c60f716751ea65a6428b77d21a54125"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/algebra_differential.py",
+          "sha256": "c0e6de447d459a531a15e37eb8661b5e17389ddb7a6171de34fca94fb1d8cb2a"
+        }
+      ]
+    },
+    {
+      "id": "A07",
+      "claim": "Budgeted algebra agrees on success and refuses incomplete work without partial successful results",
+      "declaration": "Weft.Finite.Algebra.budgetRefusesPartial",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.budgetSuccessSound",
+        "Weft.Finite.Algebra.remainingWorkNonincreasing"
+      ],
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Algebra/Budget.lean",
+        "sha256": "feb01def6c9acfbdf5f5f2d9cb794860b05aebc7d275b2a359d05c12e9635deb"
+      },
+      "proof_receipt": "algebra-reference",
+      "rust": [
+        {
+          "path": "crates/weft-domain/src/theory/algebra.rs",
+          "symbol": "set_difference",
+          "sha256": "e5999f0e898f101c5c7c798972945fb6b6cb66e1ff50112af7e57b76c813a94e"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/algebra_differential.py",
+          "sha256": "c0e6de447d459a531a15e37eb8661b5e17389ddb7a6171de34fca94fb1d8cb2a"
+        }
+      ]
+    },
+    {
+      "id": "A08",
+      "claim": "Prior finite semantics, inventory scope and non-authority are conserved",
+      "declaration": "Weft.Finite.Algebra.finiteConservation",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.reportNoAuthority",
+        "Weft.Finite.Algebra.inventoryNotUpgraded"
+      ],
+      "required": true,
+      "lean_source": {
+        "path": "formal/Weft/Finite/Algebra/Conservation.lean",
+        "sha256": "d52101f931abdbce97ec13c1d206828fb4c85f2690a144dadca8a7db23668562"
+      },
+      "proof_receipt": "algebra-reference",
+      "rust": [
+        {
+          "path": "crates/weft-wire/src/lib.rs",
+          "symbol": "render",
+          "sha256": "2337c1c65e34c71fceb61435c32a669ddaa22a9de34ef3d29db2b6b8113db7d4"
+        }
+      ],
+      "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/algebra_differential.py",
+          "sha256": "c0e6de447d459a531a15e37eb8661b5e17389ddb7a6171de34fca94fb1d8cb2a"
+        }
+      ]
     }
   ],
   "gates": [
@@ -947,20 +1227,35 @@
       "scope": "Exact component scope; no promotion of downstream gates."
     },
     {
+      "id": "P01A",
+      "gate": "WEFT01A",
+      "dependencies": [
+        "P01S"
+      ],
+      "external_prerequisites": [],
+      "title": "Finite set algebra, membership and subset soundness",
+      "required": true,
+      "status": "pass",
+      "receipts": [
+        "algebra-calculus",
+        "algebra-reference"
+      ],
+      "scope": "Extended Lean calculus incl. A01-A08 with 327 audited declarations, 27 reference cases and 36 rejected mutants."
+    },
+    {
       "id": "P02",
       "gate": "WEFT02",
       "dependencies": [
-        "P01S"
+        "P01A"
       ],
       "external_prerequisites": [],
       "title": "Frontend specification and reference",
       "required": true,
       "status": "pass",
       "receipts": [
-        "finite-reference",
         "rust-runtime"
       ],
-      "scope": "Exact component scope; no promotion of downstream gates."
+      "scope": "Revision-3 component pass: grammar, evaluator, reports and musl artifact requalified with native set algebra."
     },
     {
       "id": "P03",
@@ -975,7 +1270,7 @@
       "receipts": [
         "rust-runtime"
       ],
-      "scope": "Exact component scope; no promotion of downstream gates."
+      "scope": "Revision-3 component pass: grammar, evaluator, reports and musl artifact requalified with native set algebra."
     },
     {
       "id": "P04",
@@ -990,7 +1285,7 @@
       "receipts": [
         "rust-runtime"
       ],
-      "scope": "Exact component scope; no promotion of downstream gates."
+      "scope": "Revision-3 component pass: grammar, evaluator, reports and musl artifact requalified with native set algebra."
     },
     {
       "id": "P05",
@@ -1059,10 +1354,9 @@
       "required": true,
       "status": "pass",
       "receipts": [
-        "rust-runtime",
-        "scratch-runtime"
+        "rust-runtime"
       ],
-      "scope": "Exact component scope; no promotion of downstream gates."
+      "scope": "Revision-3 component pass: grammar, evaluator, reports and musl artifact requalified with native set algebra."
     },
     {
       "id": "P09",
@@ -1158,7 +1452,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "receipts": [
@@ -1230,7 +1524,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "receipts": [
@@ -1323,7 +1617,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "receipts": [
@@ -1346,7 +1640,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "receipts": [
@@ -1790,7 +2084,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "receipts": [
@@ -1832,7 +2126,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "receipts": [
@@ -1860,7 +2154,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "receipts": [
@@ -1902,7 +2196,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "receipts": [
@@ -2031,7 +2325,7 @@
         },
         {
           "path": "scripts/rust_scenarios.py",
-          "sha256": "eeaa137b86ee49d7191ab6f52b52ae29b4a1eda994c8c898e056024b23f0c865"
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
         }
       ],
       "receipts": [
@@ -2109,6 +2403,378 @@
         "rust-runtime"
       ],
       "scope": "Selected local profile only; no live Writfold claim."
+    },
+    {
+      "id": "S45",
+      "requirement": "Exact algebra memberships, duplicates, operand overlaps; membership hit/miss; inclusive subset true/false/equal",
+      "status": "local-pass",
+      "theorem_families": [
+        "A01",
+        "A03"
+      ],
+      "fixtures": [
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        },
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S46",
+      "requirement": "Witness inputs distinguish precedence, left association, parentheses, comparison/not precedence, binder in; chained comparisons and unsupported operators rejected",
+      "status": "local-pass",
+      "theorem_families": [
+        "A01",
+        "A05"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/parser/algebra_tests.rs",
+          "sha256": "84ec76361ba91e227cb399afa297564ee4d1d3ecce2493ff54db94acb5936d8f"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S47",
+      "requirement": "Empty literals infer through expression trees; parametric empties; typed empties cannot hide mismatches; unresolved predicate types stay diagnostic",
+      "status": "local-pass",
+      "theorem_families": [
+        "A02"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S48",
+      "requirement": "Nominal kind/realm separation; scalar/set misuse; set-left membership; Boolean/number bitwise-lookalikes; numeric <= refused",
+      "status": "local-pass",
+      "theorem_families": [
+        "A02",
+        "A03"
+      ],
+      "fixtures": [
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        },
+        {
+          "path": "crates/weft-domain/src/theory/builder.rs",
+          "sha256": "4a11b2e13e07ba9aff091352c8280a3ce451dbe1c616fbc629311358cdd4482c"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S49",
+      "requirement": "Union matches spread membership and stable order; both operand origins retained; normalization input counts observed separately",
+      "status": "local-pass",
+      "theorem_families": [
+        "A01"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "crates/weft-wire/tests/algebra_report.rs",
+          "sha256": "f2c04ea3432e193054674eaa37579ade62af5797e8a2c545955bdeaeb961eae1"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S50",
+      "requirement": "Intersection/difference follow left order, keep surviving origins, retain both operand closures with no members; right operand not misattributed",
+      "status": "local-pass",
+      "theorem_families": [
+        "A01",
+        "A04"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "crates/weft-wire/tests/algebra_report.rs",
+          "sha256": "f2c04ea3432e193054674eaa37579ade62af5797e8a2c545955bdeaeb961eae1"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S51",
+      "requirement": "Unavailable/invalid operands refuse under self-difference, empty intersection, vacuous subset and membership probes",
+      "status": "local-pass",
+      "theorem_families": [
+        "A03",
+        "A04"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S52",
+      "requirement": "need on empty derived set retains captured dependencies; diamond/repeated origins shared and bounded",
+      "status": "local-pass",
+      "theorem_families": [
+        "A04"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S53",
+      "requirement": "Compound domains/spreads and predicates in nested binders preserve scope, shadowing, alpha-renaming and binder identity",
+      "status": "local-pass",
+      "theorem_families": [
+        "A05"
+      ],
+      "fixtures": [
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        },
+        {
+          "path": "crates/weft-frontend/src/parser/algebra_tests.rs",
+          "sha256": "84ec76361ba91e227cb399afa297564ee4d1d3ecce2493ff54db94acb5936d8f"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S54",
+      "requirement": "Failed algebraic binding installs nothing and publishes no fake zero cardinality; prior bindings faithful; duplicate/forward/self-reference rejection retained",
+      "status": "local-pass",
+      "theorem_families": [
+        "A04"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S55",
+      "requirement": "Empty algebraic domains give vacuous forall/false exists while validating bodies; algebra predicates lower to checked literals",
+      "status": "local-pass",
+      "theorem_families": [
+        "A03",
+        "A05"
+      ],
+      "fixtures": [
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        },
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S56",
+      "requirement": "Work/member/source-depth limits: valid operations complete, insufficient budgets and depth refuse without partial state",
+      "status": "local-pass",
+      "theorem_families": [
+        "A07"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-frontend/src/algebra_tests.rs",
+          "sha256": "3a3b0ea372e809273abd565012bf40ca32243156c126f4efb48bfede0656a30d"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S57",
+      "requirement": "JSON/human reports show operator/operand links, typed membership/order, empty-result dependencies, deterministic counterexamples; publication keeps eliminated evidence",
+      "status": "local-pass",
+      "theorem_families": [
+        "A06"
+      ],
+      "fixtures": [
+        {
+          "path": "crates/weft-wire/tests/algebra_report.rs",
+          "sha256": "f2c04ea3432e193054674eaa37579ade62af5797e8a2c545955bdeaeb961eae1"
+        },
+        {
+          "path": "examples/set-algebra.weft",
+          "sha256": "4d0b98506c78a200f44eed83d918a969d8a4c89284949560bd3508fededd3391"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S58",
+      "requirement": "Quantifier/model/output exhaustion keeps incomplete/diagnostic behavior; no truncated trace claims completion",
+      "status": "local-pass",
+      "theorem_families": [
+        "A07"
+      ],
+      "fixtures": [
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S59",
+      "requirement": "Inherited corpus, outcome categories and closure rules still pass; all local results stay non-grounded/non-authoritative",
+      "status": "local-pass",
+      "theorem_families": [
+        "A08"
+      ],
+      "fixtures": [
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        },
+        {
+          "path": "examples/set-algebra.weft",
+          "sha256": "4d0b98506c78a200f44eed83d918a969d8a4c89284949560bd3508fededd3391"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
+    },
+    {
+      "id": "S60",
+      "requirement": "Lean/Rust operation-level agreement on paired vectors independent of Boolean trace replay; formula/model differentials pass; refusals not collapsed",
+      "status": "local-pass",
+      "theorem_families": [
+        "A01",
+        "A03",
+        "A07"
+      ],
+      "fixtures": [
+        {
+          "path": "scripts/algebra_differential.py",
+          "sha256": "c0e6de447d459a531a15e37eb8661b5e17389ddb7a6171de34fca94fb1d8cb2a"
+        },
+        {
+          "path": "scripts/rust_scenarios.py",
+          "sha256": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae"
+        }
+      ],
+      "receipts": [
+        "algebra-reference",
+        "rust-runtime"
+      ],
+      "scope": "Local symbolic profile only; set-algebra absence claims are relative to the exact supplied finite sets; no live Writfold claim."
     }
   ]
 }

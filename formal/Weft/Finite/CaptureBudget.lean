@@ -212,6 +212,46 @@ def resolveTerm (ctx : Context) (env : Env) :
             Program.pure (⟨result.value, origins⟩ : Member)))
           (fun _ => Program.lift none))))))
 
+section Algebra
+
+/-- Complete operand admission before any algebraic filtering: both operands'
+members and origins are traversed, then one operator charge. Eliminated
+members and the entire right operand are charged, never skipped. -/
+def operands (left right : CapturedSet) : Program (some ()) :=
+  (acceptSet left).after (fun _ => (acceptSet right).after (fun _ => spend 1))
+
+/-- Budgeted algebra mirrors the single authoritative `Weft.Finite.Algebra`
+operations: inputs are charged before filtering and outputs again at
+publication, in one aggregate budget. -/
+def algebraUnion (left right : CapturedSet) : Program (Algebra.union left right) :=
+  (operands left right).after (fun _ => publishSet (Algebra.union left right))
+
+def algebraIntersection (left right : CapturedSet) :
+    Program (Algebra.intersection left right) :=
+  (operands left right).after (fun _ =>
+    (scan (Algebra.intersectionMembers left right)).after (fun _ =>
+      publishSet (Algebra.intersection left right)))
+
+def algebraDifference (left right : CapturedSet) :
+    Program (Algebra.difference left right) :=
+  (operands left right).after (fun _ =>
+    (scan (Algebra.differenceMembers left right)).after (fun _ =>
+      publishSet (Algebra.difference left right)))
+
+/-- Membership and subset probes charge the complete operand traversals — the
+whole RHS set for `in`, both whole sets for `<=` — plus one comparison charge. -/
+def algebraMember (value : Value) (set : CapturedSet) :
+    Program (Algebra.member value set) :=
+  ((acceptMember ⟨value, []⟩).after (fun _ =>
+    (acceptSet set).after (fun _ => spend 1))).after (fun _ =>
+      Program.lift (Algebra.member value set))
+
+def algebraSubset (left right : CapturedSet) : Program (Algebra.subset left right) :=
+  (operands left right).after (fun _ => Program.lift (Algebra.subset left right))
+
+end Algebra
+
+
 def evalSet (ctx : Context) (env : Env) :
     (expr : SetExpr) → Program (Syntax.evalSet ctx env expr)
   | .empty ty => (spend 1).after (fun _ => normalize ty [] [])
@@ -223,6 +263,18 @@ def evalSet (ctx : Context) (env : Env) :
         choose (a.elementType = ty ∧ b.elementType = ty)
           (fun _ => (append a.members b.members).bind (fun members =>
           (append a.origins b.origins).bind (fun origins => normalize ty members origins)))
+          (fun _ => Program.lift none))))
+  | .intersection ty left right => (spend 1).after (fun _ =>
+      (evalSet ctx env left).bind (fun a =>
+      (evalSet ctx env right).bind (fun b =>
+        choose (a.elementType = ty ∧ b.elementType = ty)
+          (fun _ => algebraIntersection a b)
+          (fun _ => Program.lift none))))
+  | .difference ty left right => (spend 1).after (fun _ =>
+      (evalSet ctx env left).bind (fun a =>
+      (evalSet ctx env right).bind (fun b =>
+        choose (a.elementType = ty ∧ b.elementType = ty)
+          (fun _ => algebraDifference a b)
           (fun _ => Program.lift none))))
   | .named ty index => (spend 1).after (fun _ =>
       (Program.lift (ctx.sets index)).bind (fun raw =>
@@ -303,6 +355,18 @@ def resolveAtom (ctx : Context) (env : Env) :
       (evalSet ctx env a).bind (fun x =>
       (evalSet ctx env b).bind (fun y =>
       (equal x y).bind (fun result =>
+      (append x.origins y.origins).bind (fun origins =>
+        Program.pure (⟨.boolean result, origins⟩ : ResolvedAtom))))))
+  | .member term set => (spend 1).after (fun _ =>
+      (resolveTerm ctx env term).bind (fun x =>
+      (evalSet ctx env set).bind (fun captured =>
+      (algebraMember x.value captured).bind (fun result =>
+      (append x.origins captured.origins).bind (fun origins =>
+        Program.pure (⟨.boolean result, origins⟩ : ResolvedAtom))))))
+  | .subset a b => (spend 1).after (fun _ =>
+      (evalSet ctx env a).bind (fun x =>
+      (evalSet ctx env b).bind (fun y =>
+      (algebraSubset x y).bind (fun result =>
       (append x.origins y.origins).bind (fun origins =>
         Program.pure (⟨.boolean result, origins⟩ : ResolvedAtom))))))
 
@@ -417,6 +481,30 @@ theorem evalSetCapturePresent (ctx : Context) (env : Env) (expr : SetExpr)
     by_cases typed : a.elementType = ty ∧ b.elementType = ty
     · exact normalizedCapture ty (a.members ++ b.members) (a.origins ++ b.origins) result
         (by simpa [typed] using afterRight)
+    · simp [typed] at afterRight
+  | intersection ty left right =>
+    obtain ⟨a, _, afterLeft⟩ := bindSome _ _ _ success
+    obtain ⟨b, _, afterRight⟩ := bindSome _ _ _ afterLeft
+    by_cases typed : a.elementType = ty ∧ b.elementType = ty
+    · have algebraCase : Algebra.intersection a b = some result := by
+        simpa [typed] using afterRight
+      by_cases same : a.elementType = b.elementType
+      · exact normalizedCapture a.elementType (Algebra.intersectionMembers a b)
+          (a.origins ++ b.origins) result
+          (by simpa [Algebra.intersection, same] using algebraCase)
+      · simp [Algebra.intersection, same] at algebraCase
+    · simp [typed] at afterRight
+  | difference ty left right =>
+    obtain ⟨a, _, afterLeft⟩ := bindSome _ _ _ success
+    obtain ⟨b, _, afterRight⟩ := bindSome _ _ _ afterLeft
+    by_cases typed : a.elementType = ty ∧ b.elementType = ty
+    · have algebraCase : Algebra.difference a b = some result := by
+        simpa [typed] using afterRight
+      by_cases same : a.elementType = b.elementType
+      · exact normalizedCapture a.elementType (Algebra.differenceMembers a b)
+          (a.origins ++ b.origins) result
+          (by simpa [Algebra.difference, same] using algebraCase)
+      · simp [Algebra.difference, same] at algebraCase
     · simp [typed] at afterRight
   | named ty index =>
     obtain ⟨raw, _, checked⟩ := bindSome _ _ _ success

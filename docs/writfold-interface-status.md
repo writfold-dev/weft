@@ -25,6 +25,25 @@ Weft must continue to:
 - Honor the 65,536-byte protocol frame ceiling; large artifacts require the owner's
   qualified transfer/selection contract, not oversized frames or local fallbacks.
 
+## 5 November 2026 integration sync
+
+The mutable coordination note
+[plans/writfold-integration-sync-2026-11-05.md](../plans/writfold-integration-sync-2026-11-05.md)
+records the latest reviewed boundary: Weft's qualified local symbolic engine and
+Writfold's citation components agree on their intended boundary, but they are
+**not connected runtime products**. The owner has not yet exposed the production
+initialized stdio host, a pinned shared identity/protocol contract, or its real
+service mapping; capability-enum entries are not evidence of running methods.
+`writfold-ref` accepts supplied semantic inputs and is not a grounding fallback.
+The planned ordinary transport is bounded JSON-RPC 2.0 over stdio (frame ceiling
+65,536 bytes; Weft's report budget is larger, so oversized artifacts need the
+planned bounded transfer mechanism). That note passes no P05-P07/P09 gate and
+changes no Weft authority; once the exact owner contract and real services land,
+Weft implements the ordinary client — initialization, scope binding,
+correlation/generation, bounded framing, refusal and owned-child cancellation —
+and feeds acquired references into the explicitly qualified external
+interpretation path without relabelling `weft.symbolic/1` results as grounded.
+
 The owner inventory still marks WR1-WR8 `not_run` at the service boundary. P05-P07
 and final composed Weft release remain blocked. No Writfold files were modified
 by this session. The additional finite-collection proposal is in

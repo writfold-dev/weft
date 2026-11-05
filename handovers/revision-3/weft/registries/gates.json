@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "scope": "Inherited required flow plus proof-first finite set algebra; requirements only, not qualification status",
+  "stages": [
+    {
+      "id": "P00",
+      "gate": "WEFT00",
+      "dependencies": [],
+      "external_prerequisites": [],
+      "title": "Tool/storage/build admission",
+      "required": true
+    },
+    {
+      "id": "P01",
+      "gate": "WEFT01",
+      "dependencies": [
+        "P00"
+      ],
+      "external_prerequisites": [],
+      "title": "Complete Lean language calculus",
+      "required": true
+    },
+    {
+      "id": "P01S",
+      "gate": "WEFT01S",
+      "dependencies": [
+        "P01"
+      ],
+      "external_prerequisites": [],
+      "title": "Native finite set and binder soundness",
+      "required": true
+    },
+    {
+      "id": "P01A",
+      "gate": "WEFT01A",
+      "dependencies": [
+        "P01S"
+      ],
+      "external_prerequisites": [],
+      "title": "Finite set algebra, membership and subset soundness",
+      "required": true
+    },
+    {
+      "id": "P02",
+      "gate": "WEFT02",
+      "dependencies": [
+        "P01A"
+      ],
+      "external_prerequisites": [],
+      "title": "Frontend specification and reference",
+      "required": true
+    },
+    {
+      "id": "P03",
+      "gate": "WEFT03",
+      "dependencies": [
+        "P02"
+      ],
+      "external_prerequisites": [],
+      "title": "Rust frontend and evaluator",
+      "required": true
+    },
+    {
+      "id": "P04",
+      "gate": "WEFT04",
+      "dependencies": [
+        "P03"
+      ],
+      "external_prerequisites": [],
+      "title": "Reports, traces, diagnostics and CLI",
+      "required": true
+    },
+    {
+      "id": "P05",
+      "gate": "WEFT05",
+      "dependencies": [
+        "P04"
+      ],
+      "external_prerequisites": [
+        "WR1",
+        "WR2",
+        "WR3",
+        "WR4",
+        "WR5"
+      ],
+      "title": "Live Writfold citation and assessment",
+      "required": true
+    },
+    {
+      "id": "P06",
+      "gate": "WEFT06",
+      "dependencies": [
+        "P05"
+      ],
+      "external_prerequisites": [
+        "WR6"
+      ],
+      "title": "Retained report and run binding",
+      "required": true
+    },
+    {
+      "id": "P07",
+      "gate": "WEFT07",
+      "dependencies": [
+        "P06"
+      ],
+      "external_prerequisites": [
+        "WR7",
+        "WR8"
+      ],
+      "title": "Execution and learning admission",
+      "required": true
+    },
+    {
+      "id": "P08",
+      "gate": "WEFT08",
+      "dependencies": [
+        "P04"
+      ],
+      "external_prerequisites": [],
+      "title": "Quality and musl runtime artifact",
+      "required": true
+    },
+    {
+      "id": "P09",
+      "gate": "WEFT09",
+      "dependencies": [
+        "P05",
+        "P06",
+        "P07",
+        "P08"
+      ],
+      "external_prerequisites": [],
+      "title": "Full composed release",
+      "required": true
+    }
+  ]
+}

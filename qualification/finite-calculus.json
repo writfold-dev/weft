@@ -2,33 +2,42 @@
   "schema_version": 1,
   "scope": "weft-language-calculus-only",
   "status": "pass",
-  "authority": "handovers/revision-2/weft",
-  "manifest_sha256": "cc21e72ee748b2d293aa25a737b82d7b58295d024c56f88b52aa4eca3f310ad7",
-  "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-022/report.json",
-  "receipt_sha256": "e2ae0ea54965cedadbf323084a5630d837c18ce2444db7582d86c60e9baa94a8",
+  "authority": "handovers/revision-3/weft",
+  "manifest_sha256": "cc033a8e846929aeb29c952ef6a1ab9f02cff3e56e6deadbc4114ac4458d1f8e",
+  "receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus-3/report.json",
+  "receipt_sha256": "69ea3a9ea12b475d4eb8c66d8740ee792d60df648cc5e1e75fc5bff920f6340a",
   "image_id": "sha256:52e3bad8e6b7a7e770437a4e35fe04c7d77c9b7fee0eb03e509d40e72dbc8db3",
   "tool_lock_sha256": "1daa41f68708aa69aeba247df9a6770c44f6015de3c56a893dc001687490aed9",
   "source_manifest": {
     "formal/Weft/Composition.lean": "9f1bd14faa8c2c1c31d1ba7469532e0471e0f5953ff2ef36f7b5751df7776de3",
+    "formal/Weft/Finite/Algebra/Budget.lean": "feb01def6c9acfbdf5f5f2d9cb794860b05aebc7d275b2a359d05c12e9635deb",
+    "formal/Weft/Finite/Algebra/Closure.lean": "85dbef90e4c892db36e70299067277b652b1dd416e3d8b6e3f0df70244c29fee",
+    "formal/Weft/Finite/Algebra/Conservation.lean": "d52101f931abdbce97ec13c1d206828fb4c85f2690a144dadca8a7db23668562",
+    "formal/Weft/Finite/Algebra/Examples.lean": "f80a560792362ed6583ecafa3cb8c6e4ff7d3f9c9ece9ca4b6cd1540f915a6de",
+    "formal/Weft/Finite/Algebra/Lowering.lean": "fd5641a673be1037ae3bffa83d0277261b360e0cd797e0173b3fb5a8a66ad156",
+    "formal/Weft/Finite/Algebra/Operations.lean": "07188267d820232a8d6a29437ce9b8d81e338c28099092b8a35ba4ede0b9982e",
+    "formal/Weft/Finite/Algebra/Predicates.lean": "55fd91cf043c89dad50416d24d34c3920ff2e697d2e6ebd1e894dbcd22871683",
+    "formal/Weft/Finite/Algebra/Traces.lean": "b724c35e8877a829b2bfc5c58eba9342fe0cf72b721ff62fd8bfbed1727271d3",
+    "formal/Weft/Finite/Algebra.lean": "63bc294badedbeafc196837686b41e95d24ee1485a8dc6379c6685889f4f10f9",
     "formal/Weft/Finite/Bindings.lean": "4022da36b52379c8e454c4fb0850aac014ed2fecf029b5da037a62860be0dc05",
-    "formal/Weft/Finite/CaptureBudget.lean": "d7f3a441b91e9f0e74d898c5ec2ff3907d214382efb7a17f0b7ced458ab6f555",
+    "formal/Weft/Finite/CaptureBudget.lean": "d92c5cb1887e5ff31e81a8cc5b1939f3657510e36dacdcbbbc3effd490d71149",
     "formal/Weft/Finite/CaptureBudgetExamples.lean": "86ff4a5929ac5e1e8cd0f691a6769e9b92a686a8cabcf9458218adc0f406d380",
     "formal/Weft/Finite/Lowering.lean": "41de80969f954bb1911654418ceb049636486972288b8edbb404dea4dc557fca",
     "formal/Weft/Finite/QuantifierExamples.lean": "b726605027116904f5ef1ab3bbaf132cd0c71635bd37518c9cb996eba143025c",
     "formal/Weft/Finite/Quantifiers.lean": "3d98fd443d5a12fea1cd6dce02639279558235fa2913a9bad862397e89a1d623",
-    "formal/Weft/Finite/Semantics.lean": "b9e038a9f177752be9a1b81fbdab984ccb12b64cdbbf461f1f322cbf02957e0c",
+    "formal/Weft/Finite/Semantics.lean": "a02d2e650a0caf2a3ee9f1528ab183493839bc05f14c2139d556add86d8951f1",
     "formal/Weft/Finite/SetExamples.lean": "f1a65531944e2068ed52c9b5f301b979f98d22e68ca030de8ad80f6ebbf4d011",
     "formal/Weft/Finite/Sets/Properties.lean": "9c431886d6e6f30cfe3731df95ce1787d8dbf5017607e7336c255ea02488a473",
     "formal/Weft/Finite/Sets.lean": "863d5530eb87ee8cbb3a66824b2f5b5352a1c05664fdef607e6f97432db9358c",
-    "formal/Weft/Finite/Substitution.lean": "08587a8b061bf82981a97d57d6cf8e956085884217feb05183aef2365ff7679c",
-    "formal/Weft/Finite/SubstitutionTyping.lean": "278bde7106a5525c1d0e429c21de4f3d26ebb7be44381637d06bd90282cc1d9c",
-    "formal/Weft/Finite/Syntax.lean": "679161445793284c0e7691a1bbc27fbdc288b5abfb0e2973314658aa1d52ec6a",
+    "formal/Weft/Finite/Substitution.lean": "4ac448708aa7219f1e89b599e120ce390700bef46d002d92d0b9e8112afe33b9",
+    "formal/Weft/Finite/SubstitutionTyping.lean": "112891328e4ffe8dba9d1ac5aae1aa19f5232140ca54da4c467a804e44b5b333",
+    "formal/Weft/Finite/Syntax.lean": "872e4e5e309c4fb208b054e3f1f9cbc36f01c7280302dbcd5f6fa16805e350b2",
     "formal/Weft/Finite/TraceContext.lean": "77b1b244d7e6d14ddaff137e5a918ceea69c81604d8169cfc2bef38add09db0f",
     "formal/Weft/Finite/TraceExamples.lean": "3573289420db5c8b6ef7318e46d531d31215cbb381d2ef79702b2fd4a46bacca",
     "formal/Weft/Finite/Traces.lean": "01c0fb53be021429e0c0f4d18ec17f8e48e40efd4c3739a770626f06d4d78677",
-    "formal/Weft/Finite/Typing.lean": "9262b56902c49b1196fa29aa1b3c62a58d362878c6a47c0208206e959449672a",
-    "formal/Weft/Finite.lean": "3f913c5526152681eecf3b38793ca08a2b10b8b753872b23e568870a2d29d7cf",
-    "formal/Weft/FiniteReference.lean": "c7f3a09dd0609a2fd2f81349402d87fcf4fee2d531e72608659c848e3b02a42c",
+    "formal/Weft/Finite/Typing.lean": "77bb708e7205af3a281d53797071c465a7322df7e7849f0a331b1a3ae90a4ff9",
+    "formal/Weft/Finite.lean": "0577d6d1567bd5453ab38f1e732ad81460f59a8bf3f6cfbdd1d75c7449fae62a",
+    "formal/Weft/FiniteReference.lean": "01804753cd543bd01c5de2a86d9774ac1e1b87062e61acf220d9e9423d7866c4",
     "formal/Weft/Grounding/DetailedTrace.lean": "279688c8e58322f1414d8cbc275f68b50f70462afbb0ab332353cf859bf8809c",
     "formal/Weft/Grounding/Examples.lean": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21",
     "formal/Weft/Grounding/Model.lean": "823832f0e18bd9dd8115057ad00c5e914e473f09400bb503e9bb1c76da8e5b6c",
@@ -47,20 +56,28 @@
     "formal/Weft/Logic/Search.lean": "17cb20891fc88cc1295b0b046b60f66461e8b53b0bd69c1d48f957d9994c983c",
     "formal/Weft/Logic/Syntax.lean": "10eec8fa9a21e75c602e10e78761d2397f02c4f9210bbab22b8fdc607076c36b",
     "formal/Weft/Logic.lean": "3038067c51d65cef66983d4689011e0ddf660abd3ab62f486d853d477db59b82",
-    "formal/Weft/Reference.lean": "c310d2ef9fec448044e9014253353961add196cdefcd11a039cf432593c374e2",
+    "formal/Weft/Reference.lean": "253e3b83ed3e9945cb430c3db97b56eb7e91b1be625fa0a873f2a26c4bcfb31c",
     "formal/Weft.lean": "71dd126015e772132905fce67731d5212fce73cb3d6775944dd658a0634f1f86",
-    "formal/audit-targets.json": "aa862e2a589823f8bbee16acb61e488120a355258bb1a61bbe5c830d590b6082",
+    "formal/audit-targets.json": "deb9b824d07df8a985b7ebaf364ebf400b11a735c685db58539d09bbf5f34ee5",
     "formal/lake-manifest.json": "6052aa0b98ce100c828ef45409755c07f133972a58e13a56f905bd7acd9d1b08",
     "formal/lakefile.toml": "7096a213a184e5102d50499a6dfe170c8314a6b577c8ed6bd7b037ab01e53a3c",
     "formal/lean-toolchain": "d24fed434d3b13adfaab57724a0a7f270ea8bf1c818b5ae5cf25cbce24dd685c",
-    "scripts/run_proofs.py": "89cf8e6b82913e3b94d01f74ebf46677c192855c8855af056ac4c9f84e5d8a29",
+    "scripts/run_proofs.py": "88efffb68cbbd82ca15df401980c90cedbb06fcf11a51366b9fa0911cc2622ed",
     "scripts/evidence.py": "9c0ae7b624f2bd8967593707081242ffaf1904caccc1c0d59c11bef628ab367b",
     "scripts/contracts.py": "5f8c1cf89fdbe64590ce7b7cfaa1379d515c701542fbf787c3c5c28d890d36d7",
     "scripts/test_qualification.py": "53d8b57c62b53562b1b7d8682f4b46c18e9bc3f0bda127bc379e6d0191efe3f7",
-    "scripts/lean_mutations.json": "263cd43f5fc3f8024351e25d269d9509191ffd5993ca1041c74d3571d8f2d8ba",
+    "scripts/lean_mutations.json": "5ea2efce625c23f11769c1cab6ba026eea270c07d25f8c661a3f191d80f8771c",
     "toolchains.lock.json": "1daa41f68708aa69aeba247df9a6770c44f6015de3c56a893dc001687490aed9",
     "compose.yaml": "2ac201812858295fbaeca00d20196373a9d35eaa930c4bb061376e23a4a21fc0",
-    "qualification/handover-adoption.json": "c5781c6114a298303bdd0ac538a898c55f6a860b3e9b61f93c238f924113a31a",
+    "qualification/handover-adoption.json": "463f9fc13964817765c72c5eeb7a081facb3bc4bf752ca37bc08a8c5c75c766e",
+    "handovers/revision-3/weft/AGENT_START_HERE.md": "17b8eec8db351b363558ec7ee639c55763c6a75619b279eaf5d67ba67cca1eda",
+    "handovers/revision-3/weft/MANIFEST.sha256": "cc033a8e846929aeb29c952ef6a1ab9f02cff3e56e6deadbc4114ac4458d1f8e",
+    "handovers/revision-3/weft/base.json": "974758bc4355b2b610401336a74e2be92334690050cffb542f0c3056dd26f661",
+    "handovers/revision-3/weft/plan/01-language-and-semantics.md": "1fb358c2667795e1c6183034debbc0f13730df3eb3294b4093b039fb7e978746",
+    "handovers/revision-3/weft/plan/02-proofs-and-reference.md": "698a59dc8aa23fde739ed56296892f3f22991257e460e3522b7f0e27e304d347",
+    "handovers/revision-3/weft/plan/03-implementation-and-gates.md": "13f06b5446aa5a48d182d6a35f935b53bf41cc3c38ae976abafb21ba15d959ac",
+    "handovers/revision-3/weft/registries/gates.json": "056c047972bf9e9370217b240abcb0aefbd16fe52e5c8bcbaae54e774fd5a39d",
+    "handovers/revision-3/weft/registries/theorems.json": "63837354306f152b90741f1272cd3ad734191e6054e65300546f64f0c3070132",
     "handovers/revision-2/weft/AGENT_START_HERE.md": "a8f8250a22f74b6176acff010a4cb041c918b3ff825a6a5439c44b2aeae9be7e",
     "handovers/revision-2/weft/MANIFEST.sha256": "cc21e72ee748b2d293aa25a737b82d7b58295d024c56f88b52aa4eca3f310ad7",
     "handovers/revision-2/weft/base.json": "4c0a229dd3577fe718a9a401a3fc6b35bc761cd266d7f33c06107fbfb4c6d6e0",
@@ -79,12 +96,12 @@
     "handovers/revision-1/weft/plan/06-writfold-handoff.md": "f4d5d04ebcb368a430e19b6ef04e8df874994972866d39fb3f89ec762c52ccba",
     "handovers/revision-1/weft/registries/gates.json": "fb38b034a51bc3fa69cab9390501554c5ddf12ca6ce661d35f6a8d142e614147",
     "handovers/revision-1/weft/registries/theorems.json": "7ad446c4402e36ea0a1e2eba03c2d2d218277e0dca3182151a4636d0fa05825e",
-    "spec/grammar.ebnf": "811a47185c7cba6d40e25c3da4a832a02207d7ce1a0be0f7f391377857e00ffc",
-    "spec/language.md": "62d6589f9224559831040a80ba8d4fdc614be848c67f4e7d650160eb02e3cdf6",
-    "docs/implementation-profile.md": "7576326453428d61842dd0862bd64b018dd4e92447dec63894569d457fea66b2",
-    "spec/report-v1.md": "f1928513ca02b806c4ab78f22ab657929707a84c20d33182fa4ec0fdec1feeed"
+    "spec/grammar.ebnf": "0a7ae682a3ffd79f65474370353bfcda92241a87a1b477c326659fb6cc6f5b83",
+    "spec/language.md": "2b6b6cd0250bf929b861a66c561fa44e5ccafafba22115d0f9bea541e40e7f77",
+    "docs/implementation-profile.md": "5ce13d243906e1b2435629bfb6a587a0c91aa220e2ab51f20a59c8e13748b32e",
+    "spec/report-v1.md": "e629f3a5f627379e65cb9205acbb8ca577651d84bfd982b476ab475692f7bce3"
   },
-  "audited_declarations": 181,
+  "audited_declarations": 327,
   "theorem_families": [
     "L01",
     "L02",
@@ -107,7 +124,15 @@
     "Q07",
     "Q08",
     "Q09",
-    "Q10"
+    "Q10",
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A08"
   ],
   "foundational_axioms": [
     "Classical.choice",
@@ -116,34 +141,61 @@
   ],
   "executed_reference_cases": [
     {
+      "witness_checks": [
+        true,
+        false
+      ],
       "verdict": "entailed",
       "id": "entailed"
     },
     {
+      "witness_checks": [
+        true,
+        false
+      ],
       "verdict": "refuted",
       "id": "refuted"
     },
     {
+      "witness_checks": [
+        true,
+        false
+      ],
       "verdict": "refuted",
       "id": "wrong-polarity"
     },
     {
+      "witness_checks": [
+        true,
+        true
+      ],
       "verdict": "undetermined",
       "id": "two-models"
     },
     {
+      "witness_checks": [
+        false,
+        false
+      ],
       "verdict": "inconsistent-premises",
       "id": "inconsistent"
     },
     {
+      "witness_checks": [],
       "verdict": "unknown",
       "id": "no-budget"
     },
     {
+      "witness_checks": [
+        false
+      ],
       "verdict": "unknown",
       "id": "invalid-domain"
     },
     {
+      "witness_checks": [
+        true
+      ],
       "verdict": "refuted",
       "id": "empty-domain"
     }
@@ -233,6 +285,56 @@
       "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
       "passed": true,
       "id": "existential-complete-absence"
+    },
+    {
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
+      "passed": true,
+      "id": "algebra-union-membership-order"
+    },
+    {
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
+      "passed": true,
+      "id": "algebra-intersection-merges-origins"
+    },
+    {
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
+      "passed": true,
+      "id": "algebra-difference-retains-right-closure"
+    },
+    {
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
+      "passed": true,
+      "id": "algebra-typed-empty-results"
+    },
+    {
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
+      "passed": true,
+      "id": "algebra-mixed-types-refused"
+    },
+    {
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
+      "passed": true,
+      "id": "algebra-membership-hit-miss"
+    },
+    {
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
+      "passed": true,
+      "id": "algebra-subset-counterexample"
+    },
+    {
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
+      "passed": true,
+      "id": "algebra-unavailable-operand-refused"
+    },
+    {
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
+      "passed": true,
+      "id": "algebra-shadowing-not-capture"
+    },
+    {
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
+      "passed": true,
+      "id": "algebra-zero-budget-refused"
     }
   ],
   "mutation_ids": [
@@ -259,104 +361,72 @@
     "M21-empty-existential",
     "M22-quantified-trace",
     "M23-capture-budget",
-    "M24-scalar-conservation"
+    "M24-scalar-conservation",
+    "M25-union-drops-right",
+    "M26-difference-direction",
+    "M27-intersection-as-union",
+    "M28-union-display-order",
+    "M29-algebra-type-check",
+    "M30-subset-strict",
+    "M31-unavailable-membership-false",
+    "M32-difference-drops-right-origins",
+    "M33-substitution-skips-difference",
+    "M34-forged-operation-trace",
+    "M35-budget-bypass",
+    "M36-algebra-authority-upgrade"
   ],
-  "qualification_boundary_regressions": 11,
+  "mutation_families": [
+    "M01",
+    "M02",
+    "M03",
+    "M04",
+    "M05",
+    "M06",
+    "M07",
+    "M08",
+    "M09",
+    "M10",
+    "M11",
+    "M12",
+    "M13",
+    "M14",
+    "M15",
+    "M16",
+    "M17",
+    "M18",
+    "M19",
+    "M20",
+    "M21",
+    "M22",
+    "M23",
+    "M24",
+    "M25",
+    "M26",
+    "M27",
+    "M28",
+    "M29",
+    "M30",
+    "M31",
+    "M32",
+    "M33",
+    "M34",
+    "M35",
+    "M36"
+  ],
+  "qualification_boundary_regressions": null,
   "artifacts": {
-    "reference_binary_sha256": "d2b78499f28feb9bfe58339b899943094140a6738ff08e148fbcbf6e3010bf23",
-    "finite_reference_binary_sha256": "9b1103b2e78a7fd6ab1691d8b155737061f2dfa0d4bc7af37614fb74537b3161"
+    "reference_binary_sha256": "883a91d575ff84eac6587c7d3adf7abf4fdaa7c599c094d69c60c2a6ff9d00d3",
+    "finite_reference_binary_sha256": "d68ce4585a570161949da3e32e96616446ca9620f43074b4fa0620385bec4569"
   },
+  "scope_note": "Revision-3 set-algebra calculus: inherited L/Q obligations plus A01-A08 over the extended SetExpr/Atom. Source AST semantics only; no raw-parser or Rust refinement claim.",
   "failed_attempts": [
     {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-001/report.json",
-      "sha256": "464098d44bed729ee89424b1a4d9e3ad2b5b0c98bc57ee43bdba9e3d67a73473"
+      "receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus/report.json",
+      "sha256": "cc8995d7ed3e4e01ff0b221ef43e9654489697451da75453816ddb89f7892a20"
     },
     {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-002/report.json",
-      "sha256": "9626cf9e59adc24b3bb13564f1089da7ae8471e3f760ad237423e6606a3488c5"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-003/report.json",
-      "sha256": "9587a95273fa0673c120a523a3db3504662b499713c0b8b0dbd68506ffe280d4"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-004/report.json",
-      "sha256": "4bfa1dbc07097937612def2806b8c6b8745542ff71e28b12191ec9c5187ff690"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-005/report.json",
-      "sha256": "37264661dc6e85837be9917cae71f2718ee352fe7a1eea236c42c65a6c3dde99"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-006/report.json",
-      "sha256": "38e11c513c2cc619e470167350ffba0edf5d9f51e3d3e7b41fb796eebb861d95"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-007/report.json",
-      "sha256": "6fba396eaebf6a63a188cbfc1232e88a65b253d0264748cb72ee759178e497fe"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-008/report.json",
-      "sha256": "ed88e9b0f460b0543845f9519f44179b0aee31d06bb6121074f7178cc98c0aa7"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-009/report.json",
-      "sha256": "05ec32bc34c0af563ca5a30da7ef5a4ccc740fa265cea54cf1359d477708c18e"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-010/report.json",
-      "sha256": "031a88329400682e1d47b66b6a74dd41fd797fbd5ea9e582326a2931c6489879"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-011/report.json",
-      "sha256": "13d53226620793c7b0d4114968dfa5e61078c7e251095a64c8604f8602e68cfe"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-012/report.json",
-      "sha256": "07e6d6599ee9ac16621eb087c47d30e264b29a5f6476178b68e1f3e92eb88dcf"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-013/report.json",
-      "sha256": "c389e12fb2f13be1ef0b8d4d276a37e68de8ddea9a2dab9fce3789d66a96efc8"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-014/report.json",
-      "sha256": "431e98cf70bac53c06340985bdba8b6c120bd470a3c3e3f9260f2b2b74739158"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-015/report.json",
-      "sha256": "5440af5f7bb51f95903105eabaa12823d522eb212786c0c2c57f5d78ba422c52"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-016/report.json",
-      "sha256": "afc5de0876be6a71ad5255b474d6ece78b099e29bb6767c932b5337229c8659a"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-017/report.json",
-      "sha256": "868b43c5a5567ef1384ed308236a895a2b9af866cc7f5bdc6d9011e85bee90b9"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-018/report.json",
-      "sha256": "283196d34bf113255c3e40dc644d4d67395a4c7fc20793b9ba7b3cd535ea4c17"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-019/report.json",
-      "sha256": "67f255bfcee57e56ca3d1658630e5362a9a205ae4c58d45f4963b4bc1ab2bedd"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-020/report.json",
-      "sha256": "e558f509c2d897e7161e5dcb339297204c43390f09f24ddb9065137a314f5022"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-021/report.json",
-      "sha256": "1712744d12928ddf360c4598f12725ab2acc0d95bf68c7c2b82e30cdc1c81bfc"
+      "receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus-2/report.json",
+      "sha256": "e839f4584c9c95ec99c3fdd14e179a2f747c960801c7caf7679e1d37ac4c620a"
     }
-  ],
-  "not_qualified": [
-    "raw-source parser refinement",
-    "shipping Rust refinement",
-    "real Writfold acquisition and assessment",
-    "run/plan admission and effects",
-    "final composed release"
   ]
 }

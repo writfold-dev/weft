@@ -1,0 +1,233 @@
+{
+  "schema_version": 1,
+  "scope": "Inherited L/Q families plus revision-3 A01-A08 set algebra; required declarations to implement, not proof status",
+  "theorems": [
+    {
+      "id": "L01",
+      "claim": "Typed evaluation preserves types",
+      "declaration": "Weft.Language.termTypeSound",
+      "required": true
+    },
+    {
+      "id": "L02",
+      "claim": "Elaboration preserves surface meaning",
+      "declaration": "Weft.Language.elaborationSound",
+      "required": true
+    },
+    {
+      "id": "L03",
+      "claim": "Substitution commutes with evaluation",
+      "declaration": "Weft.Logic.substitutionSound",
+      "required": true
+    },
+    {
+      "id": "L04",
+      "claim": "Sugar preserves meaning",
+      "declaration": "Weft.Logic.sugarSound",
+      "required": true
+    },
+    {
+      "id": "L05",
+      "claim": "Finite valuations cover the declared domain",
+      "declaration": "Weft.Logic.valuationsComplete",
+      "required": true
+    },
+    {
+      "id": "L06",
+      "claim": "Logical classification is sound",
+      "declaration": "Weft.Logic.classificationSound",
+      "required": true
+    },
+    {
+      "id": "L07",
+      "claim": "Exhausted budgets yield no logical verdict",
+      "declaration": "Weft.Logic.budgetUnknown",
+      "required": true
+    },
+    {
+      "id": "L08",
+      "claim": "Explicit required dependencies are preserved",
+      "declaration": "Weft.Grounding.explicitNeedsPreserved",
+      "required": true
+    },
+    {
+      "id": "L09",
+      "claim": "Grounded success requires eligible nonhypothetical closure",
+      "declaration": "Weft.Grounding.groundedSound",
+      "required": true
+    },
+    {
+      "id": "L10",
+      "claim": "Reuse preserves exact scope and bindings",
+      "declaration": "Weft.Grounding.reuseSound",
+      "required": true
+    },
+    {
+      "id": "L11",
+      "claim": "Report traces preserve result and dependencies",
+      "declaration": "Weft.Grounding.traceFaithful",
+      "required": true
+    },
+    {
+      "id": "L12",
+      "claim": "Analysis preserves authoritative state",
+      "declaration": "Weft.Grounding.analysisNonAuthority",
+      "required": true
+    },
+    {
+      "id": "Q01",
+      "claim": "Finite normalization preserves extensional membership",
+      "declaration": "Weft.Finite.Sets.normalizeMembership",
+      "required": true
+    },
+    {
+      "id": "Q02",
+      "claim": "Normalized finite sets retain homogeneous types",
+      "declaration": "Weft.Finite.Sets.normalizeTyped",
+      "required": true
+    },
+    {
+      "id": "Q03",
+      "claim": "Spread and deduplication preserve every origin",
+      "declaration": "Weft.Finite.Sets.spreadPreservesOrigins",
+      "required": true
+    },
+    {
+      "id": "Q04",
+      "claim": "Immutable binding preserves prior values and failure atomicity",
+      "declaration": "Weft.Finite.Bindings.extensionPreservesPrior",
+      "required": true
+    },
+    {
+      "id": "Q05",
+      "claim": "Bound-variable substitution preserves meaning without capture",
+      "declaration": "Weft.Finite.Syntax.substitutionMeaning",
+      "required": true
+    },
+    {
+      "id": "Q06",
+      "claim": "Finite universal lowering preserves independent meaning",
+      "declaration": "Weft.Finite.Quantifiers.forallSound",
+      "required": true
+    },
+    {
+      "id": "Q07",
+      "claim": "Finite existential lowering preserves meaning and valuation-scoped witnesses",
+      "declaration": "Weft.Finite.Quantifiers.existsSound",
+      "supporting_declarations": [
+        "Weft.Finite.Traces.existentialWitness",
+        "Weft.Finite.Traces.existentialSuccessHasWitness"
+      ],
+      "required": true
+    },
+    {
+      "id": "Q08",
+      "claim": "Quantified traces preserve domains, instances and origins",
+      "declaration": "Weft.Finite.Traces.quantifiedTraceFaithful",
+      "required": true
+    },
+    {
+      "id": "Q09",
+      "claim": "Incomplete expansion cannot produce a completed result",
+      "declaration": "Weft.Finite.Quantifiers.budgetRefusesPartial",
+      "required": true
+    },
+    {
+      "id": "Q10",
+      "claim": "Earlier scalar semantics and authority are conserved",
+      "declaration": "Weft.Finite.Quantifiers.scalarConservation",
+      "supporting_declarations": [
+        "Weft.Finite.Traces.reportNoAuthority",
+        "Weft.Finite.Traces.traceInventoryNotUpgraded"
+      ],
+      "required": true
+    },
+    {
+      "id": "A01",
+      "claim": "Finite set operators preserve exact extensional membership and deterministic display order",
+      "declaration": "Weft.Finite.Algebra.operationsSound",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.unionMembership",
+        "Weft.Finite.Algebra.intersectionMembership",
+        "Weft.Finite.Algebra.differenceMembership",
+        "Weft.Finite.Algebra.displayOrderSound",
+        "Weft.Finite.Algebra.unionLaws",
+        "Weft.Finite.Algebra.intersectionLaws",
+        "Weft.Finite.Algebra.differenceLaws"
+      ],
+      "required": true
+    },
+    {
+      "id": "A02",
+      "claim": "Set algebra preserves homogeneous operand and result types, including typed empties",
+      "declaration": "Weft.Finite.Algebra.operationsTyped",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.emptyResultRetainsType",
+        "Weft.Finite.Algebra.mixedTypesRefused"
+      ],
+      "required": true
+    },
+    {
+      "id": "A03",
+      "claim": "Membership and inclusive subset predicates agree with typed finite semantics and faithful counterexamples",
+      "declaration": "Weft.Finite.Algebra.predicatesSound",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.membershipPredicateSound",
+        "Weft.Finite.Algebra.subsetPredicateSound",
+        "Weft.Finite.Algebra.subsetLaws",
+        "Weft.Finite.Algebra.subsetCounterexample"
+      ],
+      "required": true
+    },
+    {
+      "id": "A04",
+      "claim": "Algebra and predicates preserve complete operand closure and cannot hide failure or removed origins",
+      "declaration": "Weft.Finite.Algebra.operandClosurePreserved",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.failedOperandRefusesResult",
+        "Weft.Finite.Algebra.operationsComplete"
+      ],
+      "required": true
+    },
+    {
+      "id": "A05",
+      "claim": "Extended substitution, typing and lowering preserve independent meaning without capture",
+      "declaration": "Weft.Finite.Algebra.loweringSound",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.substitutionMeaning",
+        "Weft.Finite.Algebra.substitutionTyped"
+      ],
+      "required": true
+    },
+    {
+      "id": "A06",
+      "claim": "Algebra traces and capture accounting remain faithful and binding failure remains atomic",
+      "declaration": "Weft.Finite.Algebra.traceFaithful",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.captureAccountingSound",
+        "Weft.Finite.Algebra.bindingFailureAtomic"
+      ],
+      "required": true
+    },
+    {
+      "id": "A07",
+      "claim": "Budgeted algebra agrees on success and refuses incomplete work without partial successful results",
+      "declaration": "Weft.Finite.Algebra.budgetRefusesPartial",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.budgetSuccessSound",
+        "Weft.Finite.Algebra.remainingWorkNonincreasing"
+      ],
+      "required": true
+    },
+    {
+      "id": "A08",
+      "claim": "Prior finite semantics, inventory scope and non-authority are conserved",
+      "declaration": "Weft.Finite.Algebra.finiteConservation",
+      "supporting_declarations": [
+        "Weft.Finite.Algebra.reportNoAuthority",
+        "Weft.Finite.Algebra.inventoryNotUpgraded"
+      ],
+      "required": true
+    }
+  ]
+}

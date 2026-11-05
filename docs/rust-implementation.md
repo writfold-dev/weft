@@ -1,8 +1,21 @@
 # Rust implementation boundaries
 
-The revision-2 Lean calculus gate passed before these Rust crates were created.
-Rust correspondence still needs executable qualification; no refinement theorem
+The revision-3 Lean calculus gate — including the A01–A08 set-algebra families —
+passed before these Rust crates gained their algebra implementation. Rust
+correspondence still needs executable qualification; no refinement theorem
 is inferred from a shared design or differential agreement.
+
+## Set-algebra implementation shape
+
+Union, intersection and difference extend `SetKind` as binary nodes and
+materialize through the same `TheoryBuilder::add_set` normalization path as
+literals and spreads; `OriginKind::SetOperation` links both whole operands, so
+removed members and the entire right operand of a difference stay reachable.
+Membership and subset lower to checked `FormulaOp::Literal` nodes carrying
+`NodeDetail::Membership` and `NodeDetail::SetComparison` (with the deterministic
+first-left counterexample), exactly like set equality. Both operand traversals
+are charged before any filtering; `set_member`/`set_subset` use hash sets, so
+charging stays linear in the operands actually scanned.
 
 ## Selected crate dependencies
 

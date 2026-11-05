@@ -9,6 +9,7 @@ claim admitted KB facts. Exact evidence is in
 | --- | --- |
 | [symbolic.weft](symbolic.weft) | Entailed readiness; refuted contrary premise; undetermined unrelated predicate |
 | [inconsistent.weft](inconsistent.weft) | Inconsistent premises, never an unrelated entailed conclusion |
+| [set-algebra.weft](set-algebra.weft) | Entailed union/intersection/difference scopes, membership hit/miss, inclusive subset and precedence; refuted false subset with its first-left counterexample and refuted non-emptiness of a typed empty |
 | [sets.weft](sets.weft) | Entailed known members; undetermined wider domain; entailed existence/non-emptiness |
 | [quantifier-models.weft](quantifier-models.weft) | Existential entailment without a uniform member; undetermined then refuted universal |
 | [empty-domain.weft](empty-domain.weft) | Explicit vacuous universal and refuted non-emptiness |

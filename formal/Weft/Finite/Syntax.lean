@@ -1,8 +1,9 @@
 import Weft.Finite.Sets
+import Weft.Finite.Algebra.Operations
 import Weft.Language.Elaboration
 
 namespace Weft.Finite.Syntax
-open Weft.Language Weft.Finite.Sets
+open Weft.Language Weft.Finite.Sets Weft.Finite.Algebra
 
 /-- Resolved lexical indices, not textual aliases. Global paths retain their old
 exact-path semantics, independently of reference-valued local bindings. -/
@@ -21,6 +22,11 @@ inductive SetExpr where
   /-- Resolved literal/spread concatenation: `{x, ...s}` is the union of a
   singleton and the captured set expression, never a scalar text coercion. -/
   | union (elementType : Ty) (left right : SetExpr)
+  /-- Revision-3 algebra: intersection and left difference over
+  same-element-type operands. `evalSet` delegates to the single authoritative
+  `Weft.Finite.Algebra` operations; there is no second evaluator. -/
+  | intersection (elementType : Ty) (left right : SetExpr)
+  | difference (elementType : Ty) (left right : SetExpr)
   | named (elementType : Ty) (index : Nat)
   | select (elementType : Ty) (base : Term) (selector : List String)
   deriving DecidableEq, Repr
@@ -31,6 +37,11 @@ inductive Atom where
   | notEqual (left right : Term)
   | predicate (name : PredicateName) (arguments : List Term)
   | setEqual (left right : SetExpr)
+  /-- Scalar/reference membership `x in a` and inclusive subset `a <= b`:
+  like set equality, these resolve to checked Boolean literals, never free
+  predicate atoms. -/
+  | member (element : Term) (set : SetExpr)
+  | subset (left right : SetExpr)
   deriving DecidableEq, Repr
 
 inductive Expr where
@@ -79,6 +90,7 @@ def SetExpr.elementType (ctx : Context) (env : TypeEnv) : SetExpr → Option Ty
   | .empty ty => some ty
   | .singleton term => termType ctx env term
   | .union ty _ _ | .named ty _ | .select ty _ _ => some ty
+  | .intersection ty _ _ | .difference ty _ _ => some ty
 
 def resolveTerm (ctx : Context) (env : Env) : Term → Option Member
   | .literal v => some ⟨v, []⟩
@@ -106,6 +118,14 @@ def evalSet (ctx : Context) (env : Env) : SetExpr → Option CapturedSet
       if a.elementType = ty ∧ b.elementType = ty then
         normalize ty (a.members ++ b.members) (a.origins ++ b.origins)
       else none
+  | .intersection ty left right => do
+      let a ← evalSet ctx env left
+      let b ← evalSet ctx env right
+      if a.elementType = ty ∧ b.elementType = ty then Algebra.intersection a b else none
+  | .difference ty left right => do
+      let a ← evalSet ctx env left
+      let b ← evalSet ctx env right
+      if a.elementType = ty ∧ b.elementType = ty then Algebra.difference a b else none
   | .named ty index => do
       let raw ← ctx.sets index
       if raw.elementType = ty then validate raw else none
@@ -140,6 +160,9 @@ def SetExpr.substitute (replacement : Nat → Term) : SetExpr → SetExpr
   | .empty ty => .empty ty
   | .singleton term => .singleton (term.substitute replacement)
   | .union ty a b => .union ty (a.substitute replacement) (b.substitute replacement)
+  | .intersection ty a b =>
+      .intersection ty (a.substitute replacement) (b.substitute replacement)
+  | .difference ty a b => .difference ty (a.substitute replacement) (b.substitute replacement)
   | .named ty i => .named ty i
   | .select ty base selector => .select ty (base.substitute replacement) selector
 
@@ -149,6 +172,8 @@ def Atom.substitute (replacement : Nat → Term) : Atom → Atom
   | .notEqual a b => .notEqual (a.substitute replacement) (b.substitute replacement)
   | .predicate n args => .predicate n (args.map (Term.substitute replacement))
   | .setEqual a b => .setEqual (a.substitute replacement) (b.substitute replacement)
+  | .member term set => .member (term.substitute replacement) (set.substitute replacement)
+  | .subset a b => .subset (a.substitute replacement) (b.substitute replacement)
 
 def Expr.substitute (replacement : Nat → Term) : Expr → Expr
   | .atom a => .atom (a.substitute replacement)

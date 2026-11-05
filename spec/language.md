@@ -1,12 +1,15 @@
 # Language contract
 
 Selected surface contract under the
-[revision-2 supplement](../handovers/revision-2/weft/AGENT_START_HERE.md).
-The original and finite-set/binder calculi are qualified in their recorded scopes.
-The selected local Rust frontend/evaluator is exercised; this specification and
-the [EBNF](grammar.ebnf) are not a parser-refinement theorem. Syntax, lexing and
-meaning remain separate, following Sovel's specification discipline rather than
-its language. See [runtime assurance](../docs/runtime-assurance.md).
+[revision-3 supplement](../handovers/revision-3/weft/AGENT_START_HERE.md),
+which extends the revision-2 finite language with native set algebra: union
+`|`, intersection `&`, left difference `-`, scalar membership `in` and
+inclusive subset `<=`. The original, finite-set/binder and set-algebra calculi
+are qualified in their recorded scopes. The selected local Rust
+frontend/evaluator is exercised; this specification and the
+[EBNF](grammar.ebnf) are not a parser-refinement theorem. Syntax, lexing and
+meaning remain separate, following Sovel's specification discipline rather
+than its language. See [runtime assurance](../docs/runtime-assurance.md).
 
 ## Why EBNF is only one part
 
@@ -34,9 +37,14 @@ These are Weft source constructs, not new Writfold method names or opcodes.
 - Space, tab, LF and CRLF separate tokens; an isolated CR is rejected outside a
   string escape. `//` starts a comment through the next newline or end of source.
   Comments are not recognized inside strings. No block comments.
-- Maximal munch recognizes `...` before field `.`, `:=` before `:`, and `==`/`!=`
-  before `=`. There is no standalone `!`; tokens cannot be joined across whitespace.
-  A keyword must end at an identifier boundary: `android` is one identifier.
+- Maximal munch recognizes `...` before field `.`, `:=` before `:`, and `==`,
+  `!=` and `<=` before `=`, `<` or `!`. There is no standalone `!`; tokens
+  cannot be joined across whitespace. A keyword must end at an identifier
+  boundary: `android` is one identifier. `|`, `&` and `-` are single-character
+  tokens with set-algebra meaning only; bare `<`, `>`, `>=`, `+`, `^`, `~`,
+  `&&` and `||` are not tokens of this language, and Unicode set-operator
+  spellings are not aliases. `in` is both the quantifier binder keyword and the
+  membership operator; lexical scope and keyword boundaries are unchanged.
 
 Keywords: `review`, `context`, `at`, `profile`, `target`, `proposal`, `claim`,
 `asset`, `rule`, `citation`, `need`, `assume`, `check`, `by`, `and`, `or`, `not`,
@@ -44,14 +52,23 @@ Keywords: `review`, `context`, `at`, `profile`, `target`, `proposal`, `claim`,
 
 ### Precedence and ambiguity decisions
 
-From tightest to loosest: field selection/calls; equality or inequality; `not`;
-`and`; `or`. Thus `not a.order == b.order` means `not (a.order == b.order)`.
+From tightest to loosest: field selection/calls; set atoms and parenthesized
+set expressions; `&`; `|` and `-` at equal precedence; `==`, `!=`, `in` and
+`<=` at one equal non-chaining comparison precedence; `not`; `and`; `or`.
+Binary set operators associate left. Thus `a | b & c` means `a | (b & c)`,
+`a | b - c` means `(a | b) - c`, and `not x in a` means `not (x in a)`.
 Boolean connective chains associate left; recursive `not` nests right.
 
-1. Comparisons do not chain: `a == b == c` is rejected. No implicit coercion
-   between numbers, strings, identities or units.
-2. Parentheses group propositions. Predicate arguments are scalar/reference values,
-   not arbitrary effectful expressions or native sets. Quantify over set members.
+1. Comparisons do not chain: `a == b == c`, `x in a <= b` and `a <= b == c`
+   are rejected. No implicit coercion between numbers, strings, identities or
+   units. `in` takes a scalar/reference left operand and a set right operand;
+   a set on the left of `in` or scalar operands of `<=` is a typing error.
+   `<=` is set-only inclusive subset, never integer ordering.
+2. Parentheses group propositions and set expressions in their respective
+   positions, including `forall x in (a - b) { x in a }` and
+   `{...(a | b), "x"}`. A spread consumes its set expression to the enclosing
+   item delimiter. Predicate arguments are scalar/reference values, not
+   arbitrary effectful expressions or native sets. Quantify over set members.
    Function return values cannot be nested as arguments in this profile.
 3. `asset x = citation "..."` binds evidence, not its semantic truth. `x.field`
    requires a profile-defined typed interpretation of those exact bytes.
@@ -64,6 +81,9 @@ Boolean connective chains associate left; recursive `not` nests right.
    The closing brace bounds the body; an outer `and`/`or` is outside that body.
 7. General recursion, arithmetic, imports, arbitrary functions, shell code,
    mutable assignment, automatic admission and implicit refresh are absent.
+   `|`/`&` are not Boolean or integer operators; `-` adds no signed literals;
+   there is no `+` alias, complement, symmetric difference, comprehension,
+   mutation or loop.
 
 ## Static meaning proposal
 
@@ -88,19 +108,57 @@ quantifier body. Unknown profiles/fields are not silently generalized away.
   does not grant usability. Rules also require qualified logical meaning and
   inherited assumptions; corpus admission alone does not prove soundness.
 - `name := set_expression` binds a finite immutable set, with no parallel `let`
-  form. Set literals contain scalar/reference members and typed `...set` spreads.
-  Sets are homogeneous; mixed nominal kinds/realms are not implicit coercions.
-  Equality ignores order/duplicates, while all origins and required reads survive.
-  Nested sets and set-valued predicate arguments are outside this profile.
-  Empty sets acquire element type from context or remain parametric where that
-  type is irrelevant; report ambiguity rather than choosing a concrete default.
+  form. Set literals contain scalar/reference members and typed `...set`
+  spreads. Sets are homogeneous; mixed nominal kinds/realms are not implicit
+  coercions. Equality ignores order/duplicates, while all origins and required
+  reads survive. Nested sets and set-valued predicate arguments are outside
+  this profile. Empty sets acquire element type from context or remain
+  parametric where that type is irrelevant; report ambiguity rather than
+  choosing a concrete default.
+- Set expressions combine with `a | b` (union), `a & b` (intersection) and
+  `a - b` (left difference) over same-element-type operands. A zero-member
+  result retains its inferred element type: intersection or difference must
+  not erase a type mismatch behind an empty result. Determine compatible
+  operand types before filtering members. Contextual element types propagate
+  through the complete operator tree, spreads, comparisons and binders, while
+  `{} <= {}` and `{} == {}` remain parametric-true.
+- Display order is deterministic and membership is duplicate-free. Union keeps
+  left members in first-occurrence order, then unseen right members in right
+  order — the same membership and order `{...a, ...b}` produces. Intersection
+  and difference keep qualifying left members in left order. Algebraic laws
+  concern membership; swapping operands can change display order and source
+  provenance, and must not be sorted away.
+- `x in a` is exact typed membership of scalar/reference `x` in set `a`, and
+  `a <= b` is inclusive subset including equality. Both are propositions,
+  usable in `assume`, `check`, Boolean combinations and quantified bodies.
+  A false subset retains a deterministic first-left counterexample member in
+  its explanation. Membership/subset is about exact finite operands, never
+  truth of a predicate about a member or a model-relative symbolic witness.
+- A successful algebra result or predicate requires both operands completely
+  materialized and typed, including the whole RHS set of `in` and both whole
+  sets of `<=`. Origins record surviving member identities, while the complete
+  operation-level dependency closure (including eliminated members and the
+  entire right operand of a difference) stays reachable as operand evidence.
+  `a - a`, `{} & a`, `a & {}`, `{} <= a` and an already-true membership probe
+  do not license dropping required reads, unknown inputs or failed
+  materialization; an implementation may fail explicitly but never succeed
+  from a skipped or incomplete operand.
+- `raw_occurrences` counts members supplied to this result's normalization, not
+  total transitive source occurrences. Union supplies both normalized operand
+  lists (cardinality sum before cross-operand deduplication); intersection and
+  difference supply each qualifying/surviving left member once, so their
+  normalization input counts equal result cardinality. These counts do not
+  measure inspected or removed inputs: both complete operand traversals are
+  charged separately, even for zero output. A derived set has a fresh local
+  materialization observation, never a fabricated imported-source history.
 - `need x` makes x a required grounding dependency even if no expression mentions
   it. Every binding is resolved/assessed and listed, but unused optional bindings
   do not silently become proof premises. Used bindings add dependencies without
   requiring a redundant `need` declaration. `need` may name a target, evidence
   binding, hypothesis or set, not a check result. For a set, require its complete
-  materialization and all captured/member dependencies. Required hypotheses must
-  be discharged for strict grounding.
+  materialization and all captured/member dependencies; an explicit `need` on an
+  empty computed binding still requires its full captured closure. Repeated or
+  diamond expressions share origin nodes rather than exponentially copied history.
 - `assume h: P` records a hypothetical premise for subsequent checks. It never
   writes P into Writfold. The hypothesis label is diagnostic, not a Boolean
   variable or a substitute for a Writfold claim.
@@ -118,7 +176,6 @@ and empty `exists` is false; reports disclose vacuity and the actual member coun
 `exists x in S { true }` expresses non-emptiness. No literal, spread or search result
 implicitly certifies all relevant KB objects or all plan dependencies.
 
-
 ## Evaluation proposal
 
 Capture exact inputs through shared Writfold operations; obtain the applicable
@@ -131,7 +188,9 @@ connectives combine its classical values only after the necessary interpretation
 succeed. Do not treat acquisition/type/interpretation failures as Boolean false,
 including under `not`. Evaluate and report required dependencies even if a pure
 Boolean branch could short-circuit. Missing evidence is a report gap, not a
-formula literal.
+formula literal. Membership and subset are decided only after both operands
+resolve and materialize completely; unavailable operands have no Boolean
+denotation, and a failure is never non-membership.
 Materialize every set member/spread before normalization; a missing/expired/denied
 input cannot disappear as a duplicate or become an empty collection. Preserve
 first-occurrence display order, exact typed membership and a shared origin DAG.
@@ -140,6 +199,13 @@ limits on set work, quantifier depth, body instances, atoms, valuations and outp
 Universal/existential lowering is complete conjunction/disjunction, not a partial
 loop prefix. Keep per-member explanations, witnesses/counterexamples and all
 hypothesis/dependency linkage. Unknown or incomplete work grants no conclusion.
+
+All source traversal, member comparisons, normalization, provenance nodes and
+report expansion are bounded by admitted limits. A nested membership scan can be
+quadratic in operand sizes; the cost model charges the actual scan work, not only
+linear member counts, and exhaustion is explicit incomplete work: no partial set
+binding, Boolean comparison or completed quantified verdict. Budget accounting is
+specified before its budget laws are proved.
 
 
 The selected logical core is finite propositional reasoning over typed ground
@@ -164,6 +230,8 @@ here authorizes effects or promotes a report into the knowledge base.
 | `need` / `assume` | Preserve requirements and hypothetical origins; no authority | Lean and local runtime closure/invalid-premise cases exercised |
 | `check`/connectives | Honest finite outcomes and consistency; no effects | Lean-qualified semantics and source-bound runtime conformance |
 | `:=` / set literal / spread | Homogeneous finite membership, immutable state, complete origins | Revision-2 proofs plus actual normalization, spread/diamond and failure cases |
+| `\|` / `&` / `-` algebra | Exact memberships, typed empties, deterministic order, complete operand closure, honest normalization counts | Revision-3 proofs plus actual operand/closure/budget cases |
+| `in` / `<=` predicates | Typed membership, inclusive subset, first-left counterexamples, refusal on unavailable operands | Revision-3 proofs plus actual hit/miss, true/false/equal and refusal cases |
 | `forall` / `exists` | Hygienic binders, complete finite expansion, vacuity and instance traces | Revision-2 proofs plus actual shadowing, alpha-renaming, witness and budget cases |
 
 No grammar family gets a default "safe" case. New source forms require their own

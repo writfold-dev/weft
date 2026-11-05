@@ -47,4 +47,6 @@ mod semantic_tests;
 mod type_boundary_tests;
 
 #[cfg(test)]
+mod algebra_tests;
+#[cfg(test)]
 mod example_tests;

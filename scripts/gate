@@ -164,7 +164,8 @@ def main() -> int:
             producer_inputs += ["scripts/rust_gate.py", "scripts/prepare_rust.py"]
         if args.gate == "rust":
             producer_inputs += ["scripts/run_rust.py", "scripts/rust_smoke.py", "scripts/nominal_cases.py",
-                                "scripts/rust_differential.py", "scripts/rust_scenarios.py", "scripts/lint_cases.py"]
+                                "scripts/rust_differential.py", "scripts/rust_scenarios.py", "scripts/lint_cases.py",
+                                "scripts/algebra_differential.py"]
         record["producer_inputs"] = manifest(ROOT, producer_inputs)
         record["producer_snapshot"] = capture_sources(
             ROOT, producer_inputs + TOOL_INPUTS, receipt.parent / "producer-source.zip",

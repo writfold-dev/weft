@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 from evidence import digest, require_success, run_logged
+from algebra_differential import compare as algebra_compare
 from rust_differential import compare, requests_for
 from rust_scenarios import EXAMPLES, scenarios
 
@@ -103,9 +104,11 @@ def qualify(root: Path, evidence: Path, binary: Path, reference: Path, finite_re
         raise ValueError('human report failed or emitted terminal escape controls')
     require_success(run_logged([str(finite_reference)], root, evidence, 'finite-reference'))
     finite = [json.loads(line) for line in (evidence / 'finite-reference.stdout').read_text().splitlines()]
-    if len(finite) != 17 or any(case['passed'] is not True for case in finite):
+    if len(finite) != 27 or any(case['passed'] is not True for case in finite):
         raise ValueError('qualified finite reference changed behavior')
     differential = compare(root, evidence, reference, requests)
+    algebra = algebra_compare(binary, finite)
     return {'status': 'pass', 'binary_sha256': digest(binary), 'cases': cases,
             'analysis': record, 'human': human, 'finite_reference': finite,
-            'differential': differential, 'child_PATH': '/no-toolchain'}
+            'differential': differential, 'algebra_differential': algebra,
+            'child_PATH': '/no-toolchain'}

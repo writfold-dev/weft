@@ -132,6 +132,11 @@ impl<'s> Lower<'_, 's> {
         right: &ast::Comparable<'s>,
         span: SourceSpan,
     ) -> Result<Lowered, Diagnostic> {
+        match operation {
+            Comparison::Member => return self.membership(left, right, span),
+            Comparison::Subset => return self.subset(left, right, span),
+            Comparison::Equal | Comparison::NotEqual => {}
+        }
         let (equal, detail, origins) = if self.is_set(left) {
             let left = self.comparable_set(left, span)?;
             let right = self.comparable_set(right, span)?;
@@ -158,6 +163,7 @@ impl<'s> Lower<'_, 's> {
                     operation,
                     left,
                     right,
+                    counterexample: None,
                 },
                 vec![left_origin, right_origin],
             )
@@ -183,6 +189,9 @@ impl<'s> Lower<'_, 's> {
         let result = match operation {
             Comparison::Equal => equal,
             Comparison::NotEqual => !equal,
+            Comparison::Member | Comparison::Subset => {
+                return Err(self.invalid(span, "unreachable comparison operation"));
+            }
         };
         self.node(
             FormulaOp::Literal(result),
@@ -190,6 +199,82 @@ impl<'s> Lower<'_, 's> {
             OriginKind::Comparison,
             span,
             origins,
+            Vec::new(),
+        )
+    }
+
+    /// `x in s`: the scalar and the whole right-hand set are materialized
+    /// before the typed probe; an unavailable set is never non-membership.
+    fn membership(
+        &mut self,
+        left: &ast::Comparable<'s>,
+        right: &ast::Comparable<'s>,
+        span: SourceSpan,
+    ) -> Result<Lowered, Diagnostic> {
+        let ast::Comparable::Value(left_value) = left else {
+            return Err(self.invalid(span, "membership probe must be a scalar value"));
+        };
+        let (value, value_origin) = self.value(left_value)?;
+        let set = self.comparable_set(right, span)?;
+        let member = self
+            .checked
+            .builder
+            .set_member(value, set)
+            .map_err(|error| self.failure(error, span))?;
+        let set_origin = self
+            .checked
+            .builder
+            .set(set)
+            .ok_or_else(|| self.invalid(span, "missing membership set"))?
+            .origin;
+        self.node(
+            FormulaOp::Literal(member),
+            NodeDetail::Membership { value, set },
+            OriginKind::Comparison,
+            span,
+            vec![value_origin, set_origin],
+            Vec::new(),
+        )
+    }
+
+    /// `a <= b`: both whole sets materialized; a false subset keeps the
+    /// deterministic first-left counterexample member for the report.
+    fn subset(
+        &mut self,
+        left: &ast::Comparable<'s>,
+        right: &ast::Comparable<'s>,
+        span: SourceSpan,
+    ) -> Result<Lowered, Diagnostic> {
+        let left = self.comparable_set(left, span)?;
+        let right = self.comparable_set(right, span)?;
+        let (holds, counterexample) = self
+            .checked
+            .builder
+            .set_subset(left, right)
+            .map_err(|error| self.failure(error, span))?;
+        let left_origin = self
+            .checked
+            .builder
+            .set(left)
+            .ok_or_else(|| self.invalid(span, "missing comparison set"))?
+            .origin;
+        let right_origin = self
+            .checked
+            .builder
+            .set(right)
+            .ok_or_else(|| self.invalid(span, "missing comparison set"))?
+            .origin;
+        self.node(
+            FormulaOp::Literal(holds),
+            NodeDetail::SetComparison {
+                operation: Comparison::Subset,
+                left,
+                right,
+                counterexample: counterexample.map(|member| member.value),
+            },
+            OriginKind::Comparison,
+            span,
+            vec![left_origin, right_origin],
             Vec::new(),
         )
     }

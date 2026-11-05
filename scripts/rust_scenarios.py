@@ -6,6 +6,8 @@ EXAMPLES = {
     'sets': ['entailed', 'undetermined', 'entailed', 'entailed'],
     'quantifier-models': ['entailed', 'undetermined', 'refuted'],
     'empty-domain': ['entailed', 'refuted'],
+    'set-algebra': ['entailed', 'entailed', 'entailed', 'entailed', 'entailed', 'entailed',
+                    'entailed', 'refuted', 'entailed', 'refuted', 'entailed'],
 }
 
 
@@ -41,6 +43,40 @@ def scenarios() -> list[tuple[str, bytes, int, list[str]]]:
         ('mixed-set', 'xs := {1,"1"}; check bad: exists x in xs { true };', 2, ['not-evaluated']),
         ('no-let-alias', 'let xs := {1};', 2, []),
         ('typed-no-coercion', 'check bad: 1 == "1";', 2, ['not-evaluated']),
+        # Revision-3 set algebra.
+        ('algebra-exact', 'a := {1,2,3}; b := {2,3,4}; u := a | b; i := a & b; d := a - b; '
+         'check union_exact: u == {1,2,3,4}; check inter_exact: i == {2,3}; check diff_exact: d == {1}; '
+         'check disjoint: ({1} & {2}) == {};', 1,
+         ['entailed', 'entailed', 'entailed', 'entailed']),
+        ('algebra-precedence', 'a := {1,2,3}; i := a & {2}; x := a | {9} & i; y := a | i - {1}; '
+         'check ampersand: x == {1,2,3}; check alternation: y == {2,3}; '
+         'check grouped: (a - {1}) == {2,3};', 1,
+         ['entailed', 'entailed', 'entailed']),
+        ('algebra-membership-subset', 'a := {1,2,3}; b := {2,3,4}; '
+         'check hit: 2 in a; check miss: not (9 in a); check inclusive: a <= a; '
+         'check sub: (a & b) <= a; check false_sub: not (a <= (a & b));', 1,
+         ['entailed', 'entailed', 'entailed', 'entailed', 'entailed']),
+        ('algebra-typed-empties', 'n := {1} - {1}; texts := {"x"} - {"x"}; '
+         'check vacuous: forall x in n { false }; check exists_empty: exists x in texts { true }; '
+         'check parametric: {} == {};', 1, ['entailed', 'refuted', 'entailed']),
+        ('algebra-mixed-refused', 'xs := {1,"1"} | {2};', 2, []),
+        ('algebra-numeric-subset-refused', 'xs := {1}; check bad: 1 <= xs;', 2, ['not-evaluated']),
+        ('algebra-set-left-membership-refused', 'xs := {1}; check bad: xs in xs;', 2, ['not-evaluated']),
+        ('algebra-chained-comparison-refused', 'xs := {1}; check bad: 1 in xs <= xs;', 2, []),
+        ('algebra-unsupported-operators', 'check bad: 1 + 2 == 3;', 2, []),
+        ('algebra-unavailable-operand', 'good := {1}; bad := {...good,missing}; '
+         'check hidden: ({1} - bad) == {};', 2, ['not-evaluated']),
+        ('algebra-empty-need-closure', 'a := {1}; e := a - a; need e; '
+         'check vacuous_true: forall x in e { false }; check exists_false: exists x in e { true };', 1,
+         ['entailed', 'refuted']),
+        ('algebra-derived-domain', 'a := {1,2,3}; d := a - {2}; '
+         'check kept: forall x in d { x in a and not (x in {2}) }; '
+         'check witness: exists x in d { x == 3 };', 1, ['entailed', 'entailed']),
+        ('algebra-shadowing-domain', 'x := {7}; '
+         'check outer_domain: exists y in ({8} | x) { y == 7 }; '
+         'check binder_shadows: forall x in {8} { x == 8 };', 1, ['entailed', 'entailed']),
+        ('algebra-failed-binding-atomic', 'good := {1}; bad := {2} & missing; '
+         'check preserved: good == {1}; check blocked: 1 in bad;', 2, ['entailed', 'not-evaluated']),
     ]
     result = [(name, review(body).encode(), code, verdicts) for name, body, code, verdicts in cases]
     atoms = ' and '.join(f'(p{n}() or not p{n}())' for n in range(17))

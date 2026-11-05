@@ -64,9 +64,15 @@ impl Publication {
                 }
                 _ => {}
             }
-            if let NodeDetail::SetComparison { left, right, .. } = node.detail {
-                self.set(theory, left)?;
-                self.set(theory, right)?;
+            match node.detail {
+                NodeDetail::SetComparison { left, right, .. } => {
+                    self.set(theory, left)?;
+                    self.set(theory, right)?;
+                }
+                NodeDetail::Membership { set, .. } => {
+                    self.set(theory, set)?;
+                }
+                _ => {}
             }
         }
         Ok(())
@@ -93,8 +99,15 @@ impl Publication {
             for parent in &origin.parents {
                 mark(&mut self.origins, parent.index())?;
             }
-            if let OriginKind::Spread(set) = origin.kind {
-                self.set(theory, set)?;
+            match origin.kind {
+                OriginKind::Spread(set) => {
+                    self.set(theory, set)?;
+                }
+                OriginKind::SetOperation { left, right, .. } => {
+                    self.set(theory, left)?;
+                    self.set(theory, right)?;
+                }
+                _ => {}
             }
         }
         Ok(())

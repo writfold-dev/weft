@@ -48,6 +48,14 @@ pub(crate) fn contents(
         })
     })
 }
+fn set_operation(operation: weft_domain::SetOperation) -> &'static str {
+    match operation {
+        weft_domain::SetOperation::Union => "union",
+        weft_domain::SetOperation::Intersection => "intersection",
+        weft_domain::SetOperation::Difference => "difference",
+    }
+}
+
 pub(crate) fn origins(
     j: &mut Json,
     theory: &Theory,
@@ -80,6 +88,16 @@ pub(crate) fn origins(
                         OriginKind::Spread(id) => {
                             j.text("kind", "set-spread")?;
                             j.count("set", id.index())
+                        }
+                        OriginKind::SetOperation {
+                            operation,
+                            left,
+                            right,
+                        } => {
+                            j.text("kind", "set-operation")?;
+                            j.text("operator", set_operation(operation))?;
+                            j.count("left_set", left.index())?;
+                            j.count("right_set", right.index())
                         }
                         OriginKind::SetMember => j.text("kind", "set-member"),
                         OriginKind::Normalize => j.text("kind", "normalize"),

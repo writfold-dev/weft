@@ -199,13 +199,15 @@ impl<'s> Scanner<'s, '_> {
             ':' if self.starts(":=") => (Kind::Bind, 2),
             '=' if self.starts("==") => (Kind::Equal, 2),
             '!' if self.starts("!=") => (Kind::NotEqual, 2),
+            '<' if self.starts("<=") => (Kind::SubsetOrEqual, 2),
             '{' => (Kind::LeftBrace, 1), '}' => (Kind::RightBrace, 1),
             '(' => (Kind::LeftParen, 1), ')' => (Kind::RightParen, 1),
             ';' => (Kind::Semicolon, 1), ',' => (Kind::Comma, 1),
             '.' => (Kind::Dot, 1), ':' => (Kind::Colon, 1), '=' => (Kind::Assign, 1),
+            '|' => (Kind::Pipe, 1), '&' => (Kind::Ampersand, 1), '-' => (Kind::Minus, 1),
             _ => return Err(self.error(Code::InvalidCharacter, self.position,
                 self.position + ch.len_utf8(), "Character is not a Weft token",
-                "ASCII identifier, literal, delimiter, ==, !=, := or ...",
+                "ASCII identifier, literal, delimiter, ==, !=, <=, :=, |, &, - or ...",
                 "Remove unsupported syntax; operators must be contiguous and identifiers must be ASCII.")),
         };
         self.position += bytes;

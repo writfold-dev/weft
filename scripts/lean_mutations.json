@@ -37,8 +37,8 @@
     {
       "id": "M05-enumeration",
       "file": "Weft/Logic/Enumeration.lean",
-      "search": "smaller.map (false :: ·) ++ smaller.map (true :: ·)",
-      "replacement": "smaller.map (false :: ·)",
+      "search": "smaller.map (false :: \u00b7) ++ smaller.map (true :: \u00b7)",
+      "replacement": "smaller.map (false :: \u00b7)",
       "expected_error_file": "Weft/Logic/Enumeration.lean",
       "theorem_family": "L05"
     },
@@ -93,8 +93,8 @@
     {
       "id": "M12-authority",
       "file": "Weft/Grounding/Trace.lean",
-      "search": "⟨⟨state.authority, state.reports ++ [report]⟩, some report, none⟩",
-      "replacement": "⟨⟨{ state.authority with revision := state.authority.revision + 1 }, state.reports ++ [report]⟩, some report, none⟩",
+      "search": "\u27e8\u27e8state.authority, state.reports ++ [report]\u27e9, some report, none\u27e9",
+      "replacement": "\u27e8\u27e8{ state.authority with revision := state.authority.revision + 1 }, state.reports ++ [report]\u27e9, some report, none\u27e9",
       "expected_error_file": "Weft/Grounding/Trace.lean",
       "theorem_family": "L12"
     },
@@ -117,8 +117,8 @@
     {
       "id": "M15-set-membership",
       "file": "Weft/Finite/Sets.lean",
-      "search": "x :: (unique xs).filter (fun y => decide (y ≠ x))",
-      "replacement": "(unique xs).filter (fun y => decide (y ≠ x))",
+      "search": "x :: (unique xs).filter (fun y => decide (y \u2260 x))",
+      "replacement": "(unique xs).filter (fun y => decide (y \u2260 x))",
       "expected_error_file": "Weft/Finite/Sets.lean",
       "theorem_family": "Q01"
     },
@@ -181,7 +181,7 @@
     {
       "id": "M23-capture-budget",
       "file": "Weft/Finite/CaptureBudget.lean",
-      "search": "if amount ≤ budget then some ((), budget - amount) else none",
+      "search": "if amount \u2264 budget then some ((), budget - amount) else none",
       "replacement": "if True then some ((), budget - amount) else none",
       "expected_error_file": "Weft/Finite/CaptureBudget.lean",
       "theorem_family": "Q09"
@@ -193,6 +193,102 @@
       "replacement": "True",
       "expected_error_file": "Weft/Finite/Quantifiers.lean",
       "theorem_family": "Q10"
+    },
+    {
+      "id": "M25-union-drops-right",
+      "file": "Weft/Finite/Algebra/Operations.lean",
+      "search": "def unionMembers (left right : CapturedSet) : List Member :=\n  left.members ++ right.members",
+      "replacement": "def unionMembers (left right : CapturedSet) : List Member :=\n  left.members",
+      "expected_error_file": "Weft/Finite/Algebra/Operations.lean",
+      "theorem_family": "A01"
+    },
+    {
+      "id": "M26-difference-direction",
+      "file": "Weft/Finite/Algebra/Operations.lean",
+      "search": "def differenceMembers (left right : CapturedSet) : List Member :=\n  left.members.filter (fun m => decide (\u00ac m.value \u2208 values right))",
+      "replacement": "def differenceMembers (left right : CapturedSet) : List Member :=\n  left.members.filter (fun m => decide (m.value \u2208 values right))",
+      "expected_error_file": "Weft/Finite/Algebra/Operations.lean",
+      "theorem_family": "A01"
+    },
+    {
+      "id": "M27-intersection-as-union",
+      "file": "Weft/Finite/Algebra/Operations.lean",
+      "search": "def intersectionMembers (left right : CapturedSet) : List Member :=\n  (left.members.filter (fun m => decide (m.value \u2208 values right))).map",
+      "replacement": "def intersectionMembers (left right : CapturedSet) : List Member :=\n  (left.members.filter (fun m => decide True)).map",
+      "expected_error_file": "Weft/Finite/Algebra/Operations.lean",
+      "theorem_family": "A01"
+    },
+    {
+      "id": "M28-union-display-order",
+      "file": "Weft/Finite/Algebra/Operations.lean",
+      "search": "def unionMembers (left right : CapturedSet) : List Member :=\n  left.members ++ right.members",
+      "replacement": "def unionMembers (left right : CapturedSet) : List Member :=\n  right.members ++ left.members",
+      "expected_error_file": "Weft/Finite/Algebra/Operations.lean",
+      "theorem_family": "A01"
+    },
+    {
+      "id": "M29-algebra-type-check",
+      "file": "Weft/Finite/Algebra/Operations.lean",
+      "search": "def intersection (left right : CapturedSet) : Option CapturedSet :=\n  if left.elementType = right.elementType then",
+      "replacement": "def intersection (left right : CapturedSet) : Option CapturedSet :=\n  if True then",
+      "expected_error_file": "Weft/Finite/Algebra/Operations.lean",
+      "theorem_family": "A02"
+    },
+    {
+      "id": "M30-subset-strict",
+      "file": "Weft/Finite/Algebra/Operations.lean",
+      "search": "    some (left.members.all (fun m => decide (m.value \u2208 values right)))",
+      "replacement": "    some ((left.members.all (fun m => decide (m.value \u2208 values right))) &&\n      !(right.members.all (fun m => decide (m.value \u2208 values left))))",
+      "expected_error_file": "Weft/Finite/Algebra/Predicates.lean",
+      "theorem_family": "A03"
+    },
+    {
+      "id": "M31-unavailable-membership-false",
+      "file": "Weft/Finite/Semantics.lean",
+      "search": "  | .member term set => do\n      let x \u2190 resolveTerm ctx env term\n      let captured \u2190 evalSet ctx env set\n      let result \u2190 Algebra.member x.value captured\n      some \u27e8.boolean result, x.origins ++ captured.origins\u27e9",
+      "replacement": "  | .member term set => do\n      let x \u2190 resolveTerm ctx env term\n      match evalSet ctx env set with\n      | none => some \u27e8.boolean false, x.origins\u27e9\n      | some captured => do\n        let result \u2190 Algebra.member x.value captured\n        some \u27e8.boolean result, x.origins ++ captured.origins\u27e9",
+      "expected_error_file": "Weft/Finite/Algebra/Predicates.lean",
+      "theorem_family": "A03"
+    },
+    {
+      "id": "M32-difference-drops-right-origins",
+      "file": "Weft/Finite/Algebra/Operations.lean",
+      "search": "def difference (left right : CapturedSet) : Option CapturedSet :=\n  if left.elementType = right.elementType then\n    normalize left.elementType (differenceMembers left right) (left.origins ++ right.origins)",
+      "replacement": "def difference (left right : CapturedSet) : Option CapturedSet :=\n  if left.elementType = right.elementType then\n    normalize left.elementType (differenceMembers left right) left.origins",
+      "expected_error_file": "Weft/Finite/Algebra/Operations.lean",
+      "theorem_family": "A04"
+    },
+    {
+      "id": "M33-substitution-skips-difference",
+      "file": "Weft/Finite/Syntax.lean",
+      "search": "  | .difference ty a b => .difference ty (a.substitute replacement) (b.substitute replacement)",
+      "replacement": "  | .difference ty a b => .difference ty a b",
+      "expected_error_file": "Weft/Finite/SubstitutionTyping.lean",
+      "theorem_family": "A05"
+    },
+    {
+      "id": "M34-forged-operation-trace",
+      "file": "Weft/Finite/Algebra/Traces.lean",
+      "search": "def checkOperationTrace (kind : TraceKind) (left right : CapturedSet)\n    (metadata : TraceContext) (trace : OperationTrace) : Bool :=\n  decide (makeOperationTrace kind left right metadata = some trace)",
+      "replacement": "def checkOperationTrace (kind : TraceKind) (left right : CapturedSet)\n    (metadata : TraceContext) (trace : OperationTrace) : Bool :=\n  true",
+      "expected_error_file": "Weft/Finite/Algebra/Traces.lean",
+      "theorem_family": "A06"
+    },
+    {
+      "id": "M35-budget-bypass",
+      "file": "Weft/Finite/CaptureBudget.lean",
+      "search": "def operands (left right : CapturedSet) : Program (some ()) :=\n  (acceptSet left).after (fun _ => (acceptSet right).after (fun _ => spend 1))",
+      "replacement": "def operands (_left _right : CapturedSet) : Program (some ()) :=\n  (Program.pure ()).after (fun _ => (Program.pure ()).after (fun _ => spend 1))",
+      "expected_error_file": "Weft/Finite/Algebra/Budget.lean",
+      "theorem_family": "A07"
+    },
+    {
+      "id": "M36-algebra-authority-upgrade",
+      "file": "Weft/Finite/Algebra/Traces.lean",
+      "search": "      normalizationInput := (operationInput kind left right).length,\n      dependencies := (left.origins ++ right.origins) ++ contextOrigins metadata,\n      context := contextView metadata }",
+      "replacement": "      normalizationInput := (operationInput kind left right).length,\n      dependencies := (left.origins ++ right.origins) ++ contextOrigins metadata,\n      context := { contextView metadata with effectAuthority := true } }",
+      "expected_error_file": "Weft/Finite/Algebra/Traces.lean",
+      "theorem_family": "A08"
     }
   ]
 }

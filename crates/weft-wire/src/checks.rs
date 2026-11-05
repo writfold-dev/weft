@@ -198,6 +198,19 @@ fn explanation(
                     "The exact typed operands are equal, so this inequality is false; their values are shown in the comparison trace. Every model of the preceding assumptions refutes this local check. No real-world falsity is asserted.",
                 );
             }
+            NodeDetail::Membership { .. } => {
+                return Ok(
+                    "The exact typed scalar is absent from the materialized finite set, so this membership is false; the operand records are shown in the comparison trace. Every model of the preceding assumptions refutes this local check. No real-world absence beyond the supplied set is asserted.",
+                );
+            }
+            NodeDetail::SetComparison {
+                operation: Comparison::Subset,
+                ..
+            } => {
+                return Ok(
+                    "A concrete first-left member of the left set is absent from the right set, so this subset is false; the counterexample member is shown in the comparison trace. Every model of the preceding assumptions refutes this local check. No real-world inventory claim is made.",
+                );
+            }
             _ => {}
         }
     }

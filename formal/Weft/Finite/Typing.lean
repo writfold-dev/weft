@@ -19,10 +19,16 @@ def legacyCheck (ctx : Context) : Surface → Bool
   | .neg e => legacyCheck ctx e
   | .conj a b | .disj a b => legacyCheck ctx a && legacyCheck ctx b
 
+/-- Algebra operands must be well-typed sets of the same element type; the
+comparison unifies complete operand types before any filtering. -/
 def checkSet (ctx : Context) (env : TypeEnv) : SetExpr → Bool
   | .empty _ => true
   | .singleton term => (termType ctx env term).isSome
   | .union ty a b => checkSet ctx env a && checkSet ctx env b &&
+      sameType (a.elementType ctx env) (some ty) && sameType (b.elementType ctx env) (some ty)
+  | .intersection ty a b => checkSet ctx env a && checkSet ctx env b &&
+      sameType (a.elementType ctx env) (some ty) && sameType (b.elementType ctx env) (some ty)
+  | .difference ty a b => checkSet ctx env a && checkSet ctx env b &&
       sameType (a.elementType ctx env) (some ty) && sameType (b.elementType ctx env) (some ty)
   | .named ty i => match ctx.sets i with
       | none => false
@@ -38,6 +44,10 @@ def checkAtom (ctx : Context) (env : TypeEnv) : Atom → Bool
       | none => false
       | some signature => decide (args.map (termType ctx env) = signature.map some)
   | .setEqual a b => checkSet ctx env a && checkSet ctx env b &&
+      sameType (a.elementType ctx env) (b.elementType ctx env)
+  | .member term set => (termType ctx env term).isSome && checkSet ctx env set &&
+      sameType (termType ctx env term) (set.elementType ctx env)
+  | .subset a b => checkSet ctx env a && checkSet ctx env b &&
       sameType (a.elementType ctx env) (b.elementType ctx env)
 
 /-- Validation descends into the body before inspecting domain cardinality.

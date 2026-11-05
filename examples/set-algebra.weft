@@ -1,0 +1,39 @@
+review set_algebra {
+  context "local" at "exact-source";
+  profile "weft.symbolic/1";
+  target plan = proposal "set-algebra-tour";
+
+  // Native finite set algebra: union `|`, intersection `&`, left difference
+  // `-`, scalar membership `in` and inclusive subset `<=`.
+  shared := {1, 2, 3};
+  extra := {2, 3, 4};
+
+  union := shared | extra;            // {1,2,3,4}, left order then unseen right
+  intersection := shared & extra;     // {2,3}, qualifying left order
+  difference := shared - extra;       // {1}, survivors keep left origins
+
+  // Parentheses compose in every set position, including quantifier domains.
+  check union_scope: forall x in union { x in shared or x in extra };
+  check intersection_members: forall x in intersection { x in shared and x in extra };
+  check difference_members: forall x in difference { not (x in extra) };
+
+  // Membership hit/miss and inclusive subset, including equality.
+  check member_hit: 2 in intersection;
+  check member_miss: not (1 in intersection);
+  check subset_reflexive: shared <= shared;
+  check subset_true: intersection <= shared;
+
+  // A false subset keeps the deterministic first-left counterexample (4).
+  need difference;
+  check subset_false: extra <= shared;
+
+  // Quantification over a derived domain; the empty result of a - a keeps
+  // its element type and its whole operand evidence.
+  empty := shared - shared;
+  check vacuous: forall x in empty { false };
+  check exhaustive: exists x in empty { true };
+
+  // Precedence: & binds tighter than | and -; comparisons bind loosest.
+  precedence := shared | {9} & intersection - {2};
+  check precedence_shape: precedence == {1,3};
+}

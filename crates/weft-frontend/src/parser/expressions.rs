@@ -61,7 +61,34 @@ impl<'s> Parser<'s, '_> {
 
     fn atom(&mut self) -> ParseResult<ExprId> {
         match self.cursor.kind() {
-            Kind::LeftParen => self.group(),
+            Kind::LeftParen => {
+                // One bounded alternative: `(a | b) == c` is a set group.
+                // If the parenthesized content is not a set expression,
+                // rewind and parse a parenthesized proposition instead.
+                let saved = self.cursor.snapshot();
+                let grouped = (|| -> ParseResult<Comparable<'s>> {
+                    let start = self.cursor.expect(Kind::LeftParen)?.span;
+                    let inner = self.set_expression()?;
+                    let end = self.cursor.expect(Kind::RightParen)?.span;
+                    let span = self.cursor.cover(start, end)?;
+                    self.cursor.depth(self.set(inner)?.depth, span)?;
+                    Ok(Comparable::Set(inner))
+                })();
+                match grouped {
+                    Ok(left) => self.comparison(left),
+                    Err(set_failure) => {
+                        let limit_hit = matches!(
+                            set_failure.as_ref().code,
+                            weft_domain::Code::LimitExceeded
+                        );
+                        self.cursor.restore(saved);
+                        if limit_hit {
+                            return Err(set_failure);
+                        }
+                        self.group()
+                    }
+                }
+            }
             Kind::Keyword("forall") => self.quantifier(QuantifierKind::Forall),
             Kind::Keyword("exists") => self.quantifier(QuantifierKind::Exists),
             Kind::Ident => {
@@ -69,7 +96,8 @@ impl<'s> Parser<'s, '_> {
                 if self.cursor.kind() == Kind::LeftParen { self.predicate(name) }
                 else {
                     let path = self.path(name)?;
-                    self.comparison(Comparable::Value(Value::Path(path)))
+                    let left = self.comparable_after_path(path)?;
+                    self.comparison(left)
                 }
             }
             Kind::LeftBrace | Kind::String | Kind::Natural | Kind::Keyword("true" | "false") => {
@@ -97,20 +125,32 @@ impl<'s> Parser<'s, '_> {
         let operation = match self.cursor.kind() {
             Kind::Equal => Comparison::Equal,
             Kind::NotEqual => Comparison::NotEqual,
+            Kind::SubsetOrEqual => Comparison::Subset,
+            Kind::Keyword("in") => Comparison::Member,
             _ => {
                 if let Comparable::Value(Value::Boolean(value, span)) = left {
                     return self.push_expr(ExprKind::Boolean(value), span, 1);
                 }
-                return Err(self.cursor.expected("== or !=",
+                if matches!(
+                    self.cursor.kind(),
+                    Kind::Pipe | Kind::Ampersand | Kind::Minus
+                ) {
+                    return Err(self.cursor.expected("a comparison operator",
+                        "Set operators (|, &, -) apply to finite sets, not to scalar values; compare with ==, !=, in or <=."));
+                }
+                return Err(self.cursor.expected("==, !=, in or <=",
                     "Compare two scalar values or sets; a bare value/path/set is not a proposition."));
             }
         };
         self.cursor.take()?;
         let right = self.comparable()?;
-        if matches!(self.cursor.kind(), Kind::Equal | Kind::NotEqual) {
+        if matches!(
+            self.cursor.kind(),
+            Kind::Equal | Kind::NotEqual | Kind::SubsetOrEqual | Kind::Keyword("in")
+        ) {
             return Err(self.cursor.expected(
                 "Boolean connective or end of proposition",
-                "Comparisons cannot chain; write a == b and b == c instead.",
+                "Comparisons cannot chain; write a == b and b == c, or x in s and s <= t, instead.",
             ));
         }
         let (left_span, left_depth) = self.comparable_shape(&left)?;

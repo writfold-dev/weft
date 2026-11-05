@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "authority": "handovers/revision-2/weft",
+  "manifest_sha256": "cc21e72ee748b2d293aa25a737b82d7b58295d024c56f88b52aa4eca3f310ad7",
+  "scope": "All revision-1/revision-2 semantics, architecture, evidence, quality and full Writfold integration obligations remain required; revision 3 adds proof-first finite set algebra. This package does not activate or pass those new obligations."
+}

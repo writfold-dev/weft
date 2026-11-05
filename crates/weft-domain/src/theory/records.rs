@@ -20,6 +20,14 @@ pub enum FormulaOp {
 pub enum Comparison {
     Equal,
     NotEqual,
+    Member,
+    Subset,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SetOperation {
+    Union,
+    Intersection,
+    Difference,
 }
 #[derive(Clone, Copy, Debug)]
 pub enum NodeDetail {
@@ -36,6 +44,13 @@ pub enum NodeDetail {
         operation: Comparison,
         left: SetId,
         right: SetId,
+        /// Deterministic first-left member absent from the right operand for
+        /// a false subset; `None` otherwise.
+        counterexample: Option<ValueId>,
+    },
+    Membership {
+        value: ValueId,
+        set: SetId,
     },
 }
 #[derive(Clone, Debug)]
@@ -49,9 +64,17 @@ pub struct FormulaNode {
 pub enum OriginKind {
     Literal,
     Reference(DeclId),
-    Bound { binder: BinderId, value: ValueId },
+    Bound {
+        binder: BinderId,
+        value: ValueId,
+    },
     SetMember,
     Spread(SetId),
+    SetOperation {
+        operation: SetOperation,
+        left: SetId,
+        right: SetId,
+    },
     Normalize,
     Comparison,
     Predicate,

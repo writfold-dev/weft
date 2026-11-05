@@ -1,4 +1,4 @@
-(* Weft source contract, revision 2. Specification, not an executable parser.
+(* Weft source contract, revision 3. Specification, not an executable parser.
    EBNF: ',' sequence; '|' choice; [ ] optional; { } repetition.
    UPPERCASE names are lexical terminals defined in language.md.
    Quoted strings are exact spellings. Semantics and profiles are separate.
@@ -20,19 +20,37 @@ assumption_decl = "assume", IDENT, ":", expression, ";" ;
 check_decl = "check", IDENT, ":", expression, [ rule_use ], ";" ;
 rule_use = "by", IDENT, { ",", IDENT } ;
 
+(* Propositions. Comparison operators share one non-chaining level:
+   `a == b == c`, `x in a <= b` and `a <= b == c` are rejected. The operator
+   is optional so one unified operand grammar serves set operands inside
+   comparisons and parenthesized groups; a bare operand in proposition
+   position is a typing error, never a truth value. *)
 expression = or_expr ;
 or_expr = and_expr, { "or", and_expr } ;
 and_expr = not_expr, { "and", not_expr } ;
 not_expr = "not", not_expr | atom ;
 atom = "(", expression, ")" | quantifier | predicate_call | comparison | BOOLEAN ;
-comparison = comparable, ( "==" | "!=" ), comparable ;
-comparable = value | set_literal ;
+comparison = operand, [ comparison_operator, operand ] ;
+comparison_operator = "==" | "!=" | "in" | "<=" ;
+
+(* One operand grammar serves scalar values and set expressions; name
+   resolution decides whether a path denotes a scalar or a set. `in` requires
+   a scalar left operand and a set right operand; `<=` requires two sets;
+   `==`/`!=` keep exact typed scalar or extensional set equality. *)
+operand = set_alt ;
+set_alt = set_inter, { ( "|" | "-" ), set_inter } ;
+set_inter = set_operand, { "&", set_operand } ;
+set_operand = value | set_literal | "(", set_expression, ")" ;
 predicate_call = IDENT, "(", [ arguments ], ")" ;
 arguments = value, { ",", value } ;
 value = path | STRING | INTEGER | BOOLEAN ;
 path = IDENT, { ".", IDENT } ;
 
-set_expression = set_literal | path ;
+(* Set algebra binds tighter than comparisons; `&` binds tighter than `|`/`-`;
+   `|`/`-` associate left. `a | b & c` is `a | (b & c)`, `a | b - c` is
+   `(a | b) - c`. No `+` alias, complement, symmetric difference, `^`, `~`,
+   `&&`, `||`, bare `<`, `>` or `>=`, arithmetic or bitwise meaning. *)
+set_expression = set_alt ;
 set_literal = "{", [ set_items ], "}" ;
 set_items = set_item, { ",", set_item }, [ "," ] ;
 set_item = value | "...", set_expression ;

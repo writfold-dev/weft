@@ -5,7 +5,10 @@ Grounded reasoning about proposed changes, using knowledge retained in Writfold.
 **Status: qualified local symbolic development binary.**
 The original and finite-set Lean calculus passed before Rust implementation.
 The Rust frontend, finite evaluator and source-linked reports are now exercised
-under [revision 2](handovers/revision-2/weft/AGENT_START_HERE.md).
+under [revision 3](handovers/revision-3/weft/AGENT_START_HERE.md), which adds
+native set algebra: union `|`, intersection `&`, left difference `-`, scalar
+membership `in` and inclusive subset `<=`, proved first (A01-A08) and then
+implemented through the same evaluator and report paths.
 [Runtime assurance](docs/runtime-assurance.md) records the exact boundary.
 Real Writfold integration and the final composed release remain blocked; no
 shipping-Rust refinement theorem or effect authority is claimed.
@@ -22,6 +25,7 @@ WEFT=/path/to/unpacked/weft
 "$WEFT" --version
 "$WEFT" analyze examples/sets.weft
 "$WEFT" prove examples/sets.weft --human
+"$WEFT" prove examples/set-algebra.weft --human
 ```
 
 JSON is the default; `--json` and `--human` select the view. Analysis exits 0 on
@@ -87,6 +91,9 @@ mockup and the proposed relationship to execution/learning history.
   bounded passes, trace representation and calibrated source policies.
 - [Complete traceability](qualification/traceability.json): all 22 theorem
   families, 11 gates and 44 scenarios, including explicit external blockers.
+- [Set-algebra implementation handover](handovers/revision-3/weft/AGENT_START_HERE.md):
+  selected `|`, `&`, `-`, `in`, `<=` semantics, Lean-first milestones and mandatory
+  gates. Requirements only; revision 2 remains the active qualified scope.
 
 ## First question to work through
 

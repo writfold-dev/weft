@@ -59,6 +59,16 @@ kind-tagged, not Writfold object IDs. An unresolved set has no invented member l
 or zero cardinality. Preserve duplicate origins and empty-spread dependencies even
 when equal resolved values share one distinct member entry.
 
+A set produced by algebra carries its operator (`union`/`intersection`/
+`difference`), both operand records with spans, the normalization input count
+for this result (union: both normalized operand lists, hence the cardinality
+sum before cross-operand deduplication; intersection/difference: one entry per
+qualifying or surviving left member, hence result cardinality), and a fresh
+local materialization observation — never a fabricated imported-source
+history. Removed members and the entire right operand stay reachable as
+operand evidence even for an empty result; empty results retain their exact
+element type and never publish zero cardinality for an unmaterialized binding.
+
 ## Check finding
 
 Each check has:
@@ -107,6 +117,20 @@ Only prior nodes may appear in `inputs`; every root must exist. Initial kinds:
 - `set-binding`: named or anonymous immutable materialization, typed members and
   linked origin root. Spread operations are explicit nodes in the separate
   origin DAG, not a second invented logical operation.
+- `set-operation`: union/intersection/difference with both operand set/link
+  records, operator, typed result membership in stable first-occurrence order,
+  the per-result normalization input count, and the complete operation-level
+  dependency closure including eliminated members and the full right operand.
+  Union origin nodes merge both operands' member origins; intersection retains
+  contributing origins from both operands for retained identities; difference
+  keeps surviving left origins and links the entire right operand closure.
+- `comparison` covers `==`/`!=`, scalar membership `in` and subset `<=`:
+  typed operands and links to both whole operand records (the scalar and the
+  complete RHS set for `in`; both complete sets for `<=`), the computed truth
+  or an explicit refusal. A false subset explanation carries the deterministic
+  first-left member absent from the right operand, tied to those exact finite
+  operands; it is not a symbolic model-relative witness. An unavailable operand
+  is a refusal or gap, never `false`.
 - `quantifier`: kind, source/binder identity, captured domain, enclosing instance,
   member/instantiated counts, expansion budget, complete coverage and vacuity.
 - `quantifier-instance`: exact member and lexical environment/substitution,

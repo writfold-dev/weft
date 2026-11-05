@@ -1,22 +1,43 @@
 {
   "schema_version": 1,
-  "authority": "handovers/revision-2/weft",
+  "authority": "handovers/revision-3/weft",
   "scope": "Rust implementation engineering delta; no calculus, gate inventory or Writfold admission change",
   "owner": "Astra, under the user's approved architecture and implementation scope",
   "production_dependency_additions": [
-    {"owner": "weft-cli", "dependency": "weft-domain", "reason": "CLI orchestration consumes the shared nominal inputs, limits and outcomes directly; forwarding re-exports or duplicate wire/core types would obscure ownership."}
+    {
+      "owner": "weft-cli",
+      "dependency": "weft-domain",
+      "reason": "CLI orchestration consumes the shared nominal inputs, limits and outcomes directly; forwarding re-exports or duplicate wire/core types would obscure ownership."
+    }
   ],
   "development_dependency_additions": [
-    {"owner": "weft-wire", "dependency": "weft-frontend", "reason": "Report regression inputs use the real compiler rather than fabricated semantic records."},
-    {"owner": "weft-wire", "dependency": "weft-kernel", "reason": "Report regressions inspect actual classifications and model-relative traces; no production wire-to-kernel edge or second evaluation."},
-    {"owner": "weft-wire", "dependency": "sha2", "reason": "Report fixtures compute real source digests; production source hashing remains in CLI."},
-    {"owner": "weft-cli", "dependency": "serde_json", "reason": "CLI regression consumers decode the actual machine report; JSON semantics remain outside pure crates."}
+    {
+      "owner": "weft-wire",
+      "dependency": "weft-frontend",
+      "reason": "Report regression inputs use the real compiler rather than fabricated semantic records."
+    },
+    {
+      "owner": "weft-wire",
+      "dependency": "weft-kernel",
+      "reason": "Report regressions inspect actual classifications and model-relative traces; no production wire-to-kernel edge or second evaluation."
+    },
+    {
+      "owner": "weft-wire",
+      "dependency": "sha2",
+      "reason": "Report fixtures compute real source digests; production source hashing remains in CLI."
+    },
+    {
+      "owner": "weft-cli",
+      "dependency": "serde_json",
+      "reason": "CLI regression consumers decode the actual machine report; JSON semantics remain outside pure crates."
+    }
   ],
   "constraints": [
     "Development additions apply only to Cargo kind=dev, never normal/build dependencies.",
     "Production wire depends on domain only; it serializes captured results and never reevaluates proofs.",
     "Domain, frontend and kernel remain IO-free and serde-free.",
-    "Immutable handovers and all required gate/theorem/scenario inventories remain unchanged."
+    "Immutable handovers and all required gate/theorem/scenario inventories remain unchanged.",
+    "Revision 3 adds no production or development dependency; set algebra extends existing crates in place."
   ],
   "qualification": "Selected dependency edges exercised by the local Rust qualification; exact evidence is in qualification/local-runtime.json. Full composed release remains blocked."
 }

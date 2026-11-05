@@ -92,6 +92,11 @@ impl TheoryBuilder {
             OriginKind::Spread(set) if set.index() >= self.sets.len() => {
                 return Err(InvariantError::InvalidReference("spread origin"));
             }
+            OriginKind::SetOperation { left, right, .. }
+                if left.index() >= self.sets.len() || right.index() >= self.sets.len() =>
+            {
+                return Err(InvariantError::InvalidReference("set operation origin"));
+            }
             _ => {}
         }
         let id = OriginId::at(self.origins.len());
@@ -137,6 +142,11 @@ impl TheoryBuilder {
                 if left.index() >= self.sets.len() || right.index() >= self.sets.len() =>
             {
                 return Err(InvariantError::InvalidReference("set comparison detail"));
+            }
+            NodeDetail::Membership { value, set }
+                if self.value(value).is_none() || set.index() >= self.sets.len() =>
+            {
+                return Err(InvariantError::InvalidReference("membership detail"));
             }
             _ => {}
         }

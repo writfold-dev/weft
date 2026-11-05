@@ -23,20 +23,11 @@ impl<'s> Checker<'_, 's> {
                 self.expression(*left);
                 self.expression(*right);
             }
-            ast::ExprKind::Compare { left, right, .. } => {
-                let (left_set, left_type) = self.comparable(left);
-                let (right_set, right_type) = self.comparable(right);
-                if left_set != right_set {
-                    self.error(
-                        Code::TypeMismatch,
-                        Phase::Type,
-                        expression.span,
-                        "a set and a scalar cannot be compared",
-                    );
-                } else {
-                    self.unify(left_type, right_type, expression.span);
-                }
-            }
+            ast::ExprKind::Compare {
+                operation,
+                left,
+                right,
+            } => self.comparison(*operation, left, right, expression.span),
             ast::ExprKind::Predicate { name, arguments } => self.predicate(*name, arguments),
             ast::ExprKind::Quantifier {
                 binder,
@@ -64,6 +55,55 @@ impl<'s> Checker<'_, 's> {
             }
         }
     }
+    fn comparison(
+        &mut self,
+        operation: weft_domain::Comparison,
+        left: &ast::Comparable<'s>,
+        right: &ast::Comparable<'s>,
+        span: weft_domain::SourceSpan,
+    ) {
+        let (left_set, left_type) = self.comparable(left);
+        let (right_set, right_type) = self.comparable(right);
+        match operation {
+            weft_domain::Comparison::Member => {
+                if left_set || !right_set {
+                    self.error(
+                        Code::TypeMismatch,
+                        Phase::Type,
+                        span,
+                        "membership takes a scalar or reference on the left and a finite set on the right",
+                    );
+                } else {
+                    self.unify(left_type, right_type, span);
+                }
+            }
+            weft_domain::Comparison::Subset => {
+                if !left_set || !right_set {
+                    self.error(
+                        Code::TypeMismatch,
+                        Phase::Type,
+                        span,
+                        "subset compares two finite sets of the same element type",
+                    );
+                } else {
+                    self.unify(left_type, right_type, span);
+                }
+            }
+            weft_domain::Comparison::Equal | weft_domain::Comparison::NotEqual => {
+                if left_set != right_set {
+                    self.error(
+                        Code::TypeMismatch,
+                        Phase::Type,
+                        span,
+                        "a set and a scalar cannot be compared",
+                    );
+                } else {
+                    self.unify(left_type, right_type, span);
+                }
+            }
+        }
+    }
+
     fn comparable(&mut self, comparable: &ast::Comparable<'s>) -> (bool, TypeVar) {
         match comparable {
             ast::Comparable::Set(id) => (true, self.set_type(*id)),
@@ -113,6 +153,12 @@ impl<'s> Checker<'_, 's> {
         };
         let ty = match &set.kind {
             ast::SetKind::Path(path) => self.path(path, true),
+            ast::SetKind::Binary { left, right, .. } => {
+                let ty = self.set_type(*left);
+                let right_type = self.set_type(*right);
+                self.unify(ty, right_type, set.span);
+                ty
+            }
             ast::SetKind::Literal(items) => {
                 let ty = self.checked.types.fresh(None);
                 for item in items {

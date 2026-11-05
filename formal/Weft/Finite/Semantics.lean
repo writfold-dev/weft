@@ -37,6 +37,16 @@ def resolveAtom (ctx : Context) (env : Env) : Atom → Option ResolvedAtom
       let y ← evalSet ctx env b
       let equal ← Sets.equal x y
       some ⟨.boolean equal, x.origins ++ y.origins⟩
+  | .member term set => do
+      let x ← resolveTerm ctx env term
+      let captured ← evalSet ctx env set
+      let result ← Algebra.member x.value captured
+      some ⟨.boolean result, x.origins ++ captured.origins⟩
+  | .subset a b => do
+      let x ← evalSet ctx env a
+      let y ← evalSet ctx env b
+      let result ← Algebra.subset x y
+      some ⟨.boolean result, x.origins ++ y.origins⟩
 
 /-- Independent source meaning. Quantification is directly over actual captured
 membership, with domains evaluated outside and bodies inside the new scope.
