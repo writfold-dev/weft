@@ -51,3 +51,14 @@ by this session. The additional finite-collection proposal is in
 
 This is a source-inspected status note, not new Writfold qualification evidence.
 The original immutable handoff remains preserved; mutable owner work may advance.
+
+## Control-protocol model qualification
+
+The pinned `writfold.agent/1` transport-control contract now has a local TLA+
+seed with executed TLAPS proofs ([model](../model/README.md), gate P10 in
+[the status ledger](../qualification/status.json)): TLC finds no violation of
+the eleven invariants across the finite seed, seven single-deviation mutants
+each fail exactly their targeted invariant, and tlapm proves all inductive
+safety obligations. This models the shared contract text only. It is not a
+running Writfold service, not a Weft client implementation, and it changes no
+P05-P07/P09 blocker: initialization grants no grounding or effect authority.

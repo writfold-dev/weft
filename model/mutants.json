@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "scope": "Negative controls for the writfold.agent/1 control-protocol seed; each module is Control.tla with exactly one documented deviation and must violate its target invariant under TLC",
+  "base_module": "Control.tla",
+  "mutants": [
+    {
+      "name": "M1-grant-authority",
+      "module": "mutants/ControlM1.tla",
+      "deviation": "initialize sets authority' = TRUE in InitOk",
+      "target_invariant": "AuthorityIsolated",
+      "contract_rule": "identity: initialization grants no corpus read or edit authority"
+    },
+    {
+      "name": "M2-commit-before-encode",
+      "module": "mutants/ControlM2.tla",
+      "deviation": "InitOk commits the initialized phase without any completely encoded success reply",
+      "target_invariant": "InitCited",
+      "contract_rule": "encoding_failure: no successful lifecycle change precedes successful complete encoding"
+    },
+    {
+      "name": "M3-reinitialize",
+      "module": "mutants/ControlM3.tla",
+      "deviation": "repeated initialize recommits the initialized phase instead of refusing",
+      "target_invariant": "InitOnce",
+      "contract_rule": "initialize_order: require uninitialized"
+    },
+    {
+      "name": "M4-shutdown-without-init",
+      "module": "mutants/ControlM4.tla",
+      "deviation": "shutdown commits from an uninitialized session instead of erroring",
+      "target_invariant": "StopAfterInit",
+      "contract_rule": "shutdown_order: require initialized"
+    },
+    {
+      "name": "M5-substitute-null-id",
+      "module": "mutants/ControlM5.tla",
+      "deviation": "an admitted request's correlated error reply substitutes a null id",
+      "target_invariant": "EchoSound",
+      "contract_rule": "stream_safety: correlation ids are preserved, not normalized or substituted"
+    },
+    {
+      "name": "M6-read-after-stop",
+      "module": "mutants/ControlM6.tla",
+      "deviation": "requests remain readable after the shutdown commit",
+      "target_invariant": "StopFrozen",
+      "contract_rule": "shutdown_order: flush and close without reading another request"
+    },
+    {
+      "name": "M7-generation-on-reject",
+      "module": "mutants/ControlM7.tla",
+      "deviation": "a malformed envelope consumes an invocation generation",
+      "target_invariant": "GenAccounting",
+      "contract_rule": "identity: malformed JSON/envelopes consume no generation"
+    }
+  ]
+}

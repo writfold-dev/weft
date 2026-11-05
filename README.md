@@ -83,6 +83,9 @@ mockup and the proposed relationship to execution/learning history.
 - [Finite language direction](docs/finite-language-direction.md): `:=`, sets,
   lexical quantifiers, provenance and model-scoped witnesses.
 - [Concrete report contract](spec/report-v1.md).
+- [Shared control-protocol model](model/README.md): TLA+ seed, TLC mutant
+  checks and executed TLAPS proofs for the pinned `writfold.agent/1`
+  transport contract (P10); protocol model only, no grounding claimed.
 - [Finite collection request for Writfold](docs/writfold-finite-collections-request.md):
   proposal-only shared reader prerequisites for its owning agent.
 - [Build and qualification](docs/build-and-qualification.md): exact local producer

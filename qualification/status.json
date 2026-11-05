@@ -7,12 +7,14 @@
       "gate": "WEFT00",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/tools-002/report.json"
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/tools-002/report.json",
+        "~/.local/share/weft/evidence/model-20261105T002/tools/report.json"
       ],
       "failed_attempts": [
-        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/tools-001/report.json"
+        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/tools-001/report.json",
+        "~/.local/share/weft/evidence/model-20261105T001/tools/report.json"
       ],
-      "reason": "Exact local image/tool bytes and versions admitted after BuildKit build against the operator's unchanged storage policy. Tool-image scope only, not product qualification."
+      "reason": "Exact local image/tool bytes and versions admitted after BuildKit build against the operator's unchanged storage policy; renewed for the pinned TLA+ (TLC/TLAPS) tool identities with unchanged image bytes. Tool-image scope only, not product qualification."
     },
     {
       "id": "P01",
@@ -139,12 +141,26 @@
       "status": "blocked",
       "receipts": [],
       "reason": "Required owner-landed Writfold services unavailable; see plan/06-writfold-handoff.md"
+    },
+    {
+      "id": "P10",
+      "gate": "WEFT10",
+      "status": "pass",
+      "receipts": [
+        "~/.local/share/weft/evidence/model-20261105T006/model/report.json"
+      ],
+      "failed_attempts": [
+        "~/.local/share/weft/evidence/model-20261105T003/model/report.json",
+        "~/.local/share/weft/evidence/model-20261105T004/model/report.json",
+        "~/.local/share/weft/evidence/model-20261105T005/model/report.json"
+      ],
+      "reason": "TLA+ seed of the pinned writfold.agent/1 transport-control contract: TLC explores 88 distinct states with no violation of the eleven invariants, seven single-deviation mutants each violate exactly their targeted invariant with retained counterexample traces, and tlapm proves all 525 inductive-safety obligations. Model scope only; not a running Writfold service, not a Weft client implementation and no grounding or effect authority."
     }
   ],
   "base_evidence": "qualification/revision-2-status.json",
   "current_runtime": "qualification/local-runtime.json",
   "traceability": "qualification/traceability.json",
-  "scope": "Revision 3 delivered: extended calculus (P01A) plus requalified P02/P03/P04/P08 with native set algebra; P00 retained on unchanged admitted tools; P05/P06/P07/P09 remain required and blocked on owner-side Writfold services (see plans/writfold-integration-sync-2026-11-05.md and docs/writfold-interface-status.md).",
+  "scope": "Revision 3 delivered: extended calculus (P01A) plus requalified P02/P03/P04/P08 with native set algebra; P00 renewed on unchanged image bytes plus pinned TLA+ tools; P10 adds the TLC/TLAPS control-protocol model of the pinned writfold.agent/1 contract; P05/P06/P07/P09 remain required and blocked on owner-side Writfold services (see plans/writfold-integration-sync-2026-11-05.md and docs/writfold-interface-status.md).",
   "failed_attempts": {
     "algebra-calculus-1": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus/report.json",
     "algebra-calculus-2": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus-2/report.json",

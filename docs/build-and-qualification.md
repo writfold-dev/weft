@@ -10,8 +10,9 @@ The Weft tool image is
 `sha256:52e3bad8e6b7a7e770437a4e35fe04c7d77c9b7fee0eb03e509d40e72dbc8db3`,
 built with BuildKit from the exact locally retained Writfold tool parent in
 [`toolchains.lock.json`](../toolchains.lock.json). Qualification rechecks the
-actual executable hashes and versions: Rust/Cargo 1.98.0, Lean 4.21.0 and musl.
-This inherits tool bytes, not Writfold product gate status.
+actual executable hashes and versions: Rust/Cargo 1.98.0, Lean 4.21.0, musl,
+and the admitted TLA+ tools (tla2tools.jar TLC 2.19 and tlapm) used by the
+model producer.
 
 The commands below target that admitted workstation. A different machine needs
 its own actual storage/tool admission and the exact preserved proof/reference
@@ -26,7 +27,7 @@ operator-selected evidence directory:
 ```sh
 scripts/gate bootstrap --receipt "$EVIDENCE/tools/report.json"
 scripts/gate lean --receipt "$EVIDENCE/lean/report.json"
-scripts/gate rust --receipt "$EVIDENCE/rust/report.json"
+scripts/gate model --receipt "$EVIDENCE/model/report.json"
 python3 scripts/check_traceability.py --receipt "$EVIDENCE/traceability/report.json"
 ```
 
@@ -35,6 +36,12 @@ to obtain a new status label. The Lean producer performs a clean core-only build
 complete registered axiom audit, executable reference checks and copied-source
 semantic mutations. The Rust producer requires the exact adopted calculus and
 separately qualified reference checkpoint, then runs the real local runtime gates.
+
+The model producer runs TLC on the writfold.agent/1 control-protocol seed
+([model](../model/README.md)) and on each single-deviation mutant, then
+executes every TLAPS obligation with tlapm; it requires the TLA+ tool bytes
+admitted in the renewed bootstrap. It is a protocol model only, not a running
+Writfold service, a Weft client or a grounding path.
 
 Cargo.lock files are committed, exact and checked offline. The optional preparation
 producer operates only in an owned copy:

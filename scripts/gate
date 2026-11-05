@@ -132,6 +132,39 @@ def lean(attempt: Path, lock: dict) -> dict:
         raise ValueError("Lean producer did not complete every required obligation")
     return {"image_id": image, "source_manifest": inputs, "producer": result}
 
+def model(attempt: Path, lock: dict) -> dict:
+    image = admitted_image(lock)
+    verify_tools(image, attempt, lock)
+    reconcile(ROOT)
+    source_inputs = [
+        "model", "scripts/run_model.py", "scripts/evidence.py", "scripts/contracts.py",
+        "toolchains.lock.json", "compose.yaml",
+    ]
+    inputs = manifest(ROOT, source_inputs)
+    capture_sources(ROOT, list(inputs), attempt / "model-source.zip")
+    name = f"weft-model-{uuid.uuid4().hex}"
+    args = [
+        "docker", "compose", "run", "--rm", "--name", name,
+        "qualify", "timeout", "--signal=TERM", "--kill-after=30", "1800",
+        "python3", "scripts/run_model.py",
+    ]
+    try:
+        require_success(run_logged(
+            args, ROOT, attempt, "compose-model",
+            env=process_env(WEFT_TOOL_IMAGE=image, WEFT_ATTEMPT=str(attempt)),
+            timeout=1900,
+        ))
+    finally:
+        # The name is uniquely owned by this attempt. Never prune or touch a
+        # different service if the client was interrupted before --rm finished.
+        subprocess.run(["docker", "rm", "--force", name], capture_output=True, check=False)
+    if inputs != manifest(ROOT, source_inputs):
+        raise ValueError("model inputs changed during qualification")
+    result = json.loads((attempt / "model-results.json").read_text())
+    if result["status"] != "pass":
+        raise ValueError("model producer did not complete every required obligation")
+    return {"image_id": image, "source_manifest": inputs, "producer": result}
+
 def rust(attempt: Path, lock: dict, prepare: bool) -> dict:
     from rust_gate import run
     image = admitted_image(lock)
@@ -141,7 +174,7 @@ def rust(attempt: Path, lock: dict, prepare: bool) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("gate", choices=["bootstrap", "lean", "prepare-rust", "rust"])
+    parser.add_argument("gate", choices=["bootstrap", "lean", "model", "prepare-rust", "rust"])
     parser.add_argument("--receipt", required=True, type=Path)
     args = parser.parse_args()
     receipt = args.receipt.expanduser().resolve()
@@ -152,6 +185,7 @@ def main() -> int:
         "schema_version": 1, "gate": args.gate, "status": "fail",
         "scope": {
             "bootstrap": "weft-tools-only", "lean": "weft-language-calculus-only",
+            "model": "weft-writfold-control-protocol-model-only",
             "prepare-rust": "weft-rust-preparation-only", "rust": "weft-local-symbolic-runtime-only",
         }[args.gate],
         "skipped": [],
@@ -160,6 +194,8 @@ def main() -> int:
         producer_inputs = [
             "scripts/gate", "scripts/evidence.py", "scripts/preflight.py", "scripts/contracts.py",
         ]
+        if args.gate == "model":
+            producer_inputs += ["scripts/run_model.py"]
         if args.gate in {"prepare-rust", "rust"}:
             producer_inputs += ["scripts/rust_gate.py", "scripts/prepare_rust.py"]
         if args.gate == "rust":
@@ -178,6 +214,8 @@ def main() -> int:
             record["result"] = bootstrap(receipt.parent, lock)
         elif args.gate == "lean":
             record["result"] = lean(receipt.parent, lock)
+        elif args.gate == "model":
+            record["result"] = model(receipt.parent, lock)
         else:
             record["result"] = rust(receipt.parent, lock, args.gate == "prepare-rust")
         if record["producer_inputs"] != manifest(ROOT, producer_inputs):
