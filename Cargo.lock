@@ -183,6 +183,7 @@ dependencies = [
  "weft-frontend",
  "weft-kernel",
  "weft-wire",
+ "weft-writfold",
 ]
 
 [[package]]
@@ -212,6 +213,14 @@ dependencies = [
  "weft-domain",
  "weft-frontend",
  "weft-kernel",
+]
+
+[[package]]
+name = "weft-writfold"
+version = "0.1.0"
+dependencies = [
+ "weft-domain",
+ "weft-wire",
 ]
 
 [[package]]

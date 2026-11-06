@@ -8,6 +8,21 @@
       "owner": "weft-cli",
       "dependency": "weft-domain",
       "reason": "CLI orchestration consumes the shared nominal inputs, limits and outcomes directly; forwarding re-exports or duplicate wire/core types would obscure ownership."
+    },
+    {
+      "owner": "weft-cli",
+      "dependency": "weft-writfold",
+      "reason": "The control command dispatches the real stdio client; the client crate keeps all process IO out of the core crates."
+    },
+    {
+      "owner": "weft-writfold",
+      "dependency": "weft-domain",
+      "reason": "The client shares the checked nominal diagnostics and limits instead of defining parallel types."
+    },
+    {
+      "owner": "weft-writfold",
+      "dependency": "weft-wire",
+      "reason": "All raw peer JSON stays in wire: bounded parsing, JSON-RPC DTOs and checked conversions; the client crate itself remains serde-free."
     }
   ],
   "development_dependency_additions": [

@@ -31,17 +31,44 @@ flowchart TD
   CLI[weft-cli: IO and orchestration] --> FRONT[weft-frontend: source and semantic passes]
   CLI --> KERNEL[weft-kernel: finite classification]
   CLI --> WIRE[weft-wire: bounded report projection]
+  CLI --> WRITFOLD[weft-writfold: pinned stdio control client]
   CLI --> DOMAIN[weft-domain: nominal values and checked arenas]
   FRONT --> DOMAIN
   KERNEL --> DOMAIN
   WIRE --> DOMAIN
+  WRITFOLD --> WIRE
+  WRITFOLD --> DOMAIN
 ```
+
 
 Wire does not call the kernel. Each valuation is evaluated once; exact premise
 truth is retained in a row-major packed bit matrix alongside compact trace rows.
 Supporting/refuting models retain their actual node values. Atom assignment order
 matches Lean: the first active atom is the most-significant bit, independent of
 its global interning index. Witnesses remain relative to that assignment.
+
+## Control client and reuse surfaces
+
+`weft-writfold` implements the ordinary shared-stdio client for the
+owner-pinned `writfold.agent/1` control contract (vendored unchanged under
+`contracts/writfold-agent-1/`). It spawns and owns one `writfold serve`
+process, requests only `initialize`/`shutdown` (unavailable data methods are
+not representable in its typed API), refuses capabilities outside the pinned
+advertised set before writing bytes, enforces the 65,536-byte frame ceiling in
+both directions, correlates every reply, requires a strictly matching session
+generation, verifies the pinned contract digest, and never exits a session
+without reaping the owned child. `weft control BIN [--expect-sha256 HEX]`
+projects the completed session as `weft.control/1` with
+`writfold_grounded: false`; a successful handshake establishes transport
+identity only. No fallback host exists and none may be added.
+
+`weft reuse REPORT SOURCE` closes the local S14 gap: a prior `weft.report/1`
+artifact may be reused for a candidate source only when the report-recorded
+scope is exactly equal — source digest, evaluator profile and evaluation
+budgets. Every inequality, a diagnostics-only report and a malformed artifact
+are refusals naming the exact field (`weft.reuse/1`; exit 0 reusable, 1
+refused, 2 input failure). Live owner-binding reuse qualification stays with
+P06 and remains blocked.
 
 ## Representation and limits
 

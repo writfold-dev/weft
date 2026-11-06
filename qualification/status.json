@@ -21,7 +21,7 @@
       "gate": "WEFT01",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-009/report.json"
+        "~/.local/share/weft/evidence/client-20261106T0001/lean-002/report.json"
       ],
       "failed_attempts": [
         "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-001/report.json",
@@ -33,14 +33,14 @@
         "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-007/report.json",
         "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/lean-008/report.json"
       ],
-      "reason": "Original typed-ground/propositional calculus qualified: 43 audited declarations, 8 executed reference cases and 14 rejected semantic mutants. Source AST scope only; no raw parser/Rust refinement/live Writfold claim. Newly requested finite sets and quantifiers require separate qualification."
+      "reason": "Original typed-ground/propositional calculus requalified under the renewed tool image (TLA+ lock, unchanged Lean 4.21.0): same audited declaration, reference-case and mutation inventory as the algebra checkpoint, now bound to image sha256:d75f5675cc943b439c0b7a1df4dc47bc24ada14ab0346044cd8fdfd0c2724c2a. Source AST scope only."
     },
     {
       "id": "P01S",
       "gate": "WEFT01S",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-022/report.json"
+        "~/.local/share/weft/evidence/client-20261106T0001/lean-002/report.json"
       ],
       "failed_attempts": [
         "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-001/report.json",
@@ -65,24 +65,24 @@
         "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-020/report.json",
         "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/finite-021/report.json"
       ],
-      "reason": "Complete inherited and finite-extension calculus gate: 181 audited declarations, 25 executed reference cases, 24 rejected semantic mutants and 11 qualification-boundary regressions. Exact 74 source inputs matched after pass. No parser/Rust refinement or live Writfold qualification; see finite-calculus.json."
+      "reason": "Finite sets, hygienic binders and quantifier calculus requalified with the complete Lean gate under the renewed tool image; 181-declaration scope, 25 reference cases, 24 mutants and 11 boundary regressions unchanged in behavior. No parser/Rust refinement or live Writfold qualification."
     },
     {
       "id": "P01A",
       "gate": "WEFT01A",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus-3/report.json",
-        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-reference/report.json"
+        "~/.local/share/weft/evidence/client-20261106T0001/lean-002/report.json"
       ],
-      "reason": "Complete extended-calculus gate under revision 3: 327 audited declarations (L01-L12, Q01-Q10, A01-A08), 8 propositional and 27 finite reference cases through the actual weftref/weftfiniteref executables, 36 rejected semantic mutants incl. one substantive mutant per A family. Source AST scope; no parser/Rust refinement or live Writfold claim. Two retained failed attempts were mutation-metadata corrections."
+      "reason": "Complete extended-calculus gate requalified under the renewed tool image: 327 audited declarations (L01-L12, Q01-Q10, A01-A08), 8 propositional and 27 finite reference cases through the rebuilt weftref/weftfiniteref executables, 36 rejected semantic mutants. Source AST scope; no parser/Rust refinement or live Writfold claim.",
+      "failed_attempts": []
     },
     {
       "id": "P02",
       "gate": "WEFT02",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-3/report.json"
+        "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json"
       ],
       "reason": "Revision-3 component requalification with native set algebra through the actual musl binary (specification/reference); local profile scope only."
     },
@@ -91,7 +91,7 @@
       "gate": "WEFT03",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-3/report.json"
+        "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json"
       ],
       "reason": "Revision-3 component requalification with native set algebra through the actual musl binary (frontend/evaluator); local profile scope only."
     },
@@ -100,7 +100,7 @@
       "gate": "WEFT04",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-3/report.json"
+        "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json"
       ],
       "reason": "Revision-3 component requalification with native set algebra through the actual musl binary (reports/CLI); local profile scope only."
     },
@@ -130,10 +130,10 @@
       "gate": "WEFT08",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-3/report.json",
-        "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-runtime-package-001/report.json"
+        "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json",
+        "~/.local/share/weft/evidence/client-20261106T0001/runtime-package-001/report.json"
       ],
-      "reason": "Revision-3 component requalification with native set algebra through the actual musl binary (quality+musl artifact); local profile scope only."
+      "reason": "Component requalification with the control client and local reuse gate: format/lint/nominal/size/dependency/unsafe gates, musl artifact, installed-runtime scratch smoke, artifact identity and declared assurance scope. Does not close P05-P07."
     },
     {
       "id": "P09",
@@ -155,18 +155,36 @@
         "~/.local/share/weft/evidence/model-20261105T005/model/report.json"
       ],
       "reason": "TLA+ seed of the pinned writfold.agent/1 transport-control contract: TLC explores 88 distinct states with no violation of the eleven invariants, seven single-deviation mutants each violate exactly their targeted invariant with retained counterexample traces, and tlapm proves all 525 inductive-safety obligations. Model scope only; not a running Writfold service, not a Weft client implementation and no grounding or effect authority."
+    },
+    {
+      "id": "P11",
+      "gate": "WEFT11",
+      "status": "pass",
+      "receipts": [
+        "~/.local/share/weft/evidence/client-20261106T0001/control-004/report.json"
+      ],
+      "failed_attempts": [
+        "~/.local/share/weft/evidence/client-20261106T0001/control-001/report.json",
+        "~/.local/share/weft/evidence/client-20261106T0001/control-002/report.json",
+        "~/.local/share/weft/evidence/client-20261106T0001/control-003/report.json"
+      ],
+      "reason": "Weft control client for the owner-pinned writfold.agent/1 transport-control contract: vendored owner archive verified byte-for-byte, typed initialize/shutdown client with local capability refusal, correlated replies, strict generation matching, 65,536-byte frames both directions and owned-child reaping, exercised in a real stdio session against the pinned writfold binary (digest-mismatch refusal included). Transport control only: no citation, assessment, retention or effect service exists; P05-P07/P09 remain blocked on owner data services and every output stays writfold_grounded=false."
     }
   ],
   "base_evidence": "qualification/revision-2-status.json",
   "current_runtime": "qualification/local-runtime.json",
   "traceability": "qualification/traceability.json",
-  "scope": "Revision 3 delivered: extended calculus (P01A) plus requalified P02/P03/P04/P08 with native set algebra; P00 renewed on unchanged image bytes plus pinned TLA+ tools; P10 adds the TLC/TLAPS control-protocol model of the pinned writfold.agent/1 contract; P05/P06/P07/P09 remain required and blocked on owner-side Writfold services (see plans/writfold-integration-sync-2026-11-05.md and docs/writfold-interface-status.md).",
+  "scope": "Revision-3 local symbolic scope requalified under the renewed tool image, now including the local S14 reuse gate (weft reuse) and the weft-writfold control client (weft control) qualified against the owner-pinned writfold.agent/1 transport-control contract; P05/P06/P07/P09 remain required and blocked on owner-side Writfold data services (see plans/writfold-integration-sync-2026-11-05.md, plans/writfold-agent-control-contract-ready.md and docs/writfold-interface-status.md).",
   "failed_attempts": {
     "algebra-calculus-1": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus/report.json",
     "algebra-calculus-2": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus-2/report.json",
     "algebra-rust-1": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust/report.json",
-    "algebra-rust-2": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-2/report.json"
+    "algebra-rust-2": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-2/report.json",
+    "prepare-rust-image-mismatch": "~/.local/share/weft/evidence/client-20261106T0001/prepare-rust/report.json",
+    "control-pin-typo": "~/.local/share/weft/evidence/client-20261106T0001/control-001/report.json",
+    "control-tarfile-read": "~/.local/share/weft/evidence/client-20261106T0001/control-002/report.json",
+    "control-manifest-compare": "~/.local/share/weft/evidence/client-20261106T0001/control-003/report.json"
   },
   "qualification_status": "local_runtime_component_pass_full_release_blocked",
-  "writfold_integration_note": "Owner-side stdio host and pinned shared contract still unavailable; WR1-WR8 not run at the service boundary."
+  "writfold_integration_note": "Owner stdio control profile is landed, pinned and now consumed by the Weft client (P11); citation/assessment/retention/effect data services remain unavailable, so WR2-WR8 and P05-P07/P09 stay not_run at the service boundary."
 }

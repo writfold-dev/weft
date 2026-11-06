@@ -1,5 +1,6 @@
 #![forbid(unsafe_code)]
 mod checks;
+pub mod control;
 mod envelope;
 mod finite;
 mod formula;
@@ -7,8 +8,10 @@ mod json;
 mod metadata;
 mod models;
 mod publication;
+pub mod reuse;
 mod review;
 mod rows;
+pub mod rpc;
 mod trace;
 mod values;
 

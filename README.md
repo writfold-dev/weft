@@ -2,16 +2,20 @@
 
 Grounded reasoning about proposed changes, using knowledge retained in Writfold.
 
-**Status: qualified local symbolic development binary.**
+**Status: qualified local symbolic development binary with a live control client.**
 The original and finite-set Lean calculus passed before Rust implementation.
-The Rust frontend, finite evaluator and source-linked reports are now exercised
+The Rust frontend, finite evaluator and source-linked reports are exercised
 under [revision 3](handovers/revision-3/weft/AGENT_START_HERE.md), which adds
 native set algebra: union `|`, intersection `&`, left difference `-`, scalar
 membership `in` and inclusive subset `<=`, proved first (A01-A08) and then
-implemented through the same evaluator and report paths.
+implemented through the same evaluator and report paths. The local
+`weft reuse` surface refuses any prior-report reuse across changed scope, and
+`weft control` drives the owner-pinned `writfold.agent/1` transport-control
+contract through a real stdio session with the vendored owner artifact under
+`contracts/writfold-agent-1/`.
 [Runtime assurance](docs/runtime-assurance.md) records the exact boundary.
-Real Writfold integration and the final composed release remain blocked; no
-shipping-Rust refinement theorem or effect authority is claimed.
+Real Writfold data integration and the final composed release remain blocked;
+no shipping-Rust refinement theorem or effect authority is claimed.
 
 ## Try the actual binary
 
@@ -26,11 +30,15 @@ WEFT=/path/to/unpacked/weft
 "$WEFT" analyze examples/sets.weft
 "$WEFT" prove examples/sets.weft --human
 "$WEFT" prove examples/set-algebra.weft --human
+"$WEFT" prove examples/sets.weft > report.json && "$WEFT" reuse report.json examples/sets.weft
+"$WEFT" control /path/to/pinned/writfold --expect-sha256 70b0d07b18e2f1bd70fc34fce4cc5335fccdd5c6307c014f55abf81ecd97fcca
 ```
 
 JSON is the default; `--json` and `--human` select the view. Analysis exits 0 on
 local structural success. A complete hypothetical proof result exits 1—even
-when entailed. Malformed, unresolved or incomplete work exits 2. Read the finding
+when entailed. Reuse exits 0 only on exact report-recorded scope equality and
+1 on any named difference; control exits 0 only on a complete pinned-identity
+session. Malformed, unresolved or incomplete work exits 2. Read the finding
 categories, not an exit code as an approval token.
 
 The set example entails the checks over assumed SDK support, but extending the

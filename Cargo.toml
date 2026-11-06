@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/weft-domain", "crates/weft-frontend", "crates/weft-kernel", "crates/weft-wire", "crates/weft-cli"]
+members = ["crates/weft-domain", "crates/weft-frontend", "crates/weft-kernel", "crates/weft-wire", "crates/weft-writfold", "crates/weft-cli"]
 exclude = ["tools/weft-quality"]
 
 [workspace.package]
@@ -15,6 +15,7 @@ weft-domain = { path = "crates/weft-domain" }
 weft-frontend = { path = "crates/weft-frontend" }
 weft-kernel = { path = "crates/weft-kernel" }
 weft-wire = { path = "crates/weft-wire" }
+weft-writfold = { path = "crates/weft-writfold" }
 serde = { version = "=1.0.229", features = ["derive"] }
 serde_json = "=1.0.151"
 sha2 = "=0.11.0"

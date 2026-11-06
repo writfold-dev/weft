@@ -15,6 +15,7 @@ weft-domain.workspace = true
 weft-frontend.workspace = true
 weft-kernel.workspace = true
 weft-wire.workspace = true
+weft-writfold.workspace = true
 sha2.workspace = true
 
 [dev-dependencies]

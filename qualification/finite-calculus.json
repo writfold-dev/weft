@@ -1,341 +1,262 @@
 {
-  "schema_version": 1,
-  "scope": "weft-language-calculus-only",
-  "status": "pass",
-  "authority": "handovers/revision-3/weft",
-  "manifest_sha256": "cc033a8e846929aeb29c952ef6a1ab9f02cff3e56e6deadbc4114ac4458d1f8e",
-  "receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus-3/report.json",
-  "receipt_sha256": "69ea3a9ea12b475d4eb8c66d8740ee792d60df648cc5e1e75fc5bff920f6340a",
-  "image_id": "sha256:52e3bad8e6b7a7e770437a4e35fe04c7d77c9b7fee0eb03e509d40e72dbc8db3",
-  "tool_lock_sha256": "1daa41f68708aa69aeba247df9a6770c44f6015de3c56a893dc001687490aed9",
-  "source_manifest": {
-    "formal/Weft/Composition.lean": "9f1bd14faa8c2c1c31d1ba7469532e0471e0f5953ff2ef36f7b5751df7776de3",
-    "formal/Weft/Finite/Algebra/Budget.lean": "feb01def6c9acfbdf5f5f2d9cb794860b05aebc7d275b2a359d05c12e9635deb",
-    "formal/Weft/Finite/Algebra/Closure.lean": "85dbef90e4c892db36e70299067277b652b1dd416e3d8b6e3f0df70244c29fee",
-    "formal/Weft/Finite/Algebra/Conservation.lean": "d52101f931abdbce97ec13c1d206828fb4c85f2690a144dadca8a7db23668562",
-    "formal/Weft/Finite/Algebra/Examples.lean": "f80a560792362ed6583ecafa3cb8c6e4ff7d3f9c9ece9ca4b6cd1540f915a6de",
-    "formal/Weft/Finite/Algebra/Lowering.lean": "fd5641a673be1037ae3bffa83d0277261b360e0cd797e0173b3fb5a8a66ad156",
-    "formal/Weft/Finite/Algebra/Operations.lean": "07188267d820232a8d6a29437ce9b8d81e338c28099092b8a35ba4ede0b9982e",
-    "formal/Weft/Finite/Algebra/Predicates.lean": "55fd91cf043c89dad50416d24d34c3920ff2e697d2e6ebd1e894dbcd22871683",
-    "formal/Weft/Finite/Algebra/Traces.lean": "b724c35e8877a829b2bfc5c58eba9342fe0cf72b721ff62fd8bfbed1727271d3",
-    "formal/Weft/Finite/Algebra.lean": "63bc294badedbeafc196837686b41e95d24ee1485a8dc6379c6685889f4f10f9",
-    "formal/Weft/Finite/Bindings.lean": "4022da36b52379c8e454c4fb0850aac014ed2fecf029b5da037a62860be0dc05",
-    "formal/Weft/Finite/CaptureBudget.lean": "d92c5cb1887e5ff31e81a8cc5b1939f3657510e36dacdcbbbc3effd490d71149",
-    "formal/Weft/Finite/CaptureBudgetExamples.lean": "86ff4a5929ac5e1e8cd0f691a6769e9b92a686a8cabcf9458218adc0f406d380",
-    "formal/Weft/Finite/Lowering.lean": "41de80969f954bb1911654418ceb049636486972288b8edbb404dea4dc557fca",
-    "formal/Weft/Finite/QuantifierExamples.lean": "b726605027116904f5ef1ab3bbaf132cd0c71635bd37518c9cb996eba143025c",
-    "formal/Weft/Finite/Quantifiers.lean": "3d98fd443d5a12fea1cd6dce02639279558235fa2913a9bad862397e89a1d623",
-    "formal/Weft/Finite/Semantics.lean": "a02d2e650a0caf2a3ee9f1528ab183493839bc05f14c2139d556add86d8951f1",
-    "formal/Weft/Finite/SetExamples.lean": "f1a65531944e2068ed52c9b5f301b979f98d22e68ca030de8ad80f6ebbf4d011",
-    "formal/Weft/Finite/Sets/Properties.lean": "9c431886d6e6f30cfe3731df95ce1787d8dbf5017607e7336c255ea02488a473",
-    "formal/Weft/Finite/Sets.lean": "863d5530eb87ee8cbb3a66824b2f5b5352a1c05664fdef607e6f97432db9358c",
-    "formal/Weft/Finite/Substitution.lean": "4ac448708aa7219f1e89b599e120ce390700bef46d002d92d0b9e8112afe33b9",
-    "formal/Weft/Finite/SubstitutionTyping.lean": "112891328e4ffe8dba9d1ac5aae1aa19f5232140ca54da4c467a804e44b5b333",
-    "formal/Weft/Finite/Syntax.lean": "872e4e5e309c4fb208b054e3f1f9cbc36f01c7280302dbcd5f6fa16805e350b2",
-    "formal/Weft/Finite/TraceContext.lean": "77b1b244d7e6d14ddaff137e5a918ceea69c81604d8169cfc2bef38add09db0f",
-    "formal/Weft/Finite/TraceExamples.lean": "3573289420db5c8b6ef7318e46d531d31215cbb381d2ef79702b2fd4a46bacca",
-    "formal/Weft/Finite/Traces.lean": "01c0fb53be021429e0c0f4d18ec17f8e48e40efd4c3739a770626f06d4d78677",
-    "formal/Weft/Finite/Typing.lean": "77bb708e7205af3a281d53797071c465a7322df7e7849f0a331b1a3ae90a4ff9",
-    "formal/Weft/Finite.lean": "0577d6d1567bd5453ab38f1e732ad81460f59a8bf3f6cfbdd1d75c7449fae62a",
-    "formal/Weft/FiniteReference.lean": "01804753cd543bd01c5de2a86d9774ac1e1b87062e61acf220d9e9423d7866c4",
-    "formal/Weft/Grounding/DetailedTrace.lean": "279688c8e58322f1414d8cbc275f68b50f70462afbb0ab332353cf859bf8809c",
-    "formal/Weft/Grounding/Examples.lean": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21",
-    "formal/Weft/Grounding/Model.lean": "823832f0e18bd9dd8115057ad00c5e914e473f09400bb503e9bb1c76da8e5b6c",
-    "formal/Weft/Grounding/ReportExamples.lean": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e",
-    "formal/Weft/Grounding/ReportView.lean": "e5e921cd7b573f115be9af17d2db71498eac5f2796bafe84963162c99ea54b59",
-    "formal/Weft/Grounding/Trace.lean": "d389f23f4cf269dc73a4f6f469986837affd4ebce6f47cea85a7c574e5cd7463",
-    "formal/Weft/Grounding.lean": "b23e7452405438bb223a9d34940525c1341288615a097c68a98b0ef0f22e4ee1",
-    "formal/Weft/Language/Core.lean": "cb2fbd8a76ca17d516774bc50dfefb91d09d852cfced44315c2feaced101b308",
-    "formal/Weft/Language/Elaboration.lean": "53629af1e8dd4bc28cf5443b21706cf54907817d56cb06d9414eb2107d7ed54b",
-    "formal/Weft/Language/Examples.lean": "eac474a7d467eb3b959b49624705f95d0f3d9a3482e90d839d6c573d61b2d3a4",
-    "formal/Weft/Language/Semantics.lean": "ec5ee162ae5b5fa55b0fd9de3e4d82a04c56c2ad90391ad260176e15ef675caf",
-    "formal/Weft/Language.lean": "1f50923df8bc2e7974254266aaba48baf5cdf746f3814386603bde7a6c390883",
-    "formal/Weft/Logic/Classification.lean": "af62c2c4a7208d142265b87da6664376ca3f17fd9a4cc2fc8047f8817a9b9420",
-    "formal/Weft/Logic/Enumeration.lean": "98e73f474f8f66120ab37f39c685009e400ba36cb7d1371b74a5d5dbe3863d69",
-    "formal/Weft/Logic/Examples.lean": "e0467494f81faac9450d6debd412a26416a5495539d8dc39468431dffd51fb0f",
-    "formal/Weft/Logic/Search.lean": "17cb20891fc88cc1295b0b046b60f66461e8b53b0bd69c1d48f957d9994c983c",
-    "formal/Weft/Logic/Syntax.lean": "10eec8fa9a21e75c602e10e78761d2397f02c4f9210bbab22b8fdc607076c36b",
-    "formal/Weft/Logic.lean": "3038067c51d65cef66983d4689011e0ddf660abd3ab62f486d853d477db59b82",
-    "formal/Weft/Reference.lean": "253e3b83ed3e9945cb430c3db97b56eb7e91b1be625fa0a873f2a26c4bcfb31c",
-    "formal/Weft.lean": "71dd126015e772132905fce67731d5212fce73cb3d6775944dd658a0634f1f86",
-    "formal/audit-targets.json": "deb9b824d07df8a985b7ebaf364ebf400b11a735c685db58539d09bbf5f34ee5",
-    "formal/lake-manifest.json": "6052aa0b98ce100c828ef45409755c07f133972a58e13a56f905bd7acd9d1b08",
-    "formal/lakefile.toml": "7096a213a184e5102d50499a6dfe170c8314a6b577c8ed6bd7b037ab01e53a3c",
-    "formal/lean-toolchain": "d24fed434d3b13adfaab57724a0a7f270ea8bf1c818b5ae5cf25cbce24dd685c",
-    "scripts/run_proofs.py": "88efffb68cbbd82ca15df401980c90cedbb06fcf11a51366b9fa0911cc2622ed",
-    "scripts/evidence.py": "9c0ae7b624f2bd8967593707081242ffaf1904caccc1c0d59c11bef628ab367b",
-    "scripts/contracts.py": "5f8c1cf89fdbe64590ce7b7cfaa1379d515c701542fbf787c3c5c28d890d36d7",
-    "scripts/test_qualification.py": "53d8b57c62b53562b1b7d8682f4b46c18e9bc3f0bda127bc379e6d0191efe3f7",
-    "scripts/lean_mutations.json": "5ea2efce625c23f11769c1cab6ba026eea270c07d25f8c661a3f191d80f8771c",
-    "toolchains.lock.json": "1daa41f68708aa69aeba247df9a6770c44f6015de3c56a893dc001687490aed9",
-    "compose.yaml": "2ac201812858295fbaeca00d20196373a9d35eaa930c4bb061376e23a4a21fc0",
-    "qualification/handover-adoption.json": "463f9fc13964817765c72c5eeb7a081facb3bc4bf752ca37bc08a8c5c75c766e",
-    "handovers/revision-3/weft/AGENT_START_HERE.md": "17b8eec8db351b363558ec7ee639c55763c6a75619b279eaf5d67ba67cca1eda",
-    "handovers/revision-3/weft/MANIFEST.sha256": "cc033a8e846929aeb29c952ef6a1ab9f02cff3e56e6deadbc4114ac4458d1f8e",
-    "handovers/revision-3/weft/base.json": "974758bc4355b2b610401336a74e2be92334690050cffb542f0c3056dd26f661",
-    "handovers/revision-3/weft/plan/01-language-and-semantics.md": "1fb358c2667795e1c6183034debbc0f13730df3eb3294b4093b039fb7e978746",
-    "handovers/revision-3/weft/plan/02-proofs-and-reference.md": "698a59dc8aa23fde739ed56296892f3f22991257e460e3522b7f0e27e304d347",
-    "handovers/revision-3/weft/plan/03-implementation-and-gates.md": "13f06b5446aa5a48d182d6a35f935b53bf41cc3c38ae976abafb21ba15d959ac",
-    "handovers/revision-3/weft/registries/gates.json": "056c047972bf9e9370217b240abcb0aefbd16fe52e5c8bcbaae54e774fd5a39d",
-    "handovers/revision-3/weft/registries/theorems.json": "63837354306f152b90741f1272cd3ad734191e6054e65300546f64f0c3070132",
-    "handovers/revision-2/weft/AGENT_START_HERE.md": "a8f8250a22f74b6176acff010a4cb041c918b3ff825a6a5439c44b2aeae9be7e",
-    "handovers/revision-2/weft/MANIFEST.sha256": "cc21e72ee748b2d293aa25a737b82d7b58295d024c56f88b52aa4eca3f310ad7",
-    "handovers/revision-2/weft/base.json": "4c0a229dd3577fe718a9a401a3fc6b35bc761cd266d7f33c06107fbfb4c6d6e0",
-    "handovers/revision-2/weft/plan/01-sets-and-bindings.md": "287511701698ada7c503781ac19056d72fbd9d43aa3d6453c016dd10f3fb677b",
-    "handovers/revision-2/weft/plan/02-quantifiers-and-reports.md": "7bc951849ba170b2831215fa72e030db2540d69c21361fadab670dc50551ef06",
-    "handovers/revision-2/weft/plan/03-proof-and-acceptance.md": "54509aaf41fe0e041dddfeb55e2d5fa398f7e61693fdf8c4fe720ab7d04a66f2",
-    "handovers/revision-2/weft/registries/gates.json": "88c31b9a3853ca8b5b15fc7b9954419a1645e86eb76000969e4370cc55361d7a",
-    "handovers/revision-2/weft/registries/theorems.json": "87519827908a07a9f3d1c2d50d8ce933ea8bcd182274472c0aa311c359a52c0e",
-    "handovers/revision-1/weft/AGENT_START_HERE.md": "1e0cc8408e7cbb1e1ad3342ee8e8f2980bd61d3d3ebda72b89ca6f627379e6ac",
-    "handovers/revision-1/weft/MANIFEST.sha256": "dc87588eabfd241c64f7c5558200f1a349572be46d1152c3cf2da1cb355d5a4a",
-    "handovers/revision-1/weft/plan/01-language-and-proofs.md": "4b10cc52ac6e8224a5201badf8666f3d26250aabb60156306f9d791242d39af9",
-    "handovers/revision-1/weft/plan/02-report-and-identity.md": "c8ef5cdefc49506247c868aee62189e27da64f8e81c5e424420a38f1b41c14a2",
-    "handovers/revision-1/weft/plan/03-rust-architecture.md": "860adc21a68630ef4e3723e60e8e336380d0c1235456fcafdbbb76eda8a2399d",
-    "handovers/revision-1/weft/plan/04-build-and-quality.md": "95927d7905d1e425f07deb411870046e26c23f31ed95e7455b4dd320d2f8ac91",
-    "handovers/revision-1/weft/plan/05-stages-and-acceptance.md": "fbca0806febc368813ffc6cb4a61892779e79ad97ac973e82eb789bc700a97ea",
-    "handovers/revision-1/weft/plan/06-writfold-handoff.md": "f4d5d04ebcb368a430e19b6ef04e8df874994972866d39fb3f89ec762c52ccba",
-    "handovers/revision-1/weft/registries/gates.json": "fb38b034a51bc3fa69cab9390501554c5ddf12ca6ce661d35f6a8d142e614147",
-    "handovers/revision-1/weft/registries/theorems.json": "7ad446c4402e36ea0a1e2eba03c2d2d218277e0dca3182151a4636d0fa05825e",
-    "spec/grammar.ebnf": "0a7ae682a3ffd79f65474370353bfcda92241a87a1b477c326659fb6cc6f5b83",
-    "spec/language.md": "2b6b6cd0250bf929b861a66c561fa44e5ccafafba22115d0f9bea541e40e7f77",
-    "docs/implementation-profile.md": "5ce13d243906e1b2435629bfb6a587a0c91aa220e2ab51f20a59c8e13748b32e",
-    "spec/report-v1.md": "e629f3a5f627379e65cb9205acbb8ca577651d84bfd982b476ab475692f7bce3"
+  "artifacts": {
+    "finite_reference_binary_sha256": "d68ce4585a570161949da3e32e96616446ca9620f43074b4fa0620385bec4569",
+    "reference_binary_sha256": "883a91d575ff84eac6587c7d3adf7abf4fdaa7c599c094d69c60c2a6ff9d00d3"
   },
   "audited_declarations": 327,
-  "theorem_families": [
-    "L01",
-    "L02",
-    "L03",
-    "L04",
-    "L05",
-    "L06",
-    "L07",
-    "L08",
-    "L09",
-    "L10",
-    "L11",
-    "L12",
-    "Q01",
-    "Q02",
-    "Q03",
-    "Q04",
-    "Q05",
-    "Q06",
-    "Q07",
-    "Q08",
-    "Q09",
-    "Q10",
-    "A01",
-    "A02",
-    "A03",
-    "A04",
-    "A05",
-    "A06",
-    "A07",
-    "A08"
+  "authority": "handovers/revision-3/weft",
+  "executed_finite_cases": [
+    {
+      "id": "duplicate-values-retain-origins",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "raw-occurrences-not-distinct-count",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "unavailable-member-is-not-deduplicated",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "empty-spread-keeps-origins",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "malformed-origin-closure-refused",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "mixed-scalar-types-refused",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "nominal-kind-separation",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "duplicate-binding-refused",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "empty-forall",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "empty-exists",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "hygienic-shadowing",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "dependent-finite-domains",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "zero-budget-refuses",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "universal-instance-coverage",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "universal-counterexample-member",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "existential-witness-member",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "existential-complete-absence",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "algebra-union-membership-order",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "algebra-intersection-merges-origins",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "algebra-difference-retains-right-closure",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "algebra-typed-empty-results",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "algebra-mixed-types-refused",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "algebra-membership-hit-miss",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "algebra-subset-counterexample",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "algebra-unavailable-operand-refused",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "algebra-shadowing-not-capture",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    },
+    {
+      "id": "algebra-zero-budget-refused",
+      "passed": true,
+      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim"
+    }
+  ],
+  "executed_reference_cases": [
+    {
+      "id": "entailed",
+      "verdict": "entailed",
+      "witness_checks": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "refuted",
+      "verdict": "refuted",
+      "witness_checks": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "wrong-polarity",
+      "verdict": "refuted",
+      "witness_checks": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "two-models",
+      "verdict": "undetermined",
+      "witness_checks": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "inconsistent",
+      "verdict": "inconsistent-premises",
+      "witness_checks": [
+        false,
+        false
+      ]
+    },
+    {
+      "id": "no-budget",
+      "verdict": "unknown",
+      "witness_checks": []
+    },
+    {
+      "id": "invalid-domain",
+      "verdict": "unknown",
+      "witness_checks": [
+        false
+      ]
+    },
+    {
+      "id": "empty-domain",
+      "verdict": "refuted",
+      "witness_checks": [
+        true
+      ]
+    }
+  ],
+  "failed_attempts": [
+    {
+      "receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus/report.json",
+      "sha256": "cc8995d7ed3e4e01ff0b221ef43e9654489697451da75453816ddb89f7892a20"
+    },
+    {
+      "receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus-2/report.json",
+      "sha256": "e839f4584c9c95ec99c3fdd14e179a2f747c960801c7caf7679e1d37ac4c620a"
+    }
   ],
   "foundational_axioms": [
     "Classical.choice",
     "Quot.sound",
     "propext"
   ],
-  "executed_reference_cases": [
-    {
-      "witness_checks": [
-        true,
-        false
-      ],
-      "verdict": "entailed",
-      "id": "entailed"
-    },
-    {
-      "witness_checks": [
-        true,
-        false
-      ],
-      "verdict": "refuted",
-      "id": "refuted"
-    },
-    {
-      "witness_checks": [
-        true,
-        false
-      ],
-      "verdict": "refuted",
-      "id": "wrong-polarity"
-    },
-    {
-      "witness_checks": [
-        true,
-        true
-      ],
-      "verdict": "undetermined",
-      "id": "two-models"
-    },
-    {
-      "witness_checks": [
-        false,
-        false
-      ],
-      "verdict": "inconsistent-premises",
-      "id": "inconsistent"
-    },
-    {
-      "witness_checks": [],
-      "verdict": "unknown",
-      "id": "no-budget"
-    },
-    {
-      "witness_checks": [
-        false
-      ],
-      "verdict": "unknown",
-      "id": "invalid-domain"
-    },
-    {
-      "witness_checks": [
-        true
-      ],
-      "verdict": "refuted",
-      "id": "empty-domain"
-    }
-  ],
-  "executed_finite_cases": [
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "duplicate-values-retain-origins"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "raw-occurrences-not-distinct-count"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "unavailable-member-is-not-deduplicated"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "empty-spread-keeps-origins"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "malformed-origin-closure-refused"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "mixed-scalar-types-refused"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "nominal-kind-separation"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "duplicate-binding-refused"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "empty-forall"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "empty-exists"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "hygienic-shadowing"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "dependent-finite-domains"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "zero-budget-refuses"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "universal-instance-coverage"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "universal-counterexample-member"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "existential-witness-member"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "existential-complete-absence"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "algebra-union-membership-order"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "algebra-intersection-merges-origins"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "algebra-difference-retains-right-closure"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "algebra-typed-empty-results"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "algebra-mixed-types-refused"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "algebra-membership-hit-miss"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "algebra-subset-counterexample"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "algebra-unavailable-operand-refused"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "algebra-shadowing-not-capture"
-    },
-    {
-      "scope": "executed finite calculus case; no live Writfold or Rust refinement claim",
-      "passed": true,
-      "id": "algebra-zero-budget-refused"
-    }
+  "image_id": "sha256:d75f5675cc943b439c0b7a1df4dc47bc24ada14ab0346044cd8fdfd0c2724c2a",
+  "manifest_sha256": "cc033a8e846929aeb29c952ef6a1ab9f02cff3e56e6deadbc4114ac4458d1f8e",
+  "mutation_families": [
+    "M01",
+    "M02",
+    "M03",
+    "M04",
+    "M05",
+    "M06",
+    "M07",
+    "M08",
+    "M09",
+    "M10",
+    "M11",
+    "M12",
+    "M13",
+    "M14",
+    "M15",
+    "M16",
+    "M17",
+    "M18",
+    "M19",
+    "M20",
+    "M21",
+    "M22",
+    "M23",
+    "M24",
+    "M25",
+    "M26",
+    "M27",
+    "M28",
+    "M29",
+    "M30",
+    "M31",
+    "M32",
+    "M33",
+    "M34",
+    "M35",
+    "M36"
   ],
   "mutation_ids": [
     "M01-type-check",
@@ -375,58 +296,137 @@
     "M35-budget-bypass",
     "M36-algebra-authority-upgrade"
   ],
-  "mutation_families": [
-    "M01",
-    "M02",
-    "M03",
-    "M04",
-    "M05",
-    "M06",
-    "M07",
-    "M08",
-    "M09",
-    "M10",
-    "M11",
-    "M12",
-    "M13",
-    "M14",
-    "M15",
-    "M16",
-    "M17",
-    "M18",
-    "M19",
-    "M20",
-    "M21",
-    "M22",
-    "M23",
-    "M24",
-    "M25",
-    "M26",
-    "M27",
-    "M28",
-    "M29",
-    "M30",
-    "M31",
-    "M32",
-    "M33",
-    "M34",
-    "M35",
-    "M36"
-  ],
   "qualification_boundary_regressions": null,
-  "artifacts": {
-    "reference_binary_sha256": "883a91d575ff84eac6587c7d3adf7abf4fdaa7c599c094d69c60c2a6ff9d00d3",
-    "finite_reference_binary_sha256": "d68ce4585a570161949da3e32e96616446ca9620f43074b4fa0620385bec4569"
-  },
+  "receipt": "~/.local/share/weft/evidence/client-20261106T0001/lean-002/report.json",
+  "receipt_sha256": "74855c5e55b6ae17f4ee11ac7ff4eed61cd1449b692605c5aaad5be9abbbfcbd",
+  "schema_version": 1,
+  "scope": "weft-language-calculus-only",
   "scope_note": "Revision-3 set-algebra calculus: inherited L/Q obligations plus A01-A08 over the extended SetExpr/Atom. Source AST semantics only; no raw-parser or Rust refinement claim.",
-  "failed_attempts": [
-    {
-      "receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus/report.json",
-      "sha256": "cc8995d7ed3e4e01ff0b221ef43e9654489697451da75453816ddb89f7892a20"
-    },
-    {
-      "receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus-2/report.json",
-      "sha256": "e839f4584c9c95ec99c3fdd14e179a2f747c960801c7caf7679e1d37ac4c620a"
-    }
-  ]
+  "source_manifest": {
+    "compose.yaml": "2ac201812858295fbaeca00d20196373a9d35eaa930c4bb061376e23a4a21fc0",
+    "docs/implementation-profile.md": "5ce13d243906e1b2435629bfb6a587a0c91aa220e2ab51f20a59c8e13748b32e",
+    "formal/Weft.lean": "71dd126015e772132905fce67731d5212fce73cb3d6775944dd658a0634f1f86",
+    "formal/Weft/Composition.lean": "9f1bd14faa8c2c1c31d1ba7469532e0471e0f5953ff2ef36f7b5751df7776de3",
+    "formal/Weft/Finite.lean": "0577d6d1567bd5453ab38f1e732ad81460f59a8bf3f6cfbdd1d75c7449fae62a",
+    "formal/Weft/Finite/Algebra.lean": "63bc294badedbeafc196837686b41e95d24ee1485a8dc6379c6685889f4f10f9",
+    "formal/Weft/Finite/Algebra/Budget.lean": "feb01def6c9acfbdf5f5f2d9cb794860b05aebc7d275b2a359d05c12e9635deb",
+    "formal/Weft/Finite/Algebra/Closure.lean": "85dbef90e4c892db36e70299067277b652b1dd416e3d8b6e3f0df70244c29fee",
+    "formal/Weft/Finite/Algebra/Conservation.lean": "d52101f931abdbce97ec13c1d206828fb4c85f2690a144dadca8a7db23668562",
+    "formal/Weft/Finite/Algebra/Examples.lean": "f80a560792362ed6583ecafa3cb8c6e4ff7d3f9c9ece9ca4b6cd1540f915a6de",
+    "formal/Weft/Finite/Algebra/Lowering.lean": "fd5641a673be1037ae3bffa83d0277261b360e0cd797e0173b3fb5a8a66ad156",
+    "formal/Weft/Finite/Algebra/Operations.lean": "07188267d820232a8d6a29437ce9b8d81e338c28099092b8a35ba4ede0b9982e",
+    "formal/Weft/Finite/Algebra/Predicates.lean": "55fd91cf043c89dad50416d24d34c3920ff2e697d2e6ebd1e894dbcd22871683",
+    "formal/Weft/Finite/Algebra/Traces.lean": "b724c35e8877a829b2bfc5c58eba9342fe0cf72b721ff62fd8bfbed1727271d3",
+    "formal/Weft/Finite/Bindings.lean": "4022da36b52379c8e454c4fb0850aac014ed2fecf029b5da037a62860be0dc05",
+    "formal/Weft/Finite/CaptureBudget.lean": "d92c5cb1887e5ff31e81a8cc5b1939f3657510e36dacdcbbbc3effd490d71149",
+    "formal/Weft/Finite/CaptureBudgetExamples.lean": "86ff4a5929ac5e1e8cd0f691a6769e9b92a686a8cabcf9458218adc0f406d380",
+    "formal/Weft/Finite/Lowering.lean": "41de80969f954bb1911654418ceb049636486972288b8edbb404dea4dc557fca",
+    "formal/Weft/Finite/QuantifierExamples.lean": "b726605027116904f5ef1ab3bbaf132cd0c71635bd37518c9cb996eba143025c",
+    "formal/Weft/Finite/Quantifiers.lean": "3d98fd443d5a12fea1cd6dce02639279558235fa2913a9bad862397e89a1d623",
+    "formal/Weft/Finite/Semantics.lean": "a02d2e650a0caf2a3ee9f1528ab183493839bc05f14c2139d556add86d8951f1",
+    "formal/Weft/Finite/SetExamples.lean": "f1a65531944e2068ed52c9b5f301b979f98d22e68ca030de8ad80f6ebbf4d011",
+    "formal/Weft/Finite/Sets.lean": "863d5530eb87ee8cbb3a66824b2f5b5352a1c05664fdef607e6f97432db9358c",
+    "formal/Weft/Finite/Sets/Properties.lean": "9c431886d6e6f30cfe3731df95ce1787d8dbf5017607e7336c255ea02488a473",
+    "formal/Weft/Finite/Substitution.lean": "4ac448708aa7219f1e89b599e120ce390700bef46d002d92d0b9e8112afe33b9",
+    "formal/Weft/Finite/SubstitutionTyping.lean": "112891328e4ffe8dba9d1ac5aae1aa19f5232140ca54da4c467a804e44b5b333",
+    "formal/Weft/Finite/Syntax.lean": "872e4e5e309c4fb208b054e3f1f9cbc36f01c7280302dbcd5f6fa16805e350b2",
+    "formal/Weft/Finite/TraceContext.lean": "77b1b244d7e6d14ddaff137e5a918ceea69c81604d8169cfc2bef38add09db0f",
+    "formal/Weft/Finite/TraceExamples.lean": "3573289420db5c8b6ef7318e46d531d31215cbb381d2ef79702b2fd4a46bacca",
+    "formal/Weft/Finite/Traces.lean": "01c0fb53be021429e0c0f4d18ec17f8e48e40efd4c3739a770626f06d4d78677",
+    "formal/Weft/Finite/Typing.lean": "77bb708e7205af3a281d53797071c465a7322df7e7849f0a331b1a3ae90a4ff9",
+    "formal/Weft/FiniteReference.lean": "01804753cd543bd01c5de2a86d9774ac1e1b87062e61acf220d9e9423d7866c4",
+    "formal/Weft/Grounding.lean": "b23e7452405438bb223a9d34940525c1341288615a097c68a98b0ef0f22e4ee1",
+    "formal/Weft/Grounding/DetailedTrace.lean": "279688c8e58322f1414d8cbc275f68b50f70462afbb0ab332353cf859bf8809c",
+    "formal/Weft/Grounding/Examples.lean": "70638723f0cdadcaec9bc70e39da8b62f3712abefca1a549cb1fb042af9bcc21",
+    "formal/Weft/Grounding/Model.lean": "823832f0e18bd9dd8115057ad00c5e914e473f09400bb503e9bb1c76da8e5b6c",
+    "formal/Weft/Grounding/ReportExamples.lean": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e",
+    "formal/Weft/Grounding/ReportView.lean": "e5e921cd7b573f115be9af17d2db71498eac5f2796bafe84963162c99ea54b59",
+    "formal/Weft/Grounding/Trace.lean": "d389f23f4cf269dc73a4f6f469986837affd4ebce6f47cea85a7c574e5cd7463",
+    "formal/Weft/Language.lean": "1f50923df8bc2e7974254266aaba48baf5cdf746f3814386603bde7a6c390883",
+    "formal/Weft/Language/Core.lean": "cb2fbd8a76ca17d516774bc50dfefb91d09d852cfced44315c2feaced101b308",
+    "formal/Weft/Language/Elaboration.lean": "53629af1e8dd4bc28cf5443b21706cf54907817d56cb06d9414eb2107d7ed54b",
+    "formal/Weft/Language/Examples.lean": "eac474a7d467eb3b959b49624705f95d0f3d9a3482e90d839d6c573d61b2d3a4",
+    "formal/Weft/Language/Semantics.lean": "ec5ee162ae5b5fa55b0fd9de3e4d82a04c56c2ad90391ad260176e15ef675caf",
+    "formal/Weft/Logic.lean": "3038067c51d65cef66983d4689011e0ddf660abd3ab62f486d853d477db59b82",
+    "formal/Weft/Logic/Classification.lean": "af62c2c4a7208d142265b87da6664376ca3f17fd9a4cc2fc8047f8817a9b9420",
+    "formal/Weft/Logic/Enumeration.lean": "98e73f474f8f66120ab37f39c685009e400ba36cb7d1371b74a5d5dbe3863d69",
+    "formal/Weft/Logic/Examples.lean": "e0467494f81faac9450d6debd412a26416a5495539d8dc39468431dffd51fb0f",
+    "formal/Weft/Logic/Search.lean": "17cb20891fc88cc1295b0b046b60f66461e8b53b0bd69c1d48f957d9994c983c",
+    "formal/Weft/Logic/Syntax.lean": "10eec8fa9a21e75c602e10e78761d2397f02c4f9210bbab22b8fdc607076c36b",
+    "formal/Weft/Reference.lean": "253e3b83ed3e9945cb430c3db97b56eb7e91b1be625fa0a873f2a26c4bcfb31c",
+    "formal/audit-targets.json": "deb9b824d07df8a985b7ebaf364ebf400b11a735c685db58539d09bbf5f34ee5",
+    "formal/lake-manifest.json": "6052aa0b98ce100c828ef45409755c07f133972a58e13a56f905bd7acd9d1b08",
+    "formal/lakefile.toml": "7096a213a184e5102d50499a6dfe170c8314a6b577c8ed6bd7b037ab01e53a3c",
+    "formal/lean-toolchain": "d24fed434d3b13adfaab57724a0a7f270ea8bf1c818b5ae5cf25cbce24dd685c",
+    "handovers/revision-1/weft/AGENT_START_HERE.md": "1e0cc8408e7cbb1e1ad3342ee8e8f2980bd61d3d3ebda72b89ca6f627379e6ac",
+    "handovers/revision-1/weft/MANIFEST.sha256": "dc87588eabfd241c64f7c5558200f1a349572be46d1152c3cf2da1cb355d5a4a",
+    "handovers/revision-1/weft/plan/01-language-and-proofs.md": "4b10cc52ac6e8224a5201badf8666f3d26250aabb60156306f9d791242d39af9",
+    "handovers/revision-1/weft/plan/02-report-and-identity.md": "c8ef5cdefc49506247c868aee62189e27da64f8e81c5e424420a38f1b41c14a2",
+    "handovers/revision-1/weft/plan/03-rust-architecture.md": "860adc21a68630ef4e3723e60e8e336380d0c1235456fcafdbbb76eda8a2399d",
+    "handovers/revision-1/weft/plan/04-build-and-quality.md": "95927d7905d1e425f07deb411870046e26c23f31ed95e7455b4dd320d2f8ac91",
+    "handovers/revision-1/weft/plan/05-stages-and-acceptance.md": "fbca0806febc368813ffc6cb4a61892779e79ad97ac973e82eb789bc700a97ea",
+    "handovers/revision-1/weft/plan/06-writfold-handoff.md": "f4d5d04ebcb368a430e19b6ef04e8df874994972866d39fb3f89ec762c52ccba",
+    "handovers/revision-1/weft/registries/gates.json": "fb38b034a51bc3fa69cab9390501554c5ddf12ca6ce661d35f6a8d142e614147",
+    "handovers/revision-1/weft/registries/theorems.json": "7ad446c4402e36ea0a1e2eba03c2d2d218277e0dca3182151a4636d0fa05825e",
+    "handovers/revision-2/weft/AGENT_START_HERE.md": "a8f8250a22f74b6176acff010a4cb041c918b3ff825a6a5439c44b2aeae9be7e",
+    "handovers/revision-2/weft/MANIFEST.sha256": "cc21e72ee748b2d293aa25a737b82d7b58295d024c56f88b52aa4eca3f310ad7",
+    "handovers/revision-2/weft/base.json": "4c0a229dd3577fe718a9a401a3fc6b35bc761cd266d7f33c06107fbfb4c6d6e0",
+    "handovers/revision-2/weft/plan/01-sets-and-bindings.md": "287511701698ada7c503781ac19056d72fbd9d43aa3d6453c016dd10f3fb677b",
+    "handovers/revision-2/weft/plan/02-quantifiers-and-reports.md": "7bc951849ba170b2831215fa72e030db2540d69c21361fadab670dc50551ef06",
+    "handovers/revision-2/weft/plan/03-proof-and-acceptance.md": "54509aaf41fe0e041dddfeb55e2d5fa398f7e61693fdf8c4fe720ab7d04a66f2",
+    "handovers/revision-2/weft/registries/gates.json": "88c31b9a3853ca8b5b15fc7b9954419a1645e86eb76000969e4370cc55361d7a",
+    "handovers/revision-2/weft/registries/theorems.json": "87519827908a07a9f3d1c2d50d8ce933ea8bcd182274472c0aa311c359a52c0e",
+    "handovers/revision-3/weft/AGENT_START_HERE.md": "17b8eec8db351b363558ec7ee639c55763c6a75619b279eaf5d67ba67cca1eda",
+    "handovers/revision-3/weft/MANIFEST.sha256": "cc033a8e846929aeb29c952ef6a1ab9f02cff3e56e6deadbc4114ac4458d1f8e",
+    "handovers/revision-3/weft/base.json": "974758bc4355b2b610401336a74e2be92334690050cffb542f0c3056dd26f661",
+    "handovers/revision-3/weft/plan/01-language-and-semantics.md": "1fb358c2667795e1c6183034debbc0f13730df3eb3294b4093b039fb7e978746",
+    "handovers/revision-3/weft/plan/02-proofs-and-reference.md": "698a59dc8aa23fde739ed56296892f3f22991257e460e3522b7f0e27e304d347",
+    "handovers/revision-3/weft/plan/03-implementation-and-gates.md": "13f06b5446aa5a48d182d6a35f935b53bf41cc3c38ae976abafb21ba15d959ac",
+    "handovers/revision-3/weft/registries/gates.json": "056c047972bf9e9370217b240abcb0aefbd16fe52e5c8bcbaae54e774fd5a39d",
+    "handovers/revision-3/weft/registries/theorems.json": "63837354306f152b90741f1272cd3ad734191e6054e65300546f64f0c3070132",
+    "qualification/handover-adoption.json": "463f9fc13964817765c72c5eeb7a081facb3bc4bf752ca37bc08a8c5c75c766e",
+    "scripts/contracts.py": "5f8c1cf89fdbe64590ce7b7cfaa1379d515c701542fbf787c3c5c28d890d36d7",
+    "scripts/evidence.py": "9c0ae7b624f2bd8967593707081242ffaf1904caccc1c0d59c11bef628ab367b",
+    "scripts/lean_mutations.json": "5ea2efce625c23f11769c1cab6ba026eea270c07d25f8c661a3f191d80f8771c",
+    "scripts/run_proofs.py": "88efffb68cbbd82ca15df401980c90cedbb06fcf11a51366b9fa0911cc2622ed",
+    "scripts/test_qualification.py": "53d8b57c62b53562b1b7d8682f4b46c18e9bc3f0bda127bc379e6d0191efe3f7",
+    "spec/grammar.ebnf": "0a7ae682a3ffd79f65474370353bfcda92241a87a1b477c326659fb6cc6f5b83",
+    "spec/language.md": "2b6b6cd0250bf929b861a66c561fa44e5ccafafba22115d0f9bea541e40e7f77",
+    "spec/report-v1.md": "e629f3a5f627379e65cb9205acbb8ca577651d84bfd982b476ab475692f7bce3",
+    "toolchains.lock.json": "1daa41f68708aa69aeba247df9a6770c44f6015de3c56a893dc001687490aed9"
+  },
+  "status": "pass",
+  "theorem_families": [
+    "L01",
+    "L02",
+    "L03",
+    "L04",
+    "L05",
+    "L06",
+    "L07",
+    "L08",
+    "L09",
+    "L10",
+    "L11",
+    "L12",
+    "Q01",
+    "Q02",
+    "Q03",
+    "Q04",
+    "Q05",
+    "Q06",
+    "Q07",
+    "Q08",
+    "Q09",
+    "Q10",
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A08"
+  ],
+  "tool_lock_sha256": "9b44d3441d9e3d794f36d501a127bd228eb8a956cbc56c49dd424a608e51d0a0"
 }

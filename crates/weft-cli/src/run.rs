@@ -167,6 +167,9 @@ fn emit(report: &Report<'_>, view: View) -> u8 {
         }
     }
 }
+pub(crate) fn write_out(bytes: &[u8], code: u8) -> u8 {
+    output(bytes, code)
+}
 fn output(bytes: &[u8], code: u8) -> u8 {
     let mut stdout = io::stdout().lock();
     if stdout

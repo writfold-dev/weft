@@ -102,6 +102,7 @@ def qualify(root: Path, evidence: Path, binary: Path, reference: Path, finite_re
     human = run_logged([str(binary), 'prove', str(source), '--human'], root, evidence, 'human', env={'PATH': '/no-toolchain'})
     if human['exit_code'] != 1 or b'\x1b' in (evidence / 'human.stdout').read_bytes():
         raise ValueError('human report failed or emitted terminal escape controls')
+    reuse_cases = reuse_qualify(root, evidence, binary)
     require_success(run_logged([str(finite_reference)], root, evidence, 'finite-reference'))
     finite = [json.loads(line) for line in (evidence / 'finite-reference.stdout').read_text().splitlines()]
     if len(finite) != 27 or any(case['passed'] is not True for case in finite):
@@ -109,6 +110,47 @@ def qualify(root: Path, evidence: Path, binary: Path, reference: Path, finite_re
     differential = compare(root, evidence, reference, requests)
     algebra = algebra_compare(binary, finite)
     return {'status': 'pass', 'binary_sha256': digest(binary), 'cases': cases,
-            'analysis': record, 'human': human, 'finite_reference': finite,
+            'analysis': record, 'human': human, 'reuse': reuse_cases,
+            'finite_reference': finite,
             'differential': differential, 'algebra_differential': algebra,
             'child_PATH': '/no-toolchain'}
+
+
+def reuse_qualify(root: Path, evidence: Path, binary: Path) -> list[dict]:
+    """S14: scope equality is the only reuse key; every change refuses."""
+    source = evidence / 'reuse-source.weft'
+    source.write_bytes((root / 'examples/sets.weft').read_bytes())
+    prove = run_logged([str(binary), 'prove', str(source)], root, evidence, 'reuse-prove',
+                       env={'PATH': '/no-toolchain'}, timeout=30)
+    if prove['exit_code'] != 1:
+        raise ValueError('reuse fixture report was not produced')
+    report = evidence / 'reuse-report.json'
+    report.write_bytes((evidence / 'reuse-prove.stdout').read_bytes())
+    changed = evidence / 'reuse-changed.weft'
+    changed.write_bytes(
+        (root / 'examples/sets.weft').read_bytes().replace(b'unresolved-cursor-plan', b'renamed-cursor-plan'))
+    malformed = evidence / 'reuse-malformed.json'
+    malformed.write_text('{not-json')
+    expected = [
+        ('reuse-same', [str(report), str(source)], 0, 'reusable', []),
+        ('reuse-changed-subject', [str(report), str(changed)], 1, 'refused', ['source.sha256']),
+        ('reuse-malformed-report', [str(malformed), str(source)], 2, None, None),
+    ]
+    cases = []
+    for name, arguments, code, decision, fields in expected:
+        record = run_logged([str(binary), 'reuse', *arguments], root, evidence, name,
+                            env={'PATH': '/no-toolchain'}, timeout=30)
+        if record['exit_code'] != code:
+            raise ValueError(f'{name} exit was {record["exit_code"]}, expected {code}')
+        output = json.loads((evidence / f'{name}.stdout').read_text())
+        if output['schema'] != 'weft.reuse/1' or output['writfold_grounded'] is not False:
+            raise ValueError(f'{name} overstated its scope')
+        if decision is not None:
+            if output['decision'] != decision:
+                raise ValueError(f'{name} decided {output["decision"]}, expected {decision}')
+            observed = [difference['field'] for difference in output['differences']]
+            if observed != fields:
+                raise ValueError(f'{name} differences were {observed}, expected {fields}')
+        cases.append({'id': name, 'status': 'pass', 'exit_code': code,
+                      'decision': decision, 'command': record})
+    return cases

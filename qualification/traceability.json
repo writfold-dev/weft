@@ -26,17 +26,19 @@
       "sha256": "e2ae0ea54965cedadbf323084a5630d837c18ce2444db7582d86c60e9baa94a8"
     },
     "finite-reference": {
-      "path": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-reference/report.json",
-      "sha256": "4627cf69d53d9123d96a64706d04a3fbf95752cda34952a2da31fb69ce55f767",
-      "scope": "revision-3 extended calculus reference checkpoint binding the current formal tree"
+      "path": "~/.local/share/weft/evidence/client-20261106T0001/lean-002/report.json",
+      "sha256": "74855c5e55b6ae17f4ee11ac7ff4eed61cd1449b692605c5aaad5be9abbbfcbd",
+      "scope": "complete extended calculus gate requalified under the renewed tool image; binds the current formal tree and reference executables"
     },
     "rust-runtime": {
-      "path": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-rust-3/report.json",
-      "sha256": "aa1bfd51da63f60b6f7e7b3e8fef7fa1759bbddf7db60a2457cc3ec20b6149a6"
+      "path": "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json",
+      "sha256": "a0986c05eb90bb1c64ed37a0354d926c9d26832b218708d5158f401ba59e5d43",
+      "scope": "local symbolic runtime requalified with the reuse gate, control client crate and control CLI surface"
     },
     "scratch-runtime": {
-      "path": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-runtime-package-001/report.json",
-      "sha256": "dbb57d4c451440d821bb5cd327c9ebc043c8fa9aebf11003176821672e341dd0"
+      "path": "~/.local/share/weft/evidence/client-20261106T0001/runtime-package-001/report.json",
+      "sha256": "2222f5bdf40b0e6d52677686b5740d0052be1e11da10fc038d555c08c4954c4e",
+      "scope": "scratch runtime image rebuilt from the current musl binary and re-exercised under the same hardening profile"
     },
     "owner-boundary": {
       "path": "../writfold/qualification/weft-integration.json",
@@ -50,6 +52,11 @@
     "algebra-reference": {
       "path": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-reference/report.json",
       "sha256": "4627cf69d53d9123d96a64706d04a3fbf95752cda34952a2da31fb69ce55f767"
+    },
+    "control-client": {
+      "path": "~/.local/share/weft/evidence/client-20261106T0001/control-004/report.json",
+      "sha256": "536531227fec71aad83be06e0e69a4a45b8abeb4e7fdf8f97af3a604a418b82c",
+      "scope": "weft-writfold transport-control client against the owner-pinned writfold.agent/1 contract; transport identity only"
     }
   },
   "theorems": [
@@ -1165,7 +1172,7 @@
         {
           "path": "crates/weft-wire/src/lib.rs",
           "symbol": "render",
-          "sha256": "2337c1c65e34c71fceb61435c32a669ddaa22a9de34ef3d29db2b6b8113db7d4"
+          "sha256": "19b8087b675c8c096b6870346e1602c52832e4c0c68bb71012665e218760efe2"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -1255,7 +1262,7 @@
       "receipts": [
         "rust-runtime"
       ],
-      "scope": "Revision-3 component pass: grammar, evaluator, reports and musl artifact requalified with native set algebra."
+      "scope": "Revision-3 component requalification under the renewed tool image, now including the local reuse gate and the pinned writfold.agent/1 control client through the same musl binary."
     },
     {
       "id": "P03",
@@ -1270,7 +1277,7 @@
       "receipts": [
         "rust-runtime"
       ],
-      "scope": "Revision-3 component pass: grammar, evaluator, reports and musl artifact requalified with native set algebra."
+      "scope": "Revision-3 component requalification under the renewed tool image, now including the local reuse gate and the pinned writfold.agent/1 control client through the same musl binary."
     },
     {
       "id": "P04",
@@ -1285,7 +1292,7 @@
       "receipts": [
         "rust-runtime"
       ],
-      "scope": "Revision-3 component pass: grammar, evaluator, reports and musl artifact requalified with native set algebra."
+      "scope": "Revision-3 component requalification under the renewed tool image, now including the local reuse gate and the pinned writfold.agent/1 control client through the same musl binary."
     },
     {
       "id": "P05",
@@ -1356,7 +1363,7 @@
       "receipts": [
         "rust-runtime"
       ],
-      "scope": "Revision-3 component pass: grammar, evaluator, reports and musl artifact requalified with native set algebra."
+      "scope": "Quality and musl artifact requalified with the control client and reuse surfaces; scratch runtime package rebuilt and re-exercised under the same hardening profile."
     },
     {
       "id": "P09",
@@ -1699,21 +1706,24 @@
     {
       "id": "S14",
       "requirement": "No false reuse after subject change",
-      "status": "scoped-evidence",
+      "status": "local-pass",
       "theorem_families": [
         "L10"
       ],
       "fixtures": [
         {
-          "path": "formal/Weft/Grounding/ReportExamples.lean",
-          "sha256": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e"
+          "path": "crates/weft-wire/src/reuse.rs",
+          "sha256": "ed2ba71a61b3c1d86203fedd75b2588f5da9d062cf6951280e077ac7bca8c4ed"
+        },
+        {
+          "path": "crates/weft-cli/src/reuse.rs",
+          "sha256": "3067c391ab971ed428ec6e73b7a8a05ce2b6596a3fc6120a2fbbdb51d23f61e0"
         }
       ],
       "receipts": [
-        "finite-reference",
         "rust-runtime"
       ],
-      "scope": "Formal exact-scope reuse is proved; there is no shipping reuse command or live owner-binding reuse qualification."
+      "scope": "Formal exact-scope reuse (L10) plus the shipping `weft reuse` gate: identical report-recorded scope is the only reuse key; source, profile, budget, kind and review-scope differences are named refusals through the actual musl binary. Live owner-binding reuse remains P06 and stays blocked."
     },
     {
       "id": "S15",
@@ -1873,20 +1883,28 @@
     {
       "id": "S22",
       "requirement": "Malformed/oversized/stale peer responses",
-      "status": "blocked-external",
+      "status": "scoped-evidence",
       "theorem_families": [
         "L10"
       ],
       "fixtures": [
         {
-          "path": "formal/Weft/Grounding/ReportExamples.lean",
-          "sha256": "9bc1872b971e25e7492c5d4d3a48f0e0b0b41ef857971042570212c996b4937e"
+          "path": "crates/weft-wire/src/rpc/parse.rs",
+          "sha256": "13217365b40710aad528b2a0b60ec80bb8feb361ab08ba7c556f1c404067dcc8"
+        },
+        {
+          "path": "crates/weft-wire/src/rpc/message.rs",
+          "sha256": "82d5160696c5166493db919a97709ce2e6b86362b92b99bfb15901573c57ab20"
+        },
+        {
+          "path": "crates/weft-writfold/src/frame.rs",
+          "sha256": "9ef880a3c010201f9d6d8aa6bf0aa639e51e022d13e05231462c58fe3857db76"
         }
       ],
       "receipts": [
-        "owner-boundary"
+        "control-client"
       ],
-      "scope": "Real owner services required; not exercised by local reports."
+      "scope": "Client-side malformed/duplicate/oversized/foreign-correlation reply handling is refused by the pinned transport client and exercised in a real session against the owner binary; stale/malformed data-service responses remain blocked with WR2-WR8."
     },
     {
       "id": "S23",

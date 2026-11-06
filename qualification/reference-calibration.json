@@ -1,15 +1,107 @@
 {
-  "schema_version": 1,
-  "status": "pass",
-  "scope": "qualified executable reference witness checking; inherited and set-algebra calculus scope",
   "authority": "handovers/revision-3/weft",
-  "receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-reference/report.json",
-  "receipt_sha256": "4627cf69d53d9123d96a64706d04a3fbf95752cda34952a2da31fb69ce55f767",
   "calculus_prerequisite": {
     "path": "qualification/finite-calculus.json",
-    "sha256": "c45bc72616ba97d0bc212e3b7183260bde13822d0bd67e1d10f12c6749c632d1"
+    "sha256": "65b24468a86b209818ded3d2a05af1610adb64665d9587afc49b9717b8439d87"
   },
   "changed_formal_sources": [],
+  "finite_reference_binary_sha256": "d68ce4585a570161949da3e32e96616446ca9620f43074b4fa0620385bec4569",
+  "finite_reference_case_ids": [
+    "duplicate-values-retain-origins",
+    "raw-occurrences-not-distinct-count",
+    "unavailable-member-is-not-deduplicated",
+    "empty-spread-keeps-origins",
+    "malformed-origin-closure-refused",
+    "mixed-scalar-types-refused",
+    "nominal-kind-separation",
+    "duplicate-binding-refused",
+    "empty-forall",
+    "empty-exists",
+    "hygienic-shadowing",
+    "dependent-finite-domains",
+    "zero-budget-refuses",
+    "universal-instance-coverage",
+    "universal-counterexample-member",
+    "existential-witness-member",
+    "existential-complete-absence",
+    "algebra-union-membership-order",
+    "algebra-intersection-merges-origins",
+    "algebra-difference-retains-right-closure",
+    "algebra-typed-empty-results",
+    "algebra-mixed-types-refused",
+    "algebra-membership-hit-miss",
+    "algebra-subset-counterexample",
+    "algebra-unavailable-operand-refused",
+    "algebra-shadowing-not-capture",
+    "algebra-zero-budget-refused"
+  ],
+  "receipt": "~/.local/share/weft/evidence/client-20261106T0001/lean-002/report.json",
+  "receipt_sha256": "74855c5e55b6ae17f4ee11ac7ff4eed61cd1449b692605c5aaad5be9abbbfcbd",
+  "reference_binary_sha256": "883a91d575ff84eac6587c7d3adf7abf4fdaa7c599c094d69c60c2a6ff9d00d3",
+  "reference_cases": [
+    {
+      "id": "entailed",
+      "verdict": "entailed",
+      "witness_checks": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "refuted",
+      "verdict": "refuted",
+      "witness_checks": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "wrong-polarity",
+      "verdict": "refuted",
+      "witness_checks": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "two-models",
+      "verdict": "undetermined",
+      "witness_checks": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "inconsistent",
+      "verdict": "inconsistent-premises",
+      "witness_checks": [
+        false,
+        false
+      ]
+    },
+    {
+      "id": "no-budget",
+      "verdict": "unknown",
+      "witness_checks": []
+    },
+    {
+      "id": "invalid-domain",
+      "verdict": "unknown",
+      "witness_checks": [
+        false
+      ]
+    },
+    {
+      "id": "empty-domain",
+      "verdict": "refuted",
+      "witness_checks": [
+        true
+      ]
+    }
+  ],
+  "schema_version": 1,
+  "scope": "qualified executable reference witness checking; inherited and set-algebra calculus scope",
+  "status": "pass",
   "unchanged_calculus_body_sources": [
     "formal/Weft.lean",
     "formal/Weft/Composition.lean",
@@ -64,98 +156,6 @@
     "formal/lake-manifest.json",
     "formal/lakefile.toml",
     "formal/lean-toolchain"
-  ],
-  "reference_binary_sha256": "883a91d575ff84eac6587c7d3adf7abf4fdaa7c599c094d69c60c2a6ff9d00d3",
-  "finite_reference_binary_sha256": "d68ce4585a570161949da3e32e96616446ca9620f43074b4fa0620385bec4569",
-  "reference_cases": [
-    {
-      "witness_checks": [
-        true,
-        false
-      ],
-      "verdict": "entailed",
-      "id": "entailed"
-    },
-    {
-      "witness_checks": [
-        true,
-        false
-      ],
-      "verdict": "refuted",
-      "id": "refuted"
-    },
-    {
-      "witness_checks": [
-        true,
-        false
-      ],
-      "verdict": "refuted",
-      "id": "wrong-polarity"
-    },
-    {
-      "witness_checks": [
-        true,
-        true
-      ],
-      "verdict": "undetermined",
-      "id": "two-models"
-    },
-    {
-      "witness_checks": [
-        false,
-        false
-      ],
-      "verdict": "inconsistent-premises",
-      "id": "inconsistent"
-    },
-    {
-      "witness_checks": [],
-      "verdict": "unknown",
-      "id": "no-budget"
-    },
-    {
-      "witness_checks": [
-        false
-      ],
-      "verdict": "unknown",
-      "id": "invalid-domain"
-    },
-    {
-      "witness_checks": [
-        true
-      ],
-      "verdict": "refuted",
-      "id": "empty-domain"
-    }
-  ],
-  "finite_reference_case_ids": [
-    "duplicate-values-retain-origins",
-    "raw-occurrences-not-distinct-count",
-    "unavailable-member-is-not-deduplicated",
-    "empty-spread-keeps-origins",
-    "malformed-origin-closure-refused",
-    "mixed-scalar-types-refused",
-    "nominal-kind-separation",
-    "duplicate-binding-refused",
-    "empty-forall",
-    "empty-exists",
-    "hygienic-shadowing",
-    "dependent-finite-domains",
-    "zero-budget-refuses",
-    "universal-instance-coverage",
-    "universal-counterexample-member",
-    "existential-witness-member",
-    "existential-complete-absence",
-    "algebra-union-membership-order",
-    "algebra-intersection-merges-origins",
-    "algebra-difference-retains-right-closure",
-    "algebra-typed-empty-results",
-    "algebra-mixed-types-refused",
-    "algebra-membership-hit-miss",
-    "algebra-subset-counterexample",
-    "algebra-unavailable-operand-refused",
-    "algebra-shadowing-not-capture",
-    "algebra-zero-budget-refused"
   ],
   "witness_check_scope": "Explicit supplied assignments are checked by Lean satisfies/evaluate under exact atom bounds; a polarity model is not universal truth or effect authority. Set-algebra reference cases are executed through the actual extended evaluators, not hardcoded expected answers."
 }

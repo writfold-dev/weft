@@ -172,9 +172,56 @@ def rust(attempt: Path, lock: dict, prepare: bool) -> dict:
     return run(ROOT, attempt, image, prepare)
 
 
+
+CONTROL_BINARY_PIN = ("70b0d07b18e2f1bd70fc34fce4cc5335fccdd5c6307c014f55abf81ecd97fcca",
+                     "~/.local/share/writfold/evidence/stdio-control-20261105-001.json.attempt/writfold")
+
+
+def control(attempt: Path, lock: dict) -> dict:
+    image = admitted_image(lock)
+    verify_tools(image, attempt, lock)
+    reconcile(ROOT)
+    import shutil
+    pinned_sha, owner_path = CONTROL_BINARY_PIN
+    source = Path(owner_path).expanduser()
+    if digest(source) != pinned_sha:
+        raise ValueError("owner-pinned writfold control executable changed on disk")
+    peer = attempt / "writfold"
+    shutil.copy2(source, peer)
+    if digest(peer) != pinned_sha:
+        raise ValueError("copied peer executable bytes differ from the pin")
+    control_paths = ["Cargo.toml", "crates", "contracts/writfold-agent-1",
+                     "scripts/run_control.py", "compose.yaml", "toolchains.lock.json"]
+    if (ROOT / "Cargo.lock").exists():
+        control_paths.append("Cargo.lock")
+    inputs = manifest(ROOT, control_paths)
+    capture_sources(ROOT, list(inputs), attempt / "control-source.zip")
+    name = f"weft-control-{uuid.uuid4().hex}"
+    args = [
+        "docker", "compose", "run", "--rm", "--name", name,
+        "qualify", "timeout", "--signal=TERM", "--kill-after=30", "1800",
+        "python3", "scripts/run_control.py",
+    ]
+    try:
+        require_success(run_logged(
+            args, ROOT, attempt, "compose-control",
+            env=process_env(WEFT_TOOL_IMAGE=image, WEFT_ATTEMPT=str(attempt)),
+            timeout=1900,
+        ))
+    finally:
+        subprocess.run(["docker", "rm", "--force", name], capture_output=True, check=False)
+    if inputs != manifest(ROOT, control_paths):
+        raise ValueError("control inputs changed during qualification")
+    result = json.loads((attempt / "control-results.json").read_text())
+    if result["status"] != "pass":
+        raise ValueError("control producer did not complete its stated scope")
+    return {"image_id": image, "source_manifest": inputs, "peer_binary_sha256": pinned_sha,
+            "producer": result}
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("gate", choices=["bootstrap", "lean", "model", "prepare-rust", "rust"])
+    parser.add_argument("gate", choices=["bootstrap", "lean", "model", "prepare-rust", "rust", "control"])
     parser.add_argument("--receipt", required=True, type=Path)
     args = parser.parse_args()
     receipt = args.receipt.expanduser().resolve()
@@ -187,8 +234,8 @@ def main() -> int:
             "bootstrap": "weft-tools-only", "lean": "weft-language-calculus-only",
             "model": "weft-writfold-control-protocol-model-only",
             "prepare-rust": "weft-rust-preparation-only", "rust": "weft-local-symbolic-runtime-only",
+            "control": "weft-writfold-control-client-transport-only",
         }[args.gate],
-        "skipped": [],
     }
     try:
         producer_inputs = [
@@ -196,6 +243,9 @@ def main() -> int:
         ]
         if args.gate == "model":
             producer_inputs += ["scripts/run_model.py"]
+        if args.gate == "control":
+            producer_inputs += ["scripts/run_control.py", "contracts/writfold-agent-1",
+                                "plans/writfold-agent-control-contract-ready.md"]
         if args.gate in {"prepare-rust", "rust"}:
             producer_inputs += ["scripts/rust_gate.py", "scripts/prepare_rust.py"]
         if args.gate == "rust":
@@ -216,6 +266,8 @@ def main() -> int:
             record["result"] = lean(receipt.parent, lock)
         elif args.gate == "model":
             record["result"] = model(receipt.parent, lock)
+        elif args.gate == "control":
+            record["result"] = control(receipt.parent, lock)
         else:
             record["result"] = rust(receipt.parent, lock, args.gate == "prepare-rust")
         if record["producer_inputs"] != manifest(ROOT, producer_inputs):

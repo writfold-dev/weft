@@ -1,6 +1,8 @@
 #![forbid(unsafe_code)]
 mod args;
+mod control;
 mod input;
+mod reuse;
 mod run;
 
 use std::{
@@ -18,6 +20,16 @@ fn main() -> ExitCode {
             path,
             view,
         }) => run::file(command, &path, view, &limits),
+        Ok(args::Arguments::Reuse {
+            report,
+            source,
+            view,
+        }) => reuse::run(&report, &source, view, &limits),
+        Ok(args::Arguments::Control {
+            program,
+            expect_sha256,
+            view,
+        }) => control::run(&program, expect_sha256.as_deref(), view, &limits),
         Ok(args::Arguments::Version) => version(),
         Ok(args::Arguments::Help) => {
             if writeln!(io::stdout().lock(), "{}", args::USAGE).is_ok() {

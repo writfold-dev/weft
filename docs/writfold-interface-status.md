@@ -52,6 +52,21 @@ by this session. The additional finite-collection proposal is in
 This is a source-inspected status note, not new Writfold qualification evidence.
 The original immutable handoff remains preserved; mutable owner work may advance.
 
+## Weft control client landed
+
+The qualified control-contract handoff above is now consumed end to end on the
+Weft side: the owner archive is vendored unchanged at
+`contracts/writfold-agent-1/`, the `weft-writfold` crate implements the
+ordinary stdio client (typed initialize/shutdown only, local capability
+refusal, correlated replies, strict generation matching, 65,536-byte frames
+both directions, owned-child reaping, pinned contract-digest verification),
+and `weft control BIN --expect-sha256 HEX` runs a real session against the
+pinned executable. The `control` gate requalifies this against the actual
+binary, including the digest-mismatch refusal. This is still transport control
+only: no citation, assessment, collection, retention, ledger or effect method
+exists, P05-P07/P09 remain blocked at the owner data services, and every
+output stays `writfold_grounded: false`.
+
 ## Control-protocol model qualification
 
 The pinned `writfold.agent/1` transport-control contract now has a local TLA+
