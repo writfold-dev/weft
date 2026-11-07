@@ -1,4 +1,4 @@
-"""Collect exact third-party notices from the qualified offline Cargo closure."""
+"""Collect exact project and third-party notices from the qualified Cargo closure."""
 from __future__ import annotations
 
 import json
@@ -8,6 +8,7 @@ import zipfile
 from evidence import digest, write_new
 
 EVIDENCE = Path('/evidence')
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def main() -> None:
@@ -18,10 +19,20 @@ def main() -> None:
     records = []
     archive = EVIDENCE / 'third-party-licenses.zip'
     with zipfile.ZipFile(archive, 'x', compression=zipfile.ZIP_DEFLATED) as bundle:
+        project_license = ROOT / 'LICENSE'
+        if project_license.is_symlink() or not project_license.is_file():
+            raise ValueError('project MIT license must be a retained regular file')
+        project_member = 'licenses/weft/LICENSE'
+        bundle.write(project_license, project_member)
+        project_notice = {'member': project_member, 'sha256': digest(project_license)}
         for key, package in sorted(packages.items()):
             if package['source'] is None:
-                records.append({'name': key[0], 'version': key[1], 'license': package.get('license'),
-                                'scope': 'project-owned private package; no public license grant'})
+                manifest = Path(package['manifest_path']).resolve()
+                if not manifest.is_relative_to(ROOT) or package.get('license') != 'MIT':
+                    raise ValueError(f'unadmitted project license metadata: {key}')
+                records.append({'name': key[0], 'version': key[1], 'license': 'MIT',
+                                'scope': 'project-owned MIT package; repository visibility is separate',
+                                'source': None, 'files': [project_notice]})
                 continue
             root = Path(package['manifest_path']).parent
             candidates = {path for path in root.iterdir() if path.is_file()

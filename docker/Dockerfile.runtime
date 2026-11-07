@@ -1,4 +1,6 @@
 FROM scratch
 COPY --chmod=0555 weft /weft
+COPY --chmod=0444 LICENSE /LICENSE
+COPY --chmod=0444 third-party-licenses.zip third-party-licenses.json /licenses/
 USER 65532:65532
 ENTRYPOINT ["/weft"]

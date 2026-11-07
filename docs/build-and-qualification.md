@@ -7,7 +7,7 @@ Host Python is orchestration; compilers/provers run in the pinned tool container
 ## Admitted workstation
 
 The Weft tool image is
-`sha256:52e3bad8e6b7a7e770437a4e35fe04c7d77c9b7fee0eb03e509d40e72dbc8db3`,
+`sha256:d75f5675cc943b439c0b7a1df4dc47bc24ada14ab0346044cd8fdfd0c2724c2a`,
 built with BuildKit from the exact locally retained Writfold tool parent in
 [`toolchains.lock.json`](../toolchains.lock.json). Qualification rechecks the
 actual executable hashes and versions: Rust/Cargo 1.98.0, Lean 4.21.0, musl,
@@ -70,11 +70,15 @@ nominal compile-fail controls, real CLI reports and Lean/Rust outcome/model chec
 `file`/`readelf` verify the retained musl executable; the exact binary is then
 exercised without a toolchain on its child `PATH`.
 
-[`docker/Dockerfile.runtime`](../docker/Dockerfile.runtime) packages only that exact
-binary in `scratch`, UID/GID `65532:65532`. The exercised container is read-only,
+[`docker/Dockerfile.runtime`](../docker/Dockerfile.runtime) packages that exact
+binary, project license and collected dependency notices in `scratch`,
+UID/GID `65532:65532`. Supply `weft`, `LICENSE`, `third-party-licenses.zip` and
+`third-party-licenses.json` in its build context. The runtime is read-only,
 network-disabled, capability-free, and has no companion or language runtime.
-The release archive includes the binary, scope/identity metadata and actual
-third-party notices collected from the qualified offline dependency closure.
+The release archive includes the binary, scope/identity metadata, the project
+[MIT license](../LICENSE) and actual third-party notices collected from the
+qualified offline dependency closure. License adoption does not renew any
+historical compiler, proof or runtime receipt.
 
 ## Scope of a pass
 

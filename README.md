@@ -123,3 +123,10 @@ is proposal-only for its owning agent; this work does not modify Writfold.
 The complete planning, grounding, execution and learning flow remains required.
 Current completion belongs in [the status ledger](qualification/status.json),
 not the immutable plan.
+
+## License
+
+Project-owned Weft code and binaries are licensed under the [MIT license](LICENSE),
+as approved by Tarek Nawara. Third-party dependencies retain their own licenses
+and notices. This license grant does not itself change repository visibility,
+publish historical/private reference material, or qualify an alpha release.

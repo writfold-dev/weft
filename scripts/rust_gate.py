@@ -58,7 +58,7 @@ def proof_prerequisite(root: Path, attempt: Path) -> dict:
 
 
 def run(root: Path, attempt: Path, image: str, prepare: bool) -> dict:
-    inputs = ['Cargo.toml', 'crates', 'tools/weft-quality', 'scripts/evidence.py',
+    inputs = ['Cargo.toml', 'LICENSE', 'crates', 'tools/weft-quality', 'scripts/evidence.py',
               'scripts/rust_gate.py', 'scripts/prepare_rust.py', 'toolchains.lock.json', 'compose.yaml',
               'qualification/engineering-adoption.json', 'qualification/finite-calculus.json',
               'qualification/reference-calibration.json']

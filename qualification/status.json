@@ -1,6 +1,29 @@
 {
   "schema_version": 1,
   "authority": "handovers/revision-3/weft",
+  "license_adoption": {
+    "license": "MIT",
+    "scope": "Owner-approved project code/binary licensing and actual package notice inclusion only; repository visibility, third-party terms and proof/runtime qualification remain separate.",
+    "project_license": {
+      "path": "LICENSE",
+      "sha256": "bb23cea06c1a4f205b5f6e2d4ecc5ff1c1ebf15829706f1fe366424d0919e9be"
+    },
+    "record": {
+      "path": "~/.local/share/writfold/evidence/weft-mit-adoption-oasqfib3/receipt-002.json",
+      "sha256": "cc0ff970c4ad2d611a566bddb1b72a6db0ba531be24d8af4fdc6fc7fe18e60f3",
+      "bytes": 8395
+    },
+    "verification": {
+      "project_packages_with_mit_notice": 7,
+      "packages_with_actual_notice_bytes": 29,
+      "scratch_runtime_version": "pass",
+      "exported_rootfs_license_and_binary_hashes": "pass",
+      "binary_rebuilt": false
+    },
+    "repository_visibility_changed": false,
+    "third_party_licenses_changed": false,
+    "proof_or_release_gates_renewed": []
+  },
   "stages": [
     {
       "id": "P00",
