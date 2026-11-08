@@ -17,22 +17,26 @@ contract through a real stdio session with the vendored owner artifact under
 Real Writfold data integration and the final composed release remain blocked;
 no shipping-Rust refinement theorem or effect authority is claimed.
 
-## Try the actual binary
+## Try it
 
-Download the Linux x86_64 musl archive from the
-[private development release](https://github.com/writfold-dev/weft/releases/tag/v0.1.0-dev.1).
-No Rust, Lean, Python or companion is needed for these local commands.
-From this checkout, point `WEFT` at the unpacked executable:
+Build from source on Linux x86_64 (needs [rustup](https://rustup.rs); the
+pinned Rust 1.98 toolchain installs on first build). No Lean, Python or
+companion service is needed for these local commands:
 
 ```sh
-WEFT=/path/to/unpacked/weft
+cargo build --release --locked
+WEFT=target/release/weft
 "$WEFT" --version
 "$WEFT" analyze examples/sets.weft
 "$WEFT" prove examples/sets.weft --human
 "$WEFT" prove examples/set-algebra.weft --human
 "$WEFT" prove examples/sets.weft > report.json && "$WEFT" reuse report.json examples/sets.weft
-"$WEFT" control /path/to/pinned/writfold --expect-sha256 70b0d07b18e2f1bd70fc34fce4cc5335fccdd5c6307c014f55abf81ecd97fcca
 ```
+
+The older [v0.1.0 development binary](https://github.com/writfold-dev/weft/releases/tag/v0.1.0-dev.1)
+predates set algebra, `reuse`, `control` and the MIT license; build from source
+until a current release is published. `weft control` drives a pinned Writfold
+binary that is not yet publicly available.
 
 JSON is the default; `--json` and `--human` select the view. Analysis exits 0 on
 local structural success. A complete hypothetical proof result exits 1—even
