@@ -7,7 +7,7 @@ redefine, extend or re-sign it.
 
 | Identity | Value |
 | --- | --- |
-| Archive SHA-256 | `1971ed3fb84a210eee6e53e9af3fb331affb3ad931e7717adb8926b641bba842` |
+| Archive SHA-256 | `1971ed3fb84a210eee6e53a9af3fb331affb3ad931e7717adb8926b641bba842` |
 | Embedded `contract.json` SHA-256 | `b673d10f7c14c73d8f5778cfb9b2e84a98a159f1553d5c008054402ee85e7be2` |
 | Profile | `writfold.agent/1` |
 | Implementation scope | `transport-control-only` |
