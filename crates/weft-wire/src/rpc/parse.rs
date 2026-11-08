@@ -20,6 +20,17 @@ impl Bounds {
             entries: 65536,
         }
     }
+    /// Bounds for an already size-limited local artifact such as a prior
+    /// report. Every JSON value occupies at least one byte, so node and entry
+    /// counts tied to the input length cannot refuse a document that fits its
+    /// byte ceiling, while depth stays at the transport bound.
+    pub const fn artifact(bytes: usize) -> Self {
+        Self {
+            depth: 1024,
+            nodes: bytes,
+            entries: bytes,
+        }
+    }
 }
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum Value {

@@ -149,3 +149,22 @@ fn output_limit_replaces_the_whole_report_with_source_bound_diagnostic()
     assert!(report["trace"].as_array().ok_or("trace")?.is_empty());
     Ok(())
 }
+#[test]
+fn reuse_parses_reports_beyond_transport_node_bound() -> Result<(), Box<dyn Error>> {
+    let fixture = Fixture::new()?;
+    let path = fixture.file("proof.weft", source("check theorem: true;").as_bytes())?;
+    let output = cli(&["prove".as_ref(), path.as_os_str()])?;
+    let mut report: Value = serde_json::from_slice(&output.stdout)?;
+    let plain = fixture.file("plain.json", &output.stdout)?;
+    let baseline = cli(&["reuse".as_ref(), plain.as_os_str(), path.as_os_str()])?;
+    let padding = vec![Value::Null; 70_000];
+    report
+        .as_object_mut()
+        .ok_or("report object")?
+        .insert("padding".into(), Value::Array(padding));
+    let large = fixture.file("large.json", &serde_json::to_vec(&report)?)?;
+    let padded = cli(&["reuse".as_ref(), large.as_os_str(), path.as_os_str()])?;
+    assert_eq!(padded.status.code(), baseline.status.code());
+    assert_ne!(padded.status.code(), Some(2));
+    Ok(())
+}

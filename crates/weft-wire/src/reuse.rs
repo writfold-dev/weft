@@ -57,7 +57,7 @@ impl std::error::Error for PriorError {}
 impl PriorScope {
     /// Checked conversion from prior-report bytes.
     pub fn parse(bytes: &[u8]) -> std::result::Result<Self, PriorError> {
-        let value = crate::rpc::parse::parse(bytes, Bounds::transport())
+        let value = crate::rpc::parse::parse(bytes, Bounds::artifact(bytes.len()))
             .map_err(|_| PriorError::Malformed("not one bounded JSON value"))?;
         let Value::Object(members) = &value else {
             return Err(PriorError::NotAReport);
