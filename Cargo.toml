@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["crates/weft-domain", "crates/weft-frontend", "crates/weft-kernel", "crates/weft-wire", "crates/weft-writfold", "crates/weft-cli"]
+members = ["crates/weft-core", "crates/weft-domain", "crates/weft-frontend", "crates/weft-kernel", "crates/weft-wire", "crates/weft-writfold", "crates/weft-cli"]
 exclude = ["tools/weft-quality"]
 
 [workspace.package]
@@ -11,6 +11,7 @@ publish = false
 license = "MIT"
 
 [workspace.dependencies]
+weft-core = { path = "crates/weft-core" }
 weft-domain = { path = "crates/weft-domain" }
 weft-frontend = { path = "crates/weft-frontend" }
 weft-kernel = { path = "crates/weft-kernel" }

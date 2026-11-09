@@ -7,7 +7,7 @@ use replay::Replay;
 
 use weft_domain::{
     Assessment, CheckOutcome, CheckState, Code, Compilation, CompleteEvaluation, Conclusion,
-    Diagnostic, Limits, LogicalVerdict, Model, NodeValue, Phase, PreparedCheck, Theory, TraceRow,
+    Diagnostic, Limits, Model, NodeValue, Phase, PreparedCheck, RowRole, Theory, TraceRow,
 };
 
 /// Classifies each check independently over its exact preceding premises and active atoms.
@@ -61,26 +61,22 @@ fn enumerate(
             premises_hold,
             query,
         });
-        if premises_hold {
-            premise_models = premise_models
-                .checked_add(1)
-                .ok_or_else(|| invalid("Premise model count overflow"))?;
-            let model = if query {
-                &mut supporting
-            } else {
-                &mut refuting
-            };
-            if model.is_none() {
-                *model = Some(capture(valuation, values)?);
-            }
+        let row = rows.last().ok_or_else(|| invalid("Missing trace row"))?;
+        let model = match weft_core::verdict::role(row) {
+            RowRole::Excluded => continue,
+            RowRole::Supporting => &mut supporting,
+            RowRole::Refuting => &mut refuting,
+        };
+        premise_models = premise_models
+            .checked_add(1)
+            .ok_or_else(|| invalid("Premise model count overflow"))?;
+        if model.is_none() {
+            *model = Some(capture(valuation, values)?);
         }
     }
-    let verdict = match (supporting.is_some(), refuting.is_some()) {
-        (true, false) => LogicalVerdict::Entailed,
-        (false, true) => LogicalVerdict::Refuted,
-        (true, true) => LogicalVerdict::Undetermined,
-        (false, false) => LogicalVerdict::InconsistentPremises,
-    };
+    // The verdict is decided by the proved core over the complete trace
+    // (proofs/Kernel/Verdict.lean); the captured models are its witnesses.
+    let verdict = weft_core::verdict::classify(&rows);
     Ok(CompleteEvaluation {
         verdict,
         required_valuations: count,

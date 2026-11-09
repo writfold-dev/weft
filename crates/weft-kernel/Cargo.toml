@@ -7,6 +7,7 @@ publish.workspace = true
 license.workspace = true
 
 [dependencies]
+weft-core.workspace = true
 weft-domain.workspace = true
 
 [lints]

@@ -9,6 +9,7 @@
 use crate::View;
 use crate::json::{Json, Result};
 use crate::rpc::{Bounds, Value};
+use weft_core::scope::{Comparison, Requirement, refusals};
 
 pub const REUSE_SCHEMA: &str = "weft.reuse/1";
 const REPORT_SCHEMA: &str = "weft.report/1";
@@ -89,30 +90,50 @@ impl PriorScope {
         })
     }
     /// Compares the recorded scope against the candidate source digest and the
-    /// current evaluator identity; every inequality becomes a named refusal.
+    /// current evaluator identity; every unsatisfied comparison becomes a
+    /// named refusal. The byte-exact decision is the proved core's
+    /// (`weft_core::scope::refusals`, proofs/Kernel/Scope.lean).
     pub fn compare(&self, candidate_sha256: &str, limits: &weft_domain::Limits) -> Decision {
-        let mut differences = Vec::new();
-        if self.source_sha256 != candidate_sha256 {
-            differences.push(Difference {
+        let mut comparisons = Vec::new();
+        let mut named = Vec::new();
+        let mut require = |requirement, recorded: &str, required: &str, difference| {
+            comparisons.push(Comparison {
+                requirement,
+                recorded: recorded.as_bytes().to_vec(),
+                required: required.as_bytes().to_vec(),
+            });
+            named.push(difference);
+        };
+        require(
+            Requirement::Equal,
+            &self.source_sha256,
+            candidate_sha256,
+            Difference {
                 field: "source.sha256",
                 expected: self.source_sha256.clone(),
                 observed: candidate_sha256.to_string(),
-            });
-        }
-        if self.profile != PROFILE {
-            differences.push(Difference {
+            },
+        );
+        require(
+            Requirement::Equal,
+            &self.profile,
+            PROFILE,
+            Difference {
                 field: "review.profile",
                 expected: PROFILE.into(),
                 observed: self.profile.clone(),
-            });
-        }
-        if self.kind == "diagnostics" {
-            differences.push(Difference {
+            },
+        );
+        require(
+            Requirement::Unequal,
+            &self.kind,
+            "diagnostics",
+            Difference {
                 field: "kind",
                 expected: "analysis or assessment".into(),
                 observed: self.kind.clone(),
-            });
-        }
+            },
+        );
         for (name, recorded) in &self.budgets {
             if matches!(
                 name.as_str(),
@@ -121,19 +142,26 @@ impl PriorScope {
                 continue;
             }
             let current = budget_value(limits, name);
-            if recorded != &current {
-                differences.push(Difference {
+            require(
+                Requirement::Equal,
+                recorded,
+                &current,
+                Difference {
                     field: "budgets",
                     expected: format!("{name}={recorded}"),
                     observed: format!("{name}={current}"),
-                });
-            }
+                },
+            );
         }
-        if differences.is_empty() {
-            Decision::Reusable
-        } else {
-            Decision::Refused { differences }
+        let refused = refusals(&comparisons);
+        if refused.is_empty() {
+            return Decision::Reusable;
         }
+        let differences = refused
+            .into_iter()
+            .filter_map(|position| named.get(position).cloned())
+            .collect();
+        Decision::Refused { differences }
     }
 }
 fn budget_value(limits: &weft_domain::Limits, name: &str) -> String {

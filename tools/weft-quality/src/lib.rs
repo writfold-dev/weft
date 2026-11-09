@@ -34,7 +34,7 @@ impl Policy {
     pub fn is_core(&self) -> bool {
         matches!(
             self.crate_name.as_str(),
-            "weft-domain" | "weft-frontend" | "weft-kernel"
+            "weft-core" | "weft-domain" | "weft-frontend" | "weft-kernel"
         )
     }
 

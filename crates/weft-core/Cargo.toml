@@ -1,0 +1,35 @@
+[package]
+name = "weft-core"
+description = "Weft pure decision core: finite set algebra, check classification and reuse scope equality, translated to Lean 4 by Charon/Aeneas and proved under proofs/"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+license.workspace = true
+
+# No dependencies, by construction: no IO, no floats, no `dyn`, `no_std` +
+# `alloc`. tools/weft-quality registers this crate with an empty dependency set.
+[dependencies]
+
+# The workspace lint table, restated: proofs/extract.sh translates this crate
+# inside a shadow workspace that carries no lint table.
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+todo = "deny"
+unimplemented = "deny"
+
+# Read by Charon when the `proofs` gate translates this crate
+# (proofs/extract.sh). Translation starts from the decision modules under
+# proof and follows what they reach; the hand-written trait impls in
+# `convenience.rs` are never reached, so they stay outside the proved surface.
+[package.metadata.charon]
+start_from = [
+    "weft_core::sets",
+    "weft_core::verdict",
+    "weft_core::scope",
+]

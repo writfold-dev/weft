@@ -3,16 +3,34 @@ use crate::{
     LimitKind, NodeDetail, NodeId, OriginId, OriginKind, Quantified, QuantifierId, QuantifierKind,
     ScalarType, SetId, SetMember, SourceSpan, TheoryBuilder,
 };
-use std::collections::HashMap;
 
 impl TheoryBuilder {
     pub fn set(&self, id: SetId) -> Option<&FiniteSet> {
         self.sets.get(id.index())
     }
+    /// Materializes a set from raw member occurrences, normalized by the
+    /// proved core (`weft_core::sets::normalize`).
     pub fn add_set(
         &mut self,
         element_type: Option<ScalarType>,
         raw: Vec<SetMember>,
+        span: SourceSpan,
+        extra_origins: Vec<OriginId>,
+    ) -> Result<SetId, InvariantError> {
+        let distinct = weft_core::sets::normalize(&value_indices(&raw));
+        self.materialize(element_type, raw, distinct, span, extra_origins)
+    }
+    /// Materializes a set whose distinct values, in order, were decided by
+    /// the proved core. The raw occurrences supply typing and origins: the
+    /// first occurrence of each value keeps its origin, later occurrences
+    /// merge into it. `distinct` must be the first-occurrence normalization
+    /// of `raw` (proved for `normalize` and `union`); any disagreement is
+    /// refused, never repaired.
+    pub(crate) fn materialize(
+        &mut self,
+        element_type: Option<ScalarType>,
+        raw: Vec<SetMember>,
+        distinct: Vec<usize>,
         span: SourceSpan,
         extra_origins: Vec<OriginId>,
     ) -> Result<SetId, InvariantError> {
@@ -36,7 +54,6 @@ impl TheoryBuilder {
         };
         let mut parents = extra_origins;
         let mut members: Vec<SetMember> = Vec::new();
-        let mut positions: HashMap<crate::ValueId, usize> = HashMap::new();
         for member in raw {
             let value = self
                 .value(member.value)
@@ -48,7 +65,9 @@ impl TheoryBuilder {
                 return Err(InvariantError::InvalidReference("set origin"));
             }
             parents.push(member.origin);
-            if let Some(&position) = positions.get(&member.value) {
+            let position = weft_core::sets::position_of(&distinct, member.value.index())
+                .ok_or(InvariantError::InvalidReference("normalized member"))?;
+            if position < members.len() {
                 let prior: &SetMember = members
                     .get(position)
                     .ok_or(InvariantError::InvalidReference("member index"))?;
@@ -61,10 +80,14 @@ impl TheoryBuilder {
                     .get_mut(position)
                     .ok_or(InvariantError::InvalidReference("member index"))?;
                 prior.origin = origin;
-            } else {
-                positions.insert(member.value, members.len());
+            } else if position == members.len() {
                 members.push(member);
+            } else {
+                return Err(InvariantError::InvalidReference("normalized member order"));
             }
+        }
+        if members.len() != distinct.len() {
+            return Err(InvariantError::InvalidReference("normalized member count"));
         }
         let origin = self.add_origin(OriginKind::Normalize, span, parents)?;
         let id = SetId::at(self.sets.len());
@@ -100,14 +123,10 @@ impl TheoryBuilder {
         if matches!((&a.element_type, &b.element_type), (Some(x), Some(y)) if x != y) {
             return Err(InvariantError::MixedSetTypes);
         }
-        if a.members.len() != b.members.len() {
-            return Ok(false);
-        }
-        let membership: std::collections::HashSet<_> =
-            a.members.iter().map(|entry| entry.value).collect();
-        Ok(b.members
-            .iter()
-            .all(|entry| membership.contains(&entry.value)))
+        Ok(weft_core::sets::same_members(
+            &value_indices(&a.members),
+            &value_indices(&b.members),
+        ))
     }
     pub fn quantify(
         &mut self,
@@ -253,4 +272,9 @@ impl TheoryBuilder {
         }
         Ok(false)
     }
+}
+
+/// The value identities of set members, in order: the core's input.
+pub(crate) fn value_indices(members: &[SetMember]) -> Vec<usize> {
+    members.iter().map(|member| member.value.index()).collect()
 }

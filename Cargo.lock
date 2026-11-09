@@ -187,8 +187,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "weft-core"
+version = "0.1.0"
+
+[[package]]
 name = "weft-domain"
 version = "0.1.0"
+dependencies = [
+ "weft-core",
+]
 
 [[package]]
 name = "weft-frontend"
@@ -201,6 +208,7 @@ dependencies = [
 name = "weft-kernel"
 version = "0.1.0"
 dependencies = [
+ "weft-core",
  "weft-domain",
 ]
 
@@ -210,6 +218,7 @@ version = "0.1.0"
 dependencies = [
  "serde_json",
  "sha2",
+ "weft-core",
  "weft-domain",
  "weft-frontend",
  "weft-kernel",

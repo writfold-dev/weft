@@ -1,22 +1,13 @@
 use crate::{CheckId, LimitKind, NodeId};
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum LogicalVerdict {
-    Entailed,
-    Refuted,
-    Undetermined,
-    InconsistentPremises,
-}
+/// Trace rows and the verdict over them are decided by the proved core
+/// (`weft_core::verdict`, proofs/Kernel/Verdict.lean).
+pub use weft_core::verdict::{LogicalVerdict, RowRole, TraceRow};
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ValuationCount {
     Exact(u64),
     BeyondU64 { atoms: usize },
-}
-#[derive(Clone, Copy, Debug)]
-pub struct TraceRow {
-    pub valuation: u64,
-    pub premises_hold: bool,
-    pub query: bool,
 }
 #[derive(Clone, Copy, Debug)]
 pub struct NodeValue {

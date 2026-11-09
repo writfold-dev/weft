@@ -18,7 +18,7 @@ fn core_serde_any_json_and_io_are_rejected() {
         "wrapper!(serde_json::Value);",
     ] {
         let source = format!("#![forbid(unsafe_code)]\n{item}");
-        for package in ["weft-domain", "weft-frontend", "weft-kernel"] {
+        for package in ["weft-core", "weft-domain", "weft-frontend", "weft-kernel"] {
             let report = check_source(&Policy::new(package), "core.rs", &source, true);
             assert!(report.failed(), "accepted {item} in {package}");
         }
@@ -57,6 +57,7 @@ fn client_network_and_wire_io_are_rejected() {
 #[test]
 fn all_internal_dependency_directions_are_calibrated() {
     let crates = [
+        "weft-core",
         "weft-domain",
         "weft-frontend",
         "weft-kernel",
@@ -65,8 +66,11 @@ fn all_internal_dependency_directions_are_calibrated() {
         "weft-cli",
     ];
     let allowed = [
+        ("weft-domain", "weft-core"),
         ("weft-frontend", "weft-domain"),
+        ("weft-kernel", "weft-core"),
         ("weft-kernel", "weft-domain"),
+        ("weft-wire", "weft-core"),
         ("weft-wire", "weft-domain"),
         ("weft-writfold", "weft-domain"),
         ("weft-writfold", "weft-wire"),

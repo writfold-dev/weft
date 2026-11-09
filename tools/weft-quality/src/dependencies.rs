@@ -10,8 +10,11 @@ pub(crate) const VALUE_LIBRARIES: &[&str] = &[
 
 pub(crate) fn allowed_internal(owner: &str, dependency: &str) -> bool {
     let allowed: &[&str] = match owner {
-        "weft-domain" => &[],
-        "weft-frontend" | "weft-kernel" | "weft-wire" => &["weft-domain"],
+        // The proved decision core has no dependencies at all.
+        "weft-core" => &[],
+        "weft-domain" => &["weft-core"],
+        "weft-frontend" => &["weft-domain"],
+        "weft-kernel" | "weft-wire" => &["weft-core", "weft-domain"],
         "weft-writfold" => &["weft-domain", "weft-wire"],
         "weft-cli" => &[
             "weft-domain",
@@ -29,7 +32,8 @@ pub(crate) fn allowed_internal(owner: &str, dependency: &str) -> bool {
 pub(crate) fn known_crate(name: &str) -> bool {
     matches!(
         name,
-        "weft-domain"
+        "weft-core"
+            | "weft-domain"
             | "weft-frontend"
             | "weft-kernel"
             | "weft-wire"

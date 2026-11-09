@@ -8,12 +8,16 @@
 //! keeps left order then unseen right members; intersection and difference
 //! keep qualifying left order. Eliminated members stay reachable through the
 //! operation origin, which links both whole operand sets.
+//!
+//! Every membership and order decision is made by the proved core
+//! (`weft_core::sets`, proofs/Kernel/Sets.lean) over value identities; this
+//! module owns typing, budget charging and origin bookkeeping around it.
 
+use super::finite::value_indices;
 use crate::{
     InvariantError, OriginKind, ScalarType, SetId, SetMember, SetOperation, SourceSpan,
     TheoryBuilder, ValueId,
 };
-use std::collections::{HashMap, HashSet};
 
 impl TheoryBuilder {
     fn operand_members(
@@ -85,6 +89,7 @@ impl TheoryBuilder {
         let (b, _, b_origin) = self.operand_members(right, "right set")?;
         let operation =
             self.operation_origin(SetOperation::Union, left, right, a_origin, b_origin, span)?;
+        let distinct = weft_core::sets::union(&value_indices(&a), &value_indices(&b));
         let mut raw = Vec::with_capacity(a.len() + b.len());
         for source in a.iter().chain(b.iter()) {
             let origin =
@@ -94,7 +99,7 @@ impl TheoryBuilder {
                 origin,
             });
         }
-        self.add_set(ty, raw, span, vec![operation])
+        self.materialize(ty, raw, distinct, span, vec![operation])
     }
 
     /// Intersection: each qualifying left member once, in left order, with
@@ -109,11 +114,8 @@ impl TheoryBuilder {
         let ty = self.unified_element_type(left, right)?;
         let (a, _, a_origin) = self.operand_members(left, "left set")?;
         let (b, _, b_origin) = self.operand_members(right, "right set")?;
-        let right_members: HashMap<ValueId, SetMember> = b
-            .iter()
-            .copied()
-            .map(|member| (member.value, member))
-            .collect();
+        let (left_values, right_values) = (value_indices(&a), value_indices(&b));
+        let kept = weft_core::sets::intersection(&left_values, &right_values);
         let operation = self.operation_origin(
             SetOperation::Intersection,
             left,
@@ -122,19 +124,19 @@ impl TheoryBuilder {
             b_origin,
             span,
         )?;
-        let mut raw = Vec::new();
-        for source in &a {
-            if let Some(matching) = right_members.get(&source.value) {
-                let origin = self.add_origin(
-                    OriginKind::SetMember,
-                    span,
-                    vec![operation, source.origin, matching.origin],
-                )?;
-                raw.push(SetMember {
-                    value: source.value,
-                    origin,
-                });
-            }
+        let mut raw = Vec::with_capacity(kept.len());
+        for value in kept {
+            let source = operand_member(&a, &left_values, value)?;
+            let matching = operand_member(&b, &right_values, value)?;
+            let origin = self.add_origin(
+                OriginKind::SetMember,
+                span,
+                vec![operation, source.origin, matching.origin],
+            )?;
+            raw.push(SetMember {
+                value: source.value,
+                origin,
+            });
         }
         self.add_set(ty, raw, span, vec![operation])
     }
@@ -151,7 +153,8 @@ impl TheoryBuilder {
         let ty = self.unified_element_type(left, right)?;
         let (a, _, a_origin) = self.operand_members(left, "left set")?;
         let (b, _, b_origin) = self.operand_members(right, "right set")?;
-        let removed: HashSet<ValueId> = b.iter().map(|member| member.value).collect();
+        let left_values = value_indices(&a);
+        let kept = weft_core::sets::difference(&left_values, &value_indices(&b));
         let operation = self.operation_origin(
             SetOperation::Difference,
             left,
@@ -160,16 +163,15 @@ impl TheoryBuilder {
             b_origin,
             span,
         )?;
-        let mut raw = Vec::new();
-        for source in &a {
-            if !removed.contains(&source.value) {
-                let origin =
-                    self.add_origin(OriginKind::SetMember, span, vec![operation, source.origin])?;
-                raw.push(SetMember {
-                    value: source.value,
-                    origin,
-                });
-            }
+        let mut raw = Vec::with_capacity(kept.len());
+        for value in kept {
+            let source = operand_member(&a, &left_values, value)?;
+            let origin =
+                self.add_origin(OriginKind::SetMember, span, vec![operation, source.origin])?;
+            raw.push(SetMember {
+                value: source.value,
+                origin,
+            });
         }
         self.add_set(ty, raw, span, vec![operation])
     }
@@ -197,7 +199,10 @@ impl TheoryBuilder {
         {
             return Err(InvariantError::MixedSetTypes);
         }
-        Ok(members.iter().any(|member| member.value == value))
+        Ok(weft_core::sets::contains(
+            &value_indices(&members),
+            value.index(),
+        ))
     }
 
     /// Inclusive subset over both whole sets. Returns the deterministic
@@ -212,12 +217,24 @@ impl TheoryBuilder {
         let _ = ty;
         let (a, ..) = self.operand_members(left, "left set")?;
         let (b, ..) = self.operand_members(right, "right set")?;
-        let right_values: HashSet<ValueId> = b.iter().map(|member| member.value).collect();
-        for member in &a {
-            if !right_values.contains(&member.value) {
-                return Ok((false, Some(*member)));
-            }
+        match weft_core::sets::subset(&value_indices(&a), &value_indices(&b)) {
+            None => Ok((true, None)),
+            Some(position) => a
+                .get(position)
+                .map(|member| (false, Some(*member)))
+                .ok_or(InvariantError::InvalidReference("subset counterexample")),
         }
-        Ok((true, None))
     }
+}
+
+/// The operand member carrying `value`; operands are normalized, so it is
+/// unique. The core only returns values drawn from the operand.
+fn operand_member(
+    members: &[SetMember],
+    values: &[usize],
+    value: usize,
+) -> Result<SetMember, InvariantError> {
+    weft_core::sets::position_of(values, value)
+        .and_then(|position| members.get(position).copied())
+        .ok_or(InvariantError::InvalidReference("operand member"))
 }
