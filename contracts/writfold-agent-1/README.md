@@ -17,7 +17,7 @@ negotiated `writfold.trial/1` capability (Writfold branch `serve/trial`).
 | Advertised capabilities | `notifications`, `writfold.trial/1` (the latter only when requested and the server has a trial state) |
 | Frame ceiling | 65,536 bytes each direction, LF inclusive |
 | Owner source checkpoint | Writfold commit `5808a67` on branch `serve/trial` |
-| Owner executable pin | **Pending.** The previous pin `70b0d07b18e2f1bd70fc34fce4cc5335fccdd5c6307c014f55abf81ecd97fcca` predates this contract and presents digest `b673d10f…`, so this client refuses it. The new pin comes from Writfold's fresh `stdio-control` receipt. |
+| Owner executable pin | `91a1924f5bae025a131bda99ea047c30adcc404d96429abf70956a7757230f4d`, the static executable built by Writfold's `stdio-control` gate at the `writfold.trial/1` contract (receipt `serve-trial-cVqclyxI/stdio-control-002.json`). The earlier pin `70b0d07b…` presents digest `b673d10f…` and is refused. |
 
 The archive carries the request/response/parameter schemas (`methods.json` for
 a control-only session, `trial-methods.json` for a session that negotiated

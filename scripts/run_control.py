@@ -20,10 +20,7 @@ ROOT = Path('/work/weft')
 EVIDENCE = Path('/evidence')
 ARCHIVE_SHA256 = '1b4049c481eff17a29f1d4e1cc81918f6c58014800937ee295b792105b7fe626'
 CONTRACT_SHA256 = '0baf69b21f1051ee620ca89ba4ec659605c0cf3ddc4ae82a7a9ad8eaf1d9ac3f'
-# PENDING RE-PIN: this executable predates contract 0baf69b2... and presents the
-# earlier digest, so the client refuses it at initialize. Replace it with the
-# binary from Writfold's fresh stdio-control receipt; until then this gate fails.
-BINARY_SHA256 = '70b0d07b18e2f1bd70fc34fce4cc5335fccdd5c6307c014f55abf81ecd97fcca'
+BINARY_SHA256 = '91a1924f5bae025a131bda99ea047c30adcc404d96429abf70956a7757230f4d'
 MEMBERS = ('contract.json', 'methods.json', 'trial-methods.json', 'request.schema.json',
            'response.schema.json', 'citation-binding.schema.json', 'vectors.json')
 
