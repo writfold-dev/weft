@@ -18,11 +18,14 @@ from evidence import digest, process_env, require_success, run_logged, write_new
 
 ROOT = Path('/work/weft')
 EVIDENCE = Path('/evidence')
-ARCHIVE_SHA256 = '1971ed3fb84a210eee6e53a9af3fb331affb3ad931e7717adb8926b641bba842'
-CONTRACT_SHA256 = 'b673d10f7c14c73d8f5778cfb9b2e84a98a159f1553d5c008054402ee85e7be2'
+ARCHIVE_SHA256 = '1b4049c481eff17a29f1d4e1cc81918f6c58014800937ee295b792105b7fe626'
+CONTRACT_SHA256 = '0baf69b21f1051ee620ca89ba4ec659605c0cf3ddc4ae82a7a9ad8eaf1d9ac3f'
+# PENDING RE-PIN: this executable predates contract 0baf69b2... and presents the
+# earlier digest, so the client refuses it at initialize. Replace it with the
+# binary from Writfold's fresh stdio-control receipt; until then this gate fails.
 BINARY_SHA256 = '70b0d07b18e2f1bd70fc34fce4cc5335fccdd5c6307c014f55abf81ecd97fcca'
-MEMBERS = ('contract.json', 'methods.json', 'request.schema.json', 'response.schema.json',
-           'citation-binding.schema.json', 'vectors.json')
+MEMBERS = ('contract.json', 'methods.json', 'trial-methods.json', 'request.schema.json',
+           'response.schema.json', 'citation-binding.schema.json', 'vectors.json')
 
 
 def member_text(archive: Path, name: str) -> bytes:
@@ -46,8 +49,9 @@ def verify_vendored_contract() -> dict:
             raise ValueError(f"vendored member disagrees with the root contract: {entry['path']}")
     if (contract['profile'] != 'writfold.agent/1'
             or contract['implementation_scope'] != 'transport-control-only'
-            or contract['implemented_methods'] != ['initialize', 'shutdown']
-            or contract['advertised_capabilities'] != ['notifications']):
+            or contract['implemented_methods'] != ['initialize', 'shutdown', 'trial/show',
+                                                   'trial/retain', 'trial/prepare']
+            or contract['advertised_capabilities'] != ['notifications', 'writfold.trial/1']):
         raise ValueError('vendored contract is not the pinned control profile')
     return {'archive_sha256': ARCHIVE_SHA256, 'members': members,
             'profile': contract['profile'], 'scope': contract['implementation_scope']}

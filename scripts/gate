@@ -173,6 +173,7 @@ def rust(attempt: Path, lock: dict, prepare: bool) -> dict:
 
 
 
+# PENDING RE-PIN: see scripts/run_control.py; this binary predates the vendored contract.
 CONTROL_BINARY_PIN = ("70b0d07b18e2f1bd70fc34fce4cc5335fccdd5c6307c014f55abf81ecd97fcca",
                      "~/.local/share/writfold/evidence/stdio-control-20261105-001.json.attempt/writfold")
 

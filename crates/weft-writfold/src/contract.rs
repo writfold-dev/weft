@@ -9,9 +9,12 @@
 use weft_wire::rpc::InitializeResult;
 
 /// SHA-256 of the pinned `contract.json` inside the owner archive. The server
-/// returns this digest on initialization; both sides must agree exactly.
+/// returns this digest on initialization; both sides must agree exactly. This
+/// contract adds the owner's negotiated `writfold.trial/1` capability, which
+/// this client does not request; a server built for the earlier control-only
+/// contract presents a different digest and is refused.
 pub const CONTRACT_SHA256: &str =
-    "b673d10f7c14c73d8f5778cfb9b2e84a98a159f1553d5c008054402ee85e7be2";
+    "0baf69b21f1051ee620ca89ba4ec659605c0cf3ddc4ae82a7a9ad8eaf1d9ac3f";
 /// Methods this profile implements; requesting anything else is refused.
 pub const METHODS: [&str; 2] = ["initialize", "shutdown"];
 /// Capabilities the owner advertised; the client may request no others.

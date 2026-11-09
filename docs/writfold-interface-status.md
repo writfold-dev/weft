@@ -67,6 +67,19 @@ only: no citation, assessment, collection, retention, ledger or effect method
 exists, P05-P07/P09 remain blocked at the owner data services, and every
 output stays `writfold_grounded: false`.
 
+**Re-pinned to the owner's `writfold.trial/1` contract.** The owner published a
+new revision of the same profile that adds a negotiated `writfold.trial/1`
+capability (`trial/show`, `trial/retain`, `trial/prepare`; approve, apply and
+recover stay CLI-only). The vendored archive and the client pin now name
+contract `0baf69b2…` (archive `1b4049c4…`). The Weft client does not request
+the new capability, so its sessions still advertise only control methods. A
+server built for the earlier contract (`b673d10f…`) presents the old digest
+and is refused; a unit test and a live run against the earlier executable show
+it. The `control` gate's executable pin still names that earlier binary, so the
+gate fails until it is re-pinned to the binary from Writfold's fresh
+`stdio-control` receipt. The TLA+ control model below names the earlier digest
+in its comments; it models control transport only, which is unchanged.
+
 ## Control-protocol model qualification
 
 The pinned `writfold.agent/1` transport-control contract now has a local TLA+

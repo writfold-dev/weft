@@ -19,9 +19,7 @@ fn live_control_session_completes_against_the_pinned_binary() -> TestResult {
     let mut client =
         Client::spawn(&program, "serve", Duration::from_secs(30)).map_err(|e| e.to_string())?;
     let admission = client.initialize(&[]).map_err(|e| e.to_string())?;
-    if admission.contract_sha256()
-        != "b673d10f7c14c73d8f5778cfb9b2e84a98a159f1553d5c008054402ee85e7be2"
-    {
+    if admission.contract_sha256() != weft_writfold::contract::CONTRACT_SHA256 {
         return Err("live server did not present the pinned contract digest".into());
     }
     if admission.generation() != 1 {
