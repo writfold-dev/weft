@@ -1,0 +1,16 @@
+# The `proofs` gate: Lean theorems over the Charon/Aeneas translation of
+# crates/weft-core (docs/runtime-assurance.md). Its own compose project so it
+# needs none of the root compose file's qualification variables and leaves
+# that file (a hashed qualification tool input) unchanged.
+#
+#   cd proofs && docker compose run --build --rm proofs
+#   sh proofs/refresh.sh      # regenerate and copy out proofs/Extracted/
+name: weft-proofs
+
+services:
+  proofs:
+    platform: linux/amd64
+    build:
+      context: ..
+      dockerfile: proofs/Dockerfile
+      target: gate
