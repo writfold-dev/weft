@@ -15,7 +15,18 @@ contract through a real stdio session with the vendored owner artifact under
 `contracts/writfold-agent-1/`.
 [Runtime assurance](docs/runtime-assurance.md) records the exact boundary.
 Real Writfold data integration and the final composed release remain blocked;
-no shipping-Rust refinement theorem or effect authority is claimed.
+no effect authority is claimed.
+
+The pure decisions the binary calls for set algebra (normalization, union,
+intersection, difference, membership, subset, equality), for classifying a
+complete trace as entailed, refuted, undetermined or inconsistent, and for
+reuse scope equality live in the dependency-free `crates/weft-core`. Their
+guarantees are proved in Lean **over the Aeneas translation of
+`crates/weft-core`** (`cd proofs && docker compose run --build --rm proofs`),
+trusting the Charon/Aeneas translation, the Lean kernel and Lean's standard
+axioms. Parsing, typing, provenance, budgets and reports are proved in the
+calculus and tested, not proved over the shipped Rust; no refinement theorem
+for the whole program is claimed.
 
 ## Try it
 
@@ -104,6 +115,9 @@ mockup and the proposed relationship to execution/learning history.
   commands, resource boundaries and the static runtime package.
 - [Rust implementation](docs/rust-implementation.md): crate dependencies,
   bounded passes, trace representation and calibrated source policies.
+- [Shipped-kernel proofs](proofs/): Charon/Aeneas translation of
+  `crates/weft-core`, Lean theorems, axiom audit and mutant calibration;
+  scope and trust base in [runtime assurance](docs/runtime-assurance.md#proved-over-the-shipped-kernel).
 - [Complete traceability](qualification/traceability.json): all 22 theorem
   families, 11 gates and 44 scenarios, including explicit external blockers.
 - [Set-algebra implementation handover](handovers/revision-3/weft/AGENT_START_HERE.md):

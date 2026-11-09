@@ -3,7 +3,9 @@
 The development executable is a real static Linux x86_64 musl binary. It parses
 and checks the selected finite language, evaluates local symbolic theories and
 emits complete `weft.report/1` reports. It is **not** the final Writfold-integrated
-release, an authorization token, or a shipping-Rust refinement theorem.
+release, an authorization token, or a refinement theorem for the whole Rust
+program. A small pure decision core is proved over its shipped Rust; see
+[Proved over the shipped kernel](#proved-over-the-shipped-kernel).
 
 ## Exercised evidence
 
@@ -50,6 +52,78 @@ Its build-supplied source-closure SHA256 is
 A build-supplied digest identifies inputs; it is not itself a qualification receipt.
 No independent clean-build byte-reproducibility claim is made.
 
+## Proved over the shipped kernel
+
+`crates/weft-core` is a dependency-free `no_std` crate holding the pure
+decisions production calls:
+
+| Production caller | Kernel decision |
+| --- | --- |
+| `weft_domain` `add_set` (literals, spreads, every algebra result) | `sets::normalize` (first-occurrence deduplication), `sets::position_of` |
+| `set_union` / `set_intersection` / `set_difference` | `sets::union` / `sets::intersection` / `sets::difference` |
+| `set_member` / `set_subset` / `sets_equal` | `sets::contains` / `sets::subset` / `sets::same_members` |
+| `weft_kernel` finite evaluator (`enumerate`) | `verdict::role` per trace row, `verdict::classify` for the verdict |
+| `weft_wire` `PriorScope::compare` (`weft reuse`) | `scope::refusals` over byte-exact `scope::same_bytes` |
+
+The `proofs` gate (`cd proofs && docker compose run --build --rm proofs`)
+translates that crate with Charon and Aeneas, refuses any drift against the
+committed translation `proofs/Extracted/WeftCore.lean`, builds Lean theorems
+over the translated functions, audits every theorem's axioms and calibrates
+with semantic mutants of the Rust source. Every theorem is a total-correctness
+statement: the translated function terminates without failure (no panic, no
+overflow, no out-of-bounds index) and its result satisfies the stated property.
+
+What is proved, **over the Aeneas translation of `crates/weft-core`**:
+
+- Set algebra (A01/A03, at the level of value identities): normalization is
+  exactly the calculus's first-occurrence `unique`; union is
+  `unique (left ++ right)` (left order first) with exactly the members of
+  either side; intersection and difference are the qualifying left values in
+  left order with exactly "both" / "left and not right" membership; membership
+  is `∈`; subset answers no counterexample iff every left value is on the
+  right, otherwise the first left position that is not; set equality is
+  mutual inclusion. `union_spec` assumes the two operand lengths sum to at
+  most `usize::MAX`, which any two in-memory `usize` slices satisfy.
+- Classification: `verdict_of` is the calculus's `verdictOf`, and over a trace
+  the verdict is entailed iff some row is a premise model and the query holds
+  in every premise model; refuted symmetrically; undetermined iff both
+  polarities occur; inconsistent premises iff no row is a premise model.
+- Reuse: byte equality is exact, length included; the refusals are exactly
+  the unsatisfied comparisons, ascending; reuse is admitted iff every
+  comparison holds, so any difference in a must-be-equal field is refused.
+
+Trust base: the Charon (commit `8cae8fd1`) and Aeneas
+(`nightly-2026.11.07-c5eb4a2`) translation of the Rust source, the Aeneas Lean
+library's models of the Rust core operations the kernel uses (slice indexing,
+`Vec::push`/`deref`, `usize` arithmetic, `Option::is_some`/`is_none`), the
+Lean 4 kernel (`v4.35.0`), and Lean's standard axioms `propext`,
+`Classical.choice` and `Quot.sound`. The translation contains no `axiom`; the
+audit admits nothing else. Exact pins, theorem and mutant inventories and the
+measured gate are in
+[the shipped-kernel record](../qualification/aeneas-kernel.json).
+
+What remains modeled or tested, not proved over shipped code:
+
+- Typing, budget charging, origin/provenance closure, quantifiers, lowering,
+  traces and reports (A02, A04–A08 and the L/Q families) are proved in the
+  calculus (`formal/`) and exercised by tests, the Lean/Rust differential and
+  CLI scenarios. The calculus is on Lean `v4.21.0` and is not upgraded or
+  imported: the two definitions the kernel theorems use (`unique`,
+  `verdictOf`) are restated in `proofs/Kernel/Spec.lean`, a reviewed
+  restatement rather than a machine-checked link.
+- That the evaluator's trace rows are exactly every valuation of the active
+  atoms, and that each row's Booleans are the premises' and query's values,
+  is the evaluator's obligation (tests and differential), not a theorem.
+- Which fields reuse compares and how they are encoded are the wire layer's
+  (tests and CLI scenarios). The parser, lowering and report projection have
+  no refinement theorem.
+
+The kernel's searches are linear scans, so set decisions cost
+`O(|left|·|right|)` comparisons where the earlier implementation used hash
+sets; the construction work budget, which still charges linear units, bounds
+the operands. On the default budget the heaviest refused union measured
+0.14 s against 0.05 s before; every compared report was byte-identical.
+
 ## What the reports establish
 
 Checks classify a finite theory under the exact preceding hypotheses. Typed
@@ -72,7 +146,12 @@ kernel records; it is not an untrusted proof-certificate ingestion endpoint.
 - Formal world-facing grounding uses explicit interpretation/acquisition and
   `EvidenceSound` assumptions. Admission alone does not establish truth.
 - There is no proof that the raw Rust parser/compiler refines the Lean calculus.
-  Executable conformance and source review are evidence, not that theorem.
+  Executable conformance and source review are evidence, not that theorem. Only
+  the `weft-core` decisions above are proved over shipped code.
+- The executable and source-closure hashes above were qualified before the
+  decisions moved into `weft-core`; the current source has not been
+  requalified by the private runtime producer, so those records describe the
+  earlier source only.
 - No current advisory database is admitted to the offline build; no
   vulnerability-free claim is made. Source-size soft warnings remain recorded;
   all hard limits and compiler warnings-as-errors passed.

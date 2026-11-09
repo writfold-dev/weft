@@ -1,0 +1,289 @@
+{
+ "schema_version": 1,
+ "kind": "weft.shipped-kernel-proofs/1",
+ "date": "2026-11-09",
+ "scope": "Lean theorems over the Charon/Aeneas translation of crates/weft-core only. Not a refinement theorem for the parser, lowering, evaluator enumeration, reports or the whole binary, and not a renewal of any WEFT gate, runtime receipt or traceability binding.",
+ "statement": "Proved over the Aeneas translation of crates/weft-core; trust base: the Charon/Aeneas translation, the Aeneas Lean library's models of the Rust core operations used, the Lean 4 kernel, and the standard axioms propext, Classical.choice and Quot.sound.",
+ "gate": {
+  "command": "cd proofs && docker compose run --build --rm proofs",
+  "steps": [
+   "regenerate translation (proofs/extract.sh)",
+   "drift check against committed proofs/Extracted/",
+   "lake build",
+   "axiom audit (proofs/Audit.lean)",
+   "mutant calibration (proofs/mutants.py)"
+  ],
+  "result": "pass",
+  "image_id": "sha256:b05635df95fd1e879d5271aefc61783ffc42a75fa1c2af0c41c8337a2f82a10f",
+  "timing_seconds": {
+   "in_container_total": 149,
+   "extract_and_drift": 2,
+   "lake_build": 10,
+   "axiom_audit": 3,
+   "mutant_calibration": 134,
+   "wall_including_compose_image_check": 169
+  },
+  "cold_image_build_seconds": 686,
+  "cold_image_note": "tools stage reused from the shared local BuildKit cache (same pins and base digest as other writfold-dev proof images); the deps stage (mathlib cache download plus Aeneas library build) rebuilt because lakefile.toml/lake-manifest.json name this project.",
+  "audit": "AXIOM_AUDIT ok: 63 theorems, 20 required claims, axioms within [propext, Classical.choice, Quot.sound]",
+  "audit_note": "63 audited declarations = 38 hand-written theorems + 25 compiler-generated equation/sizeOf lemmas; the translation itself contains no axiom.",
+  "failed_attempts": [
+   {
+    "attempt": 1,
+    "result": "fail",
+    "reason": "Mutant classify-refuting-as-support was rejected by Weft.Core.classify_loop_spec and also by Weft.Core.classify_spec, which the calibration then listed as unexpected: the mutation leaves `refuting` unassigned, so Aeneas drops it from the loop state and the loop signature changes. The expectation was widened to both theorems; no proof changed. 14 of 15 mutants calibrated; 168 s wall."
+   }
+  ]
+ },
+ "pins": {
+  "charon_commit": "8cae8fd1905946de61147a65ecdd7122cc6b491b",
+  "charon_rust_toolchain": "nightly-2026-09-17",
+  "aeneas_release": "nightly-2026.11.07-c5eb4a2",
+  "aeneas_sha256": "14fbaed4ce8624cf3d668f887d6ebb237a59cc37d7498c792d9f3f97332cbb25",
+  "lean_toolchain": "leanprover/lean4:v4.35.0",
+  "elan": "v4.2.4",
+  "mathlib_rev": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+  "base_image": "ubuntu:24.04@sha256:224a1869083a311ef3f13648a154ba79832fbef6364d31493642ca03082da254"
+ },
+ "sources": {
+  "crates/weft-core/Cargo.toml": "b8ea7c1b4eb3423998f3ff6342f3be74fc3c2920b138224ec15887213dfb5023",
+  "crates/weft-core/src/lib.rs": "757e8e3b5c5bf4f671f927c272c7554c66e5aeec5f42cce2f5e498614e499590",
+  "crates/weft-core/src/sets.rs": "a52f118542ca1b75a0c00ef31778d2e66195c54ec1ab82ba39144b6ac1b642ae",
+  "crates/weft-core/src/verdict.rs": "642fa8450e67745101c09caf47c9131e0d81045e025bbcd98006ed08f4caa909",
+  "crates/weft-core/src/scope.rs": "f64a818171ca606b4df0ae562be0da35399fa6b30829fe4095a4e1efe815e874",
+  "crates/weft-core/src/convenience.rs": "c4aa331c22a6d608dc878de7db3ed9bc38ffaedc71e16aeaa63669117bd07c79",
+  "proofs/Extracted/WeftCore.lean": "0b52ee445639381ada9c0b9885d610cd89a5c04de44ce2f07bc069993c005fd2",
+  "proofs/Kernel/Spec.lean": "87c35c95a91df6e10c8e27a9c0c6bae37e0cfb7e9e4a19a93386430f6b6e176e",
+  "proofs/Kernel/Sets.lean": "cbb0a4146607aec31a5f96538a17aea2e1d2f00d4be65c4eabfb7a71bcafca11",
+  "proofs/Kernel/Verdict.lean": "b94cefb32b57aea048591739d3d2172859dd626044b18217d77ea16ff4bb72f1",
+  "proofs/Kernel/Scope.lean": "5d9a478bdc7b8bdbefde4182a03e54949abc22905d941aea934c988291ce711e",
+  "proofs/Audit.lean": "d288a7f9a68ff63303794b8c1efaa607c7fe1d1507064107e1cf2d73e12736c8",
+  "proofs/mutants.py": "a3914d75e8af4136be5fd1dcaeae0ea73f94077b96793f2f80cf24c573335505",
+  "proofs/Dockerfile": "ca235b5bca29e9622b1c793332eb0a8a4760f76ef26d4302f647464eba97be5c",
+  "proofs/lakefile.toml": "5add866b79171e682520f65a6a1e67ca03ba298f0646fc99322daca68d0947cc",
+  "proofs/lake-manifest.json": "79e39ab1a517b7730d2f2622c07be2b1c421766c5cb2ec5dd9ce81a7972e93ac"
+ },
+ "production_callers": {
+  "weft_core::sets::normalize, position_of": "weft_domain TheoryBuilder::add_set / materialize",
+  "weft_core::sets::union": "weft_domain TheoryBuilder::set_union",
+  "weft_core::sets::intersection": "weft_domain TheoryBuilder::set_intersection",
+  "weft_core::sets::difference": "weft_domain TheoryBuilder::set_difference",
+  "weft_core::sets::contains": "weft_domain TheoryBuilder::set_member",
+  "weft_core::sets::subset": "weft_domain TheoryBuilder::set_subset",
+  "weft_core::sets::same_members": "weft_domain TheoryBuilder::sets_equal",
+  "weft_core::verdict::role, classify": "weft_kernel enumerate (assess)",
+  "weft_core::scope::refusals": "weft_wire reuse::PriorScope::compare (weft reuse)"
+ },
+ "claims": [
+  {
+   "theorem": "Weft.Core.position_of_spec",
+   "statement": "position_of returns the first position holding the value, or none iff the value is absent",
+   "mirrors": null
+  },
+  {
+   "theorem": "Weft.Core.contains_spec",
+   "statement": "contains is list membership",
+   "mirrors": "A03 membershipPredicateSound (value level)"
+  },
+  {
+   "theorem": "Weft.Core.normalize_spec",
+   "statement": "normalize equals the calculus's first-occurrence unique; duplicate-free with the same members",
+   "mirrors": "Q01/A01 normalizeMembership, normalizeNoDuplicates, displayOrderSound"
+  },
+  {
+   "theorem": "Weft.Core.union_spec",
+   "statement": "union = unique (left ++ right); duplicate-free; member iff in either side (operand lengths sum to at most usize::MAX)",
+   "mirrors": "A01 unionMembership, displayOrderSound"
+  },
+  {
+   "theorem": "Weft.Core.intersection_spec",
+   "statement": "intersection = left values on the right, in left order; member iff in both; preserves duplicate-freedom",
+   "mirrors": "A01 intersectionMembership"
+  },
+  {
+   "theorem": "Weft.Core.difference_spec",
+   "statement": "difference = left values not on the right, in left order; member iff left and not right; preserves duplicate-freedom",
+   "mirrors": "A01 differenceMembership"
+  },
+  {
+   "theorem": "Weft.Core.subset_spec",
+   "statement": "subset is none iff every left value is on the right, otherwise the first left position that is not",
+   "mirrors": "A03 subsetPredicateSound, subsetCounterexample"
+  },
+  {
+   "theorem": "Weft.Core.same_members_spec",
+   "statement": "same_members iff both sides have exactly the same members",
+   "mirrors": "Q01 extensional set equality"
+  },
+  {
+   "theorem": "Weft.Core.role_spec",
+   "statement": "a row supports iff premises and query hold, refutes iff premises hold and query fails, is excluded iff premises fail",
+   "mirrors": null
+  },
+  {
+   "theorem": "Weft.Core.verdict_of_spec",
+   "statement": "verdict_of is the calculus's verdictOf",
+   "mirrors": "Weft.Logic.verdictOf"
+  },
+  {
+   "theorem": "Weft.Core.classify_spec",
+   "statement": "classify is verdictOf over (exists supporting row, exists refuting row)",
+   "mirrors": "Weft.Logic.classify flags"
+  },
+  {
+   "theorem": "Weft.Core.classify_entailed_iff",
+   "statement": "Entailed iff some row is a premise model and the query holds in every premise model",
+   "mirrors": "VerdictMeaning .entailed, over the trace"
+  },
+  {
+   "theorem": "Weft.Core.classify_refuted_iff",
+   "statement": "Refuted iff some row is a premise model and the query fails in every premise model",
+   "mirrors": "VerdictMeaning .refuted, over the trace"
+  },
+  {
+   "theorem": "Weft.Core.classify_undetermined_iff",
+   "statement": "Undetermined iff premise models of both polarities exist",
+   "mirrors": "VerdictMeaning .undetermined, over the trace"
+  },
+  {
+   "theorem": "Weft.Core.classify_inconsistent_iff",
+   "statement": "InconsistentPremises iff no row is a premise model",
+   "mirrors": "VerdictMeaning .inconsistent, over the trace"
+  },
+  {
+   "theorem": "Weft.Core.same_bytes_spec",
+   "statement": "same_bytes is byte-exact equality, length included",
+   "mirrors": null
+  },
+  {
+   "theorem": "Weft.Core.satisfied_spec",
+   "statement": "a comparison holds iff bytes are equal (Equal) or differ (Unequal)",
+   "mirrors": null
+  },
+  {
+   "theorem": "Weft.Core.refusals_spec",
+   "statement": "refusals are exactly the unsatisfied positions, ascending",
+   "mirrors": null
+  },
+  {
+   "theorem": "Weft.Core.reusable_iff",
+   "statement": "no refusal iff every comparison is satisfied",
+   "mirrors": "S14 reuse refuses any scope difference"
+  },
+  {
+   "theorem": "Weft.Core.refuses_any_difference",
+   "statement": "any must-be-equal field with different bytes is refused",
+   "mirrors": "S14 reuse refuses any scope difference"
+  }
+ ],
+ "mutants": [
+  {
+   "name": "position-of-first-only",
+   "rejected_by": [
+    "Weft.Core.position_of_loop_spec"
+   ]
+  },
+  {
+   "name": "normalize-keeps-duplicates",
+   "rejected_by": [
+    "Weft.Core.extend_unique_loop_spec"
+   ]
+  },
+  {
+   "name": "union-right-first",
+   "rejected_by": [
+    "Weft.Core.union_spec"
+   ]
+  },
+  {
+   "name": "intersection-as-difference",
+   "rejected_by": [
+    "Weft.Core.intersection_spec"
+   ]
+  },
+  {
+   "name": "difference-keeps-removed",
+   "rejected_by": [
+    "Weft.Core.difference_spec"
+   ]
+  },
+  {
+   "name": "select-inverted",
+   "rejected_by": [
+    "Weft.Core.select_loop_spec"
+   ]
+  },
+  {
+   "name": "subset-skips-last",
+   "rejected_by": [
+    "Weft.Core.subset_loop_spec"
+   ]
+  },
+  {
+   "name": "same-members-one-way",
+   "rejected_by": [
+    "Weft.Core.same_members_spec"
+   ]
+  },
+  {
+   "name": "role-ignores-premises",
+   "rejected_by": [
+    "Weft.Core.role_spec"
+   ]
+  },
+  {
+   "name": "verdict-vacuous-entailment",
+   "rejected_by": [
+    "Weft.Core.verdict_of_spec"
+   ]
+  },
+  {
+   "name": "classify-refuting-as-support",
+   "rejected_by": [
+    "Weft.Core.classify_loop_spec",
+    "Weft.Core.classify_spec"
+   ]
+  },
+  {
+   "name": "same-bytes-ignores-length",
+   "rejected_by": [
+    "Weft.Core.same_bytes_spec"
+   ]
+  },
+  {
+   "name": "same-bytes-prefix",
+   "rejected_by": [
+    "Weft.Core.same_bytes_loop_spec"
+   ]
+  },
+  {
+   "name": "unequal-requirement-as-equal",
+   "rejected_by": [
+    "Weft.Core.satisfied_spec"
+   ]
+  },
+  {
+   "name": "refusals-skip-first",
+   "rejected_by": [
+    "Weft.Core.refusals_loop_spec"
+   ]
+  }
+ ],
+ "contortions": [
+  "No #[derive] or trait impls in the decision modules; Clone/Copy/Debug/PartialEq/Eq are hand-written in convenience.rs, outside [package.metadata.charon] start_from, with Debug output identical to the former derives.",
+  "Equality the theorems use is explicit: usize ==, and same_bytes for byte strings.",
+  "Owned data only: reuse comparisons own their bytes (Vec<u8>); set values are usize identities; no nested borrows.",
+  "No casts; indexed while loops instead of iterator adaptors.",
+  "Deref coercion (&vec) instead of Vec::as_slice, which the pinned Aeneas library translates to an axiom (observed in the first translation and removed).",
+  "Set searches are linear scans instead of hash sets: decisions cost O(|left|*|right|) comparisons, bounded by the unchanged linear work budget."
+ ],
+ "not_proved": [
+  "Typing, budget charging, origin closure, quantifiers, lowering, traces and reports (A02, A04-A08, L/Q families): calculus proofs, tests, Lean/Rust differential and CLI scenarios only.",
+  "That evaluator trace rows enumerate every valuation and carry the premises' and query's values.",
+  "Which reuse fields are compared and their byte encodings.",
+  "The restatement of the calculus's unique and verdictOf in proofs/Kernel/Spec.lean is reviewed, not machine-linked: formal/ stays on Lean v4.21.0 and is not imported."
+ ],
+ "retired": [],
+ "retired_note": "Nothing was retired. Weft had no Verus family, and the Lean/Rust set-algebra differential (scripts/algebra_differential.py) also covers typing, refusals, origin reachability and end-to-end CLI behaviour that these theorems do not, so it is retained. The superseded statement that set_member/set_subset use hash sets was corrected in docs/rust-implementation.md.",
+ "requalification_pending": "qualification/local-runtime.json, traceability.json and status.json bind the earlier source; the current source changes crates/weft-domain, weft-kernel, weft-wire and tools/weft-quality and adds crates/weft-core, so the private runtime/traceability producers must run again before any renewed runtime pass is claimed."
+}

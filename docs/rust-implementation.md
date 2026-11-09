@@ -3,7 +3,10 @@
 The revision-3 Lean calculus gate — including the A01–A08 set-algebra families —
 passed before these Rust crates gained their algebra implementation. Rust
 correspondence still needs executable qualification; no refinement theorem
-is inferred from a shared design or differential agreement.
+is inferred from a shared design or differential agreement. The exception is
+the pure decision core in `crates/weft-core`, whose own Rust is translated by
+Charon/Aeneas and proved in Lean under `proofs/`
+([scope](runtime-assurance.md#proved-over-the-shipped-kernel)).
 
 ## Set-algebra implementation shape
 
@@ -14,8 +17,14 @@ removed members and the entire right operand of a difference stay reachable.
 Membership and subset lower to checked `FormulaOp::Literal` nodes carrying
 `NodeDetail::Membership` and `NodeDetail::SetComparison` (with the deterministic
 first-left counterexample), exactly like set equality. Both operand traversals
-are charged before any filtering; `set_member`/`set_subset` use hash sets, so
-charging stays linear in the operands actually scanned.
+are charged before any filtering. Every membership and order decision —
+`add_set` normalization, union, intersection, difference, membership, subset
+and equality — is made by `weft_core::sets` over value identities; the domain
+keeps typing, charging and origin bookkeeping around it and refuses (never
+repairs) a kernel answer that disagrees with its raw occurrences. The kernel
+uses linear scans rather than hash sets, so a decision costs
+`O(|left|·|right|)` comparisons; charging stays linear and the work budget
+bounds the operands.
 
 ## Selected crate dependencies
 
@@ -38,7 +47,19 @@ flowchart TD
   WIRE --> DOMAIN
   WRITFOLD --> WIRE
   WRITFOLD --> DOMAIN
+  DOMAIN --> CORE[weft-core: proved pure decisions, no dependencies]
+  KERNEL --> CORE
+  WIRE --> CORE
 ```
+
+`weft-core` is `no_std` with an empty dependency set, enforced by
+`tools/weft-quality`. The finite evaluator records trace rows and model
+witnesses; `weft_core::verdict::classify` decides the verdict over the rows.
+`weft reuse` builds one byte comparison per recorded scope field and names a
+difference for each position `weft_core::scope::refusals` returns. The
+translation rules the crate follows (no derives in decision modules, explicit
+equality, owned data, no casts, deref instead of `Vec::as_slice`) are listed
+in `crates/weft-core/src/lib.rs`.
 
 
 Wire does not call the kernel. Each valuation is evaluated once; exact premise

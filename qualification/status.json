@@ -209,5 +209,10 @@
     "control-manifest-compare": "~/.local/share/weft/evidence/client-20261106T0001/control-003/report.json"
   },
   "qualification_status": "local_runtime_component_pass_full_release_blocked",
-  "writfold_integration_note": "Owner stdio control profile is landed, pinned and now consumed by the Weft client (P11); citation/assessment/retention/effect data services remain unavailable, so WR2-WR8 and P05-P07/P09 stay not_run at the service boundary."
+  "writfold_integration_note": "Owner stdio control profile is landed, pinned and now consumed by the Weft client (P11); citation/assessment/retention/effect data services remain unavailable, so WR2-WR8 and P05-P07/P09 stay not_run at the service boundary.",
+  "shipped_kernel_proofs": {
+    "record": "qualification/aeneas-kernel.json",
+    "status": "pass",
+    "scope": "Lean theorems over the Charon/Aeneas translation of crates/weft-core (set algebra decisions, trace classification, reuse scope equality). Separate from and not a renewal of the WEFT gates; current_runtime still binds the source before this change and requires requalification."
+  }
 }

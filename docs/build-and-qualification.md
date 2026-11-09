@@ -80,6 +80,19 @@ The release archive includes the binary, scope/identity metadata, the project
 qualified offline dependency closure. License adoption does not renew any
 historical compiler, proof or runtime receipt.
 
+## Shipped-kernel proofs
+
+`cd proofs && docker compose run --build --rm proofs` builds the pinned
+Charon/Aeneas/Lean image (`proofs/Dockerfile`) and runs `proofs/gate.sh`:
+translate `crates/weft-core`, refuse drift against `proofs/Extracted/`, build
+the theorems, audit axioms, and require all 15 Rust mutants to fail in their
+named theorems. It is its own compose project, needs
+none of the variables above, and is not one of the WEFT gates. After
+changing `crates/weft-core`, run `sh proofs/refresh.sh` and commit the new
+translation. The cold image is about 20 GB and 11 minutes to build; a warm
+gate run takes under three minutes. Record:
+[`qualification/aeneas-kernel.json`](../qualification/aeneas-kernel.json).
+
 ## Scope of a pass
 
 The development artifact closes the local P02–P04/P08 component work. It does not

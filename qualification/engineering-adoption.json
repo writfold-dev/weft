@@ -23,6 +23,21 @@
       "owner": "weft-writfold",
       "dependency": "weft-wire",
       "reason": "All raw peer JSON stays in wire: bounded parsing, JSON-RPC DTOs and checked conversions; the client crate itself remains serde-free."
+    },
+    {
+      "owner": "weft-domain",
+      "dependency": "weft-core",
+      "reason": "Set normalization and algebra decisions are made by the dependency-free proved core (proofs/); the domain keeps typing, charging and origins, and re-exports the core's TraceRow and LogicalVerdict instead of defining parallel types."
+    },
+    {
+      "owner": "weft-kernel",
+      "dependency": "weft-core",
+      "reason": "The finite evaluator's per-row role and verdict are the proved core's role and classify."
+    },
+    {
+      "owner": "weft-wire",
+      "dependency": "weft-core",
+      "reason": "weft reuse's byte-exact scope decision is the proved core's refusals; wire still never reevaluates a theory."
     }
   ],
   "development_dependency_additions": [
@@ -49,10 +64,11 @@
   ],
   "constraints": [
     "Development additions apply only to Cargo kind=dev, never normal/build dependencies.",
-    "Production wire depends on domain only; it serializes captured results and never reevaluates proofs.",
+    "Production wire depends on domain and the proved core only; it serializes captured results and never reevaluates proofs.",
     "Domain, frontend and kernel remain IO-free and serde-free.",
     "Immutable handovers and all required gate/theorem/scenario inventories remain unchanged.",
-    "Revision 3 adds no production or development dependency; set algebra extends existing crates in place."
+    "Revision 3 adds no production or development dependency; set algebra extends existing crates in place.",
+    "weft-core (Aeneas shipped-kernel adoption, 2026-11-09) has no dependencies, is no_std and IO-free; domain, kernel and wire may depend on it, it depends on nothing. Registered in tools/weft-quality."
   ],
   "qualification": "Selected dependency edges exercised by the local Rust qualification; exact evidence is in qualification/local-runtime.json. Full composed release remains blocked."
 }
