@@ -262,5 +262,12 @@
     "binary_source_sha256": "50b41240c8589abe397b787f4c4509a9e16898bff6c5917487656ada0da5b04c",
     "proof_prerequisite": "~/.local/share/weft/evidence/trial-rev2-20261110/lean-001/report.json",
     "scope": "weft-local-symbolic-runtime-only gate over the source including the weft-core kernel move; now the current runtime: qualification/local-runtime.json, P02-P04/P08 and traceability rebound to it by scripts/runtime_record.py, scratch package runtime-package-002."
+  },
+  "traceability_receipt": {
+    "receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/traceability-001/report.json",
+    "sha256": "9e6e420dd9716a03833999c8b372e40c018ded67751277ad875edb2b6472abe4",
+    "status": "pass",
+    "traceability_sha256": "1fafbdfb7f834597a7696f90ad7deb3eb4349ee79b7cf3cab04229cbda4ad3d8",
+    "scope": "Requirement/source linkage only against rust-004, runtime-package-002 and lean-001: 30 theorem families, 12 gates, 60 scenarios, 54 shipping-symbol links, 6 rejected negative controls. Not new theorem or runtime qualification."
   }
 }
