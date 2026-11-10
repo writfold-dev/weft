@@ -220,5 +220,14 @@
     "record": "qualification/aeneas-kernel.json",
     "status": "pass",
     "scope": "Lean theorems over the Charon/Aeneas translation of crates/weft-core (set algebra decisions, trace classification, reuse scope equality). Separate from and not a renewal of the WEFT gates; current_runtime still binds the source before this change and requires requalification."
+  },
+  "head_rust_requalification": {
+    "receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-004/report.json",
+    "sha256": "96cb8d9bafc39e5261e5076454306f58b1ced9c3e2493f6d6ae6112d4b2c7580",
+    "status": "pass",
+    "binary_sha256": "a74f773e56752b15759cd55143c72fae0051d4e322563f659c2df5e2e3813e9e",
+    "binary_source_sha256": "50b41240c8589abe397b787f4c4509a9e16898bff6c5917487656ada0da5b04c",
+    "proof_prerequisite": "~/.local/share/weft/evidence/trial-rev2-20261110/lean-001/report.json",
+    "scope": "weft-local-symbolic-runtime-only gate over the source including the weft-core kernel move; current_runtime (local-runtime.json), P02-P04/P08 receipts and the scratch runtime package are not yet rebound to it."
   }
 }
