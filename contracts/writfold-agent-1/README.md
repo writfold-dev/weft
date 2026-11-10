@@ -18,8 +18,8 @@ negotiated `writfold.trial/1` capability, in its 10 November 2026 revision that 
 | CLI-only (Method not found over stdio) | `trial/approve`, `trial/apply`, `trial/recover` |
 | Advertised capabilities | `notifications`, `writfold.trial/1` (the latter only when requested and the server has a trial state) |
 | Frame ceiling | 65,536 bytes each direction, LF inclusive |
-| Owner source checkpoint | Writfold commit `6679aa0` on `main` |
-| Owner executable pin | `3087e467328fd9eb6e4764a77295a98bfa43c9e1ab71d34d6a2297a460f16e41`, the static executable built by Writfold's `stdio-control` gate at this contract (receipt `cursor-serve-IN3JTNJz/stdio-control-003.json`). The earlier pins `91a1924f…` (contract `0baf69b2…`) and `70b0d07b…` (contract `b673d10f…`) are refused. |
+| Owner source checkpoint | Writfold commit `604347a` on `main` |
+| Owner executable pin | `2fdf09edbde1db6af0f7e160cdfdd2927cde4dcd70894e62e0d3d2997390a381`, the static executable built by Writfold's `stdio-control` gate at this contract (receipt `state-dir-cP8Nh8d8/stdio-control-002.json`; the owner changed only CLI text, contract unchanged). The earlier pins `3087e467…` (same contract), `91a1924f…` (contract `0baf69b2…`) and `70b0d07b…` (contract `b673d10f…`) are refused. |
 
 The archive carries the request/response/parameter schemas (`methods.json` for
 a control-only session, `trial-methods.json` for a session that negotiated

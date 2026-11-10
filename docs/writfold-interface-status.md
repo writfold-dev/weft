@@ -78,8 +78,9 @@ executable `91a1924f…`.
 `trial/evidence-show` (the Weft binary for `trial/run` is fixed by
 `writfold serve --weft`, never named by the client). The vendored archive and
 the client pin now name contract `bfa436ba…` (archive `eb5f4114…`), and the
-`control` gate's executable pin names `3087e467…`, the binary from Writfold's
-fresh `stdio-control` receipt. The Weft client still does not request the
+`control` gate's executable pin names `2fdf09ed…`, the binary from Writfold's
+fresh `stdio-control` receipt for its state-directory change (contract
+unchanged; the previous pin `3087e467…` is retired). The Weft client still does not request the
 capability, so its sessions advertise only control methods. Servers built for
 either earlier contract (`0baf69b2…`, `b673d10f…`) present a different digest
 and are refused; a unit test covers the most recent one. The TLA+ control model

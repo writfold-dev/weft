@@ -20,7 +20,7 @@ ROOT = Path('/work/weft')
 EVIDENCE = Path('/evidence')
 ARCHIVE_SHA256 = 'eb5f411479e80e7820e4461e95c879f416a03dd4518e6596166ebfaebd547952'
 CONTRACT_SHA256 = 'bfa436bac90a97a38b5b70d8a20713cfbd38a12ce35283637d5ac9fa235f3f4a'
-BINARY_SHA256 = '3087e467328fd9eb6e4764a77295a98bfa43c9e1ab71d34d6a2297a460f16e41'
+BINARY_SHA256 = '2fdf09edbde1db6af0f7e160cdfdd2927cde4dcd70894e62e0d3d2997390a381'
 MEMBERS = ('contract.json', 'methods.json', 'trial-methods.json', 'request.schema.json',
            'response.schema.json', 'citation-binding.schema.json', 'vectors.json')
 
