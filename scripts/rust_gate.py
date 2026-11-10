@@ -14,7 +14,7 @@ from evidence import capture_sources, digest, manifest, process_env, require_suc
 
 def proof_prerequisite(root: Path, attempt: Path) -> dict:
     record = json.loads((root / 'qualification/finite-calculus.json').read_text())
-    receipt = Path(record['receipt'])
+    receipt = Path(record['receipt']).expanduser()
     if record['status'] != 'pass' or digest(receipt) != record['receipt_sha256']:
         raise ValueError('finite calculus prerequisite is absent or its receipt changed')
     initial = json.loads(receipt.read_text())
@@ -22,7 +22,7 @@ def proof_prerequisite(root: Path, attempt: Path) -> dict:
     if (reference['status'] != 'pass'
             or reference['calculus_prerequisite']['sha256'] != digest(root / 'qualification/finite-calculus.json')):
         raise ValueError('reference calibration does not bind the first calculus checkpoint')
-    receipt = Path(reference['receipt'])
+    receipt = Path(reference['receipt']).expanduser()
     if digest(receipt) != reference['receipt_sha256']:
         raise ValueError('qualified executable reference receipt changed')
     proof = json.loads(receipt.read_text())
