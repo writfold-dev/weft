@@ -35,7 +35,7 @@ HARDENING = ["--network=none", "--read-only", "--cap-drop=ALL",
              "--security-opt=no-new-privileges:true", "--pids-limit=32",
              "--memory=268435456", "--cpus=1", "--platform=linux/amd64"]
 # Empty placeholders Docker adds to every exported container filesystem.
-RUNTIME_INJECTED = {".dockerenv", "etc/hostname", "etc/hosts", "etc/resolv.conf"}
+RUNTIME_INJECTED = {".dockerenv", "dev/console", "etc/hostname", "etc/hosts", "etc/resolv.conf"}
 ROOTFS = {"weft": 0o555, "LICENSE": 0o444,
           "licenses/third-party-licenses.zip": 0o444, "licenses/third-party-licenses.json": 0o444}
 
