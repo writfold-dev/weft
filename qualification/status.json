@@ -108,27 +108,36 @@
       "gate": "WEFT02",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json"
+        "~/.local/share/weft/evidence/trial-rev2-20261110/rust-004/report.json"
       ],
-      "reason": "Revision-3 component requalification with native set algebra through the actual musl binary (specification/reference); local profile scope only."
+      "reason": "Revision-3 component requalification over the weft-core kernel move (set algebra, classification and reuse decisions in crates/weft-core) through the actual musl binary (specification/reference); local profile scope only.",
+      "earlier_receipts": [
+        "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json"
+      ]
     },
     {
       "id": "P03",
       "gate": "WEFT03",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json"
+        "~/.local/share/weft/evidence/trial-rev2-20261110/rust-004/report.json"
       ],
-      "reason": "Revision-3 component requalification with native set algebra through the actual musl binary (frontend/evaluator); local profile scope only."
+      "reason": "Revision-3 component requalification over the weft-core kernel move (set algebra, classification and reuse decisions in crates/weft-core) through the actual musl binary (frontend/evaluator); local profile scope only.",
+      "earlier_receipts": [
+        "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json"
+      ]
     },
     {
       "id": "P04",
       "gate": "WEFT04",
       "status": "pass",
       "receipts": [
-        "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json"
+        "~/.local/share/weft/evidence/trial-rev2-20261110/rust-004/report.json"
       ],
-      "reason": "Revision-3 component requalification with native set algebra through the actual musl binary (reports/CLI); local profile scope only."
+      "reason": "Revision-3 component requalification over the weft-core kernel move (set algebra, classification and reuse decisions in crates/weft-core) through the actual musl binary (reports/CLI); local profile scope only.",
+      "earlier_receipts": [
+        "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json"
+      ]
     },
     {
       "id": "P05",
@@ -156,10 +165,17 @@
       "gate": "WEFT08",
       "status": "pass",
       "receipts": [
+        "~/.local/share/weft/evidence/trial-rev2-20261110/rust-004/report.json",
+        "~/.local/share/weft/evidence/trial-rev2-20261110/runtime-package-002/report.json"
+      ],
+      "reason": "Component requalification over the weft-core kernel move: format/lint/nominal/size/dependency/unsafe gates and musl artifact (rust-004), then scripts/package_runtime.py packaged that exact binary with collected notices, verified the exported scratch rootfs bytes/modes and exercised version, two positive examples and two refusals read-only, network-disabled and capability-free (runtime-package-002). Does not close P05-P07.",
+      "earlier_receipts": [
         "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json",
         "~/.local/share/weft/evidence/client-20261106T0001/runtime-package-001/report.json"
       ],
-      "reason": "Component requalification with the control client and local reuse gate: format/lint/nominal/size/dependency/unsafe gates, musl artifact, installed-runtime scratch smoke, artifact identity and declared assurance scope. Does not close P05-P07."
+      "failed_attempts": [
+        "~/.local/share/weft/evidence/trial-rev2-20261110/runtime-package-001/report.json"
+      ]
     },
     {
       "id": "P09",
@@ -190,8 +206,20 @@
         "~/.local/share/weft/evidence/client-20261106T0001/control-004/report.json"
       ],
       "owner_repins": [
-        {"receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/control-001/report.json", "status": "pass", "contract_sha256": "bfa436bac90a97a38b5b70d8a20713cfbd38a12ce35283637d5ac9fa235f3f4a", "executable_sha256": "3087e467328fd9eb6e4764a77295a98bfa43c9e1ab71d34d6a2297a460f16e41", "reason": "writfold.trial/1 revision adding trial/run and trial/evidence-*"},
-        {"receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/control-002/report.json", "status": "pass", "contract_sha256": "bfa436bac90a97a38b5b70d8a20713cfbd38a12ce35283637d5ac9fa235f3f4a", "executable_sha256": "2fdf09edbde1db6af0f7e160cdfdd2927cde4dcd70894e62e0d3d2997390a381", "reason": "owner executable change only (trial next: lines carry --state); contract unchanged; current pin"}
+        {
+          "receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/control-001/report.json",
+          "status": "pass",
+          "contract_sha256": "bfa436bac90a97a38b5b70d8a20713cfbd38a12ce35283637d5ac9fa235f3f4a",
+          "executable_sha256": "3087e467328fd9eb6e4764a77295a98bfa43c9e1ab71d34d6a2297a460f16e41",
+          "reason": "writfold.trial/1 revision adding trial/run and trial/evidence-*"
+        },
+        {
+          "receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/control-002/report.json",
+          "status": "pass",
+          "contract_sha256": "bfa436bac90a97a38b5b70d8a20713cfbd38a12ce35283637d5ac9fa235f3f4a",
+          "executable_sha256": "2fdf09edbde1db6af0f7e160cdfdd2927cde4dcd70894e62e0d3d2997390a381",
+          "reason": "owner executable change only (trial next: lines carry --state); contract unchanged; current pin"
+        }
       ],
       "failed_attempts": [
         "~/.local/share/weft/evidence/client-20261106T0001/control-001/report.json",
@@ -216,14 +244,15 @@
     "control-manifest-compare": "~/.local/share/weft/evidence/client-20261106T0001/control-003/report.json",
     "rust-home-path-unexpanded": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-001/report.json",
     "rust-storage-headroom": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-002/report.json",
-    "rust-stale-calibration-pin": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-003/report.json"
+    "rust-stale-calibration-pin": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-003/report.json",
+    "runtime-package-dev-console": "~/.local/share/weft/evidence/trial-rev2-20261110/runtime-package-001/report.json"
   },
   "qualification_status": "local_runtime_component_pass_full_release_blocked",
   "writfold_integration_note": "Owner stdio control profile is landed, pinned and now consumed by the Weft client (P11); citation/assessment/retention/effect data services remain unavailable, so WR2-WR8 and P05-P07/P09 stay not_run at the service boundary.",
   "shipped_kernel_proofs": {
     "record": "qualification/aeneas-kernel.json",
     "status": "pass",
-    "scope": "Lean theorems over the Charon/Aeneas translation of crates/weft-core (set algebra decisions, trace classification, reuse scope equality). Separate from and not a renewal of the WEFT gates; current_runtime still binds the source before this change and requires requalification."
+    "scope": "Lean theorems over the Charon/Aeneas translation of crates/weft-core (set algebra decisions, trace classification, reuse scope equality). Separate from and not a renewal of the WEFT gates; current_runtime (rust-004) now binds the source containing crates/weft-core; that gate exercises it, it does not renew these theorems."
   },
   "head_rust_requalification": {
     "receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-004/report.json",
@@ -232,6 +261,6 @@
     "binary_sha256": "a74f773e56752b15759cd55143c72fae0051d4e322563f659c2df5e2e3813e9e",
     "binary_source_sha256": "50b41240c8589abe397b787f4c4509a9e16898bff6c5917487656ada0da5b04c",
     "proof_prerequisite": "~/.local/share/weft/evidence/trial-rev2-20261110/lean-001/report.json",
-    "scope": "weft-local-symbolic-runtime-only gate over the source including the weft-core kernel move; current_runtime (local-runtime.json), P02-P04/P08 receipts and the scratch runtime package are not yet rebound to it."
+    "scope": "weft-local-symbolic-runtime-only gate over the source including the weft-core kernel move; now the current runtime: qualification/local-runtime.json, P02-P04/P08 and traceability rebound to it by scripts/runtime_record.py, scratch package runtime-package-002."
   }
 }

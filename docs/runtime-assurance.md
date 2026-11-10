@@ -14,14 +14,14 @@ program. A small pure decision core is proved over its shipped Rust; see
 | Lean theorem families | All 30 L01–L12 / Q01–Q10 / A01–A08 families; 327 audited declarations |
 | Lean executable reference cases | 8 propositional and 27 finite-calculus cases (17 inherited + 10 set-algebra) |
 | Semantic mutation calibration | 36 rejected mutants, at least one substantive mutant per A family |
-| Rust behavioral regressions | 87 passed; none failed or ignored |
+| Rust behavioral regressions | 106 passed; none failed or ignored |
 | AST policy regressions | 42 passed; none failed or ignored |
 | Compiler/macro operation controls | 23 cases, preserving the observed compiler macro-lint gap |
 | Nominal compiler controls | 1 valid consumer and 4 rejected cross-kind/raw/private/promoted-input cases |
-| Actual CLI semantic/refusal scenarios | 32, plus direct analysis and human-view execution |
-| Lean/Rust differential checks | 29 logical outcomes, 32 supplied model witnesses, 9 set-algebra operation pairs |
+| Actual CLI semantic/refusal scenarios | 32, plus 6 examples, 2 external-source cases, 3 reuse cases, direct analysis and human-view execution |
+| Lean/Rust differential checks | 62 logical outcomes, 65 supplied model witnesses, 9 set-algebra operation pairs |
 | Requirement/source mapping | 30 theorem families, 12 gates, 60 scenarios, 54 shipping-symbol links; 6 negative controls |
-| Runtime packaging | Non-root, read-only, network-disabled scratch image exercised |
+| Runtime packaging | Exact binary plus project license and 30 collected package notices in a non-root scratch image; exported rootfs bytes verified; version, 2 positive examples and 2 refusals exercised read-only, network-disabled and capability-free |
 
 The original calculus gate preceded Rust implementation. The finite extension
 received its own complete gate; the original pass was not relabelled. A later
@@ -46,9 +46,15 @@ Child executions run with `/no-toolchain` as `PATH`. The packaged scratch image
 has no Rust, Lean, Python, shell, libc loader or other runtime toolchain.
 
 The qualified executable SHA256 is
-`68872ca283d91d1ad6be6e3a090ed6a50c0b890a3291dddf3aaa03450993851a`.
+`a74f773e56752b15759cd55143c72fae0051d4e322563f659c2df5e2e3813e9e`
+(Rust gate `rust-004`, which includes `crates/weft-core`).
 Its build-supplied source-closure SHA256 is
-`8c64b1848367230be6db076ec8d7747433c21bfa69db22628371e5f6c225e16f`.
+`50b41240c8589abe397b787f4c4509a9e16898bff6c5917487656ada0da5b04c`.
+The scratch image `sha256:d4d50b7d8beef14ec9abbb507b71ff6ee5c707acd4cc9efb4b88d5b315253aa7`
+packages exactly that executable (`runtime-package-002`, produced by
+[`scripts/package_runtime.py`](../scripts/package_runtime.py)). The counts above
+are derived from those receipts by
+[`scripts/runtime_record.py`](../scripts/runtime_record.py).
 A build-supplied digest identifies inputs; it is not itself a qualification receipt.
 No independent clean-build byte-reproducibility claim is made.
 
@@ -148,10 +154,9 @@ kernel records; it is not an untrusted proof-certificate ingestion endpoint.
 - There is no proof that the raw Rust parser/compiler refines the Lean calculus.
   Executable conformance and source review are evidence, not that theorem. Only
   the `weft-core` decisions above are proved over shipped code.
-- The executable and source-closure hashes above were qualified before the
-  decisions moved into `weft-core`; the current source has not been
-  requalified by the private runtime producer, so those records describe the
-  earlier source only.
+- The runtime gate exercises the binary that calls `weft-core`; it does not
+  renew the shipped-kernel theorems, and those theorems do not cover the rest
+  of the binary.
 - No current advisory database is admitted to the offline build; no
   vulnerability-free claim is made. Source-size soft warnings remain recorded;
   all hard limits and compiler warnings-as-errors passed.

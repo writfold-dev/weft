@@ -2,8 +2,8 @@
   "schema_version": 1,
   "authority": "handovers/revision-3/weft",
   "inventory": {
-    "theorems": 22,
-    "gates": 11,
+    "theorems": 30,
+    "gates": 12,
     "scenarios": 60
   },
   "assumptions": {
@@ -26,24 +26,24 @@
       "sha256": "e2ae0ea54965cedadbf323084a5630d837c18ce2444db7582d86c60e9baa94a8"
     },
     "finite-reference": {
-      "path": "~/.local/share/weft/evidence/client-20261106T0001/lean-002/report.json",
-      "sha256": "74855c5e55b6ae17f4ee11ac7ff4eed61cd1449b692605c5aaad5be9abbbfcbd",
-      "scope": "complete extended calculus gate requalified under the renewed tool image; binds the current formal tree and reference executables"
+      "path": "~/.local/share/weft/evidence/trial-rev2-20261110/lean-001/report.json",
+      "sha256": "f6019fb3737bb5676b339e0a439c65ce5570340fc6cb38064b32fdacca864e67",
+      "scope": "complete extended calculus gate rerun 2026-11-10 as the reference calibration consumed by rust-004; formal tree identical to client lean-002"
     },
     "rust-runtime": {
-      "path": "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json",
-      "sha256": "a0986c05eb90bb1c64ed37a0354d926c9d26832b218708d5158f401ba59e5d43",
-      "scope": "local symbolic runtime requalified with the reuse gate, control client crate and control CLI surface"
+      "path": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-004/report.json",
+      "sha256": "96cb8d9bafc39e5261e5076454306f58b1ced9c3e2493f6d6ae6112d4b2c7580",
+      "scope": "local symbolic runtime requalified over the weft-core kernel move (set algebra, classification and reuse decisions now in crates/weft-core), with the reuse gate and control client"
     },
     "scratch-runtime": {
-      "path": "~/.local/share/weft/evidence/client-20261106T0001/runtime-package-001/report.json",
-      "sha256": "2222f5bdf40b0e6d52677686b5740d0052be1e11da10fc038d555c08c4954c4e",
-      "scope": "scratch runtime image rebuilt from the current musl binary and re-exercised under the same hardening profile"
+      "path": "~/.local/share/weft/evidence/trial-rev2-20261110/runtime-package-002/report.json",
+      "sha256": "26b754dc7690902e4bdab815ee6a6878b6419372ced947e2c508770d1c67b342",
+      "scope": "scratch runtime image built by scripts/package_runtime.py from rust-004's retained musl binary with collected notices; rootfs bytes verified and re-exercised under the same hardening profile"
     },
     "owner-boundary": {
       "path": "../writfold/qualification/weft-integration.json",
-      "sha256": "9fcdcdf7d731094038c24d45ea56204bc35a87d35d3f5052a261b7902a90cbb7",
-      "scope": "read-only owner-side observation refreshed 2026-11-05 after the integration sync note; owner status remains requirements_adopted_not_service_qualification, WR1-WR8 not run; P05/P06/P07/P09 stay blocked"
+      "sha256": "cddc219e7c4522b91f45906360624db3e388b7c0eafa359c4772a8b460ef8539",
+      "scope": "read-only owner-side observation refreshed 2026-11-10 at Writfold commit cf02560 (file last changed 2026-11-07); owner status remains requirements_adopted_not_service_qualification, WR1-WR8 not_run; P05/P06/P07/P09 stay blocked"
     },
     "algebra-calculus": {
       "path": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-calculus-3/report.json",
@@ -54,9 +54,9 @@
       "sha256": "4627cf69d53d9123d96a64706d04a3fbf95752cda34952a2da31fb69ce55f767"
     },
     "control-client": {
-      "path": "~/.local/share/weft/evidence/client-20261106T0001/control-004/report.json",
-      "sha256": "536531227fec71aad83be06e0e69a4a45b8abeb4e7fdf8f97af3a604a418b82c",
-      "scope": "weft-writfold transport-control client against the owner-pinned writfold.agent/1 contract; transport identity only"
+      "path": "~/.local/share/weft/evidence/trial-rev2-20261110/control-002/report.json",
+      "sha256": "fbfade17395ecf666070ac07d1b25e8ef2e149a99a8d9f1a277a8c08f94a4be3",
+      "scope": "weft-writfold transport-control client against the owner-pinned writfold.agent/1 contract, re-pinned to the owner's current executable; transport identity only"
     }
   },
   "theorems": [
@@ -231,7 +231,7 @@
         {
           "path": "crates/weft-kernel/src/lib.rs",
           "symbol": "enumerate",
-          "sha256": "b83b59bd974086a421845d46faad444084903b202b687ca67a2d88e5f046f9c0"
+          "sha256": "0a9a2e11d054943d22d2ad5a856488f707119790f339c129d6cb2777e7bf9634"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -266,12 +266,12 @@
         {
           "path": "crates/weft-kernel/src/lib.rs",
           "symbol": "assess",
-          "sha256": "b83b59bd974086a421845d46faad444084903b202b687ca67a2d88e5f046f9c0"
+          "sha256": "0a9a2e11d054943d22d2ad5a856488f707119790f339c129d6cb2777e7bf9634"
         },
         {
           "path": "crates/weft-kernel/src/lib.rs",
           "symbol": "enumerate",
-          "sha256": "b83b59bd974086a421845d46faad444084903b202b687ca67a2d88e5f046f9c0"
+          "sha256": "0a9a2e11d054943d22d2ad5a856488f707119790f339c129d6cb2777e7bf9634"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -307,7 +307,7 @@
         {
           "path": "crates/weft-kernel/src/lib.rs",
           "symbol": "assess",
-          "sha256": "b83b59bd974086a421845d46faad444084903b202b687ca67a2d88e5f046f9c0"
+          "sha256": "0a9a2e11d054943d22d2ad5a856488f707119790f339c129d6cb2777e7bf9634"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -481,7 +481,7 @@
       "fixtures": [
         {
           "path": "crates/weft-cli/tests/cli.rs",
-          "sha256": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697"
+          "sha256": "f30ba6f1db1d77bedcdd755a4851994feb328e32e68102130655e40dcd34a838"
         }
       ],
       "assumptions": [
@@ -505,12 +505,12 @@
         {
           "path": "crates/weft-domain/src/theory/finite.rs",
           "symbol": "add_set",
-          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+          "sha256": "ae2aa9340e3ffdc6b3f15fb15489690a179d99c60d033318e37b01e6154acb67"
         },
         {
           "path": "crates/weft-domain/src/theory/finite.rs",
           "symbol": "sets_equal",
-          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+          "sha256": "ae2aa9340e3ffdc6b3f15fb15489690a179d99c60d033318e37b01e6154acb67"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -550,7 +550,7 @@
         {
           "path": "crates/weft-domain/src/theory/finite.rs",
           "symbol": "add_set",
-          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+          "sha256": "ae2aa9340e3ffdc6b3f15fb15489690a179d99c60d033318e37b01e6154acb67"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -586,7 +586,7 @@
         {
           "path": "crates/weft-domain/src/theory/finite.rs",
           "symbol": "add_set",
-          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+          "sha256": "ae2aa9340e3ffdc6b3f15fb15489690a179d99c60d033318e37b01e6154acb67"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -707,12 +707,12 @@
         {
           "path": "crates/weft-domain/src/theory/finite.rs",
           "symbol": "quantify",
-          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+          "sha256": "ae2aa9340e3ffdc6b3f15fb15489690a179d99c60d033318e37b01e6154acb67"
         },
         {
           "path": "crates/weft-domain/src/theory/finite.rs",
           "symbol": "quantifier_fold",
-          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+          "sha256": "ae2aa9340e3ffdc6b3f15fb15489690a179d99c60d033318e37b01e6154acb67"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -751,7 +751,7 @@
         {
           "path": "crates/weft-domain/src/theory/finite.rs",
           "symbol": "quantify",
-          "sha256": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054"
+          "sha256": "ae2aa9340e3ffdc6b3f15fb15489690a179d99c60d033318e37b01e6154acb67"
         },
         {
           "path": "crates/weft-wire/src/rows.rs",
@@ -890,7 +890,7 @@
         {
           "path": "crates/weft-kernel/src/lib.rs",
           "symbol": "assess",
-          "sha256": "b83b59bd974086a421845d46faad444084903b202b687ca67a2d88e5f046f9c0"
+          "sha256": "0a9a2e11d054943d22d2ad5a856488f707119790f339c129d6cb2777e7bf9634"
         },
         {
           "path": "crates/weft-wire/src/envelope.rs",
@@ -939,7 +939,7 @@
         {
           "path": "crates/weft-domain/src/theory/algebra.rs",
           "symbol": "set_union",
-          "sha256": "e5999f0e898f101c5c7c798972945fb6b6cb66e1ff50112af7e57b76c813a94e"
+          "sha256": "c7ece0b7062d061667d742bbfdedfd9256fcdaa20638709a59861d31c8cc8510"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -972,7 +972,7 @@
         {
           "path": "crates/weft-domain/src/theory/algebra.rs",
           "symbol": "unified_element_type",
-          "sha256": "e5999f0e898f101c5c7c798972945fb6b6cb66e1ff50112af7e57b76c813a94e"
+          "sha256": "c7ece0b7062d061667d742bbfdedfd9256fcdaa20638709a59861d31c8cc8510"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -1007,7 +1007,7 @@
         {
           "path": "crates/weft-domain/src/theory/algebra.rs",
           "symbol": "set_subset",
-          "sha256": "e5999f0e898f101c5c7c798972945fb6b6cb66e1ff50112af7e57b76c813a94e"
+          "sha256": "c7ece0b7062d061667d742bbfdedfd9256fcdaa20638709a59861d31c8cc8510"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -1040,7 +1040,7 @@
         {
           "path": "crates/weft-domain/src/theory/algebra.rs",
           "symbol": "set_intersection",
-          "sha256": "e5999f0e898f101c5c7c798972945fb6b6cb66e1ff50112af7e57b76c813a94e"
+          "sha256": "c7ece0b7062d061667d742bbfdedfd9256fcdaa20638709a59861d31c8cc8510"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -1139,7 +1139,7 @@
         {
           "path": "crates/weft-domain/src/theory/algebra.rs",
           "symbol": "set_difference",
-          "sha256": "e5999f0e898f101c5c7c798972945fb6b6cb66e1ff50112af7e57b76c813a94e"
+          "sha256": "c7ece0b7062d061667d742bbfdedfd9256fcdaa20638709a59861d31c8cc8510"
         }
       ],
       "implementation_relation": "exercised local conformance, not a Rust refinement theorem",
@@ -1262,7 +1262,7 @@
       "receipts": [
         "rust-runtime"
       ],
-      "scope": "Revision-3 component requalification under the renewed tool image, now including the local reuse gate and the pinned writfold.agent/1 control client through the same musl binary."
+      "scope": "Revision-3 component requalification over the weft-core kernel move (rust-004), including the local reuse gate and the pinned writfold.agent/1 control client through the same musl binary."
     },
     {
       "id": "P03",
@@ -1277,7 +1277,7 @@
       "receipts": [
         "rust-runtime"
       ],
-      "scope": "Revision-3 component requalification under the renewed tool image, now including the local reuse gate and the pinned writfold.agent/1 control client through the same musl binary."
+      "scope": "Revision-3 component requalification over the weft-core kernel move (rust-004), including the local reuse gate and the pinned writfold.agent/1 control client through the same musl binary."
     },
     {
       "id": "P04",
@@ -1292,7 +1292,7 @@
       "receipts": [
         "rust-runtime"
       ],
-      "scope": "Revision-3 component requalification under the renewed tool image, now including the local reuse gate and the pinned writfold.agent/1 control client through the same musl binary."
+      "scope": "Revision-3 component requalification over the weft-core kernel move (rust-004), including the local reuse gate and the pinned writfold.agent/1 control client through the same musl binary."
     },
     {
       "id": "P05",
@@ -1361,9 +1361,10 @@
       "required": true,
       "status": "pass",
       "receipts": [
-        "rust-runtime"
+        "rust-runtime",
+        "scratch-runtime"
       ],
-      "scope": "Quality and musl artifact requalified with the control client and reuse surfaces; scratch runtime package rebuilt and re-exercised under the same hardening profile."
+      "scope": "Quality and musl artifact requalified over the weft-core kernel move (rust-004); scratch runtime package rebuilt from that exact binary with collected notices and re-exercised under the same hardening profile (runtime-package-002)."
     },
     {
       "id": "P09",
@@ -1667,7 +1668,7 @@
       "fixtures": [
         {
           "path": "crates/weft-cli/tests/cli.rs",
-          "sha256": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697"
+          "sha256": "f30ba6f1db1d77bedcdd755a4851994feb328e32e68102130655e40dcd34a838"
         },
         {
           "path": "formal/Weft/Grounding/Examples.lean",
@@ -1713,7 +1714,7 @@
       "fixtures": [
         {
           "path": "crates/weft-wire/src/reuse.rs",
-          "sha256": "ed2ba71a61b3c1d86203fedd75b2588f5da9d062cf6951280e077ac7bca8c4ed"
+          "sha256": "bc1ee78c7a4f2b982a62418d03d2b5d68a2fa61e106ae04aa92aeefec7dca722"
         },
         {
           "path": "crates/weft-cli/src/reuse.rs",
@@ -1890,7 +1891,7 @@
       "fixtures": [
         {
           "path": "crates/weft-wire/src/rpc/parse.rs",
-          "sha256": "13217365b40710aad528b2a0b60ec80bb8feb361ab08ba7c556f1c404067dcc8"
+          "sha256": "af1a48cfee4cf86961cc0a62f506292b52452840e8cae02870f87d7fef1c7265"
         },
         {
           "path": "crates/weft-wire/src/rpc/message.rs",
@@ -1983,7 +1984,7 @@
       "fixtures": [
         {
           "path": "crates/weft-cli/tests/cli.rs",
-          "sha256": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697"
+          "sha256": "f30ba6f1db1d77bedcdd755a4851994feb328e32e68102130655e40dcd34a838"
         }
       ],
       "receipts": [
@@ -2001,7 +2002,7 @@
       "fixtures": [
         {
           "path": "crates/weft-cli/tests/cli.rs",
-          "sha256": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697"
+          "sha256": "f30ba6f1db1d77bedcdd755a4851994feb328e32e68102130655e40dcd34a838"
         }
       ],
       "receipts": [
@@ -2037,11 +2038,11 @@
       "fixtures": [
         {
           "path": "crates/weft-cli/tests/cli.rs",
-          "sha256": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697"
+          "sha256": "f30ba6f1db1d77bedcdd755a4851994feb328e32e68102130655e40dcd34a838"
         },
         {
           "path": "docker/Dockerfile.runtime",
-          "sha256": "cf523a91c8d43fb231b6f13df8e4428de48065274cffc87be50a03af2ee5010a"
+          "sha256": "8c58569370d96e7dd25451139c7318173a9407014691c835aa8031cae3fe1b59"
         }
       ],
       "receipts": [
@@ -2064,7 +2065,7 @@
       "fixtures": [
         {
           "path": "crates/weft-cli/tests/cli.rs",
-          "sha256": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697"
+          "sha256": "f30ba6f1db1d77bedcdd755a4851994feb328e32e68102130655e40dcd34a838"
         },
         {
           "path": "crates/weft-wire/tests/semantics.rs",

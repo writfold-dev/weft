@@ -4,8 +4,9 @@
     "status": "unavailable"
   },
   "binary": {
-    "path": "~/.local/share/weft/evidence/client-20261106T0001/rust-002/weft",
-    "sha256": "939e35badb2eea01b3723810b96563987332dde581ffd8960b0d353939537845",
+    "build_source_sha256": "50b41240c8589abe397b787f4c4509a9e16898bff6c5917487656ada0da5b04c",
+    "path": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-004/weft",
+    "sha256": "a74f773e56752b15759cd55143c72fae0051d4e322563f659c2df5e2e3813e9e",
     "static": true,
     "triple": "x86_64-unknown-linux-musl"
   },
@@ -52,6 +53,7 @@
       ]
     },
     "finite_reference_cases": 27,
+    "reuse_cases": 3,
     "scenario_count": 32,
     "smoke_cases": 40
   },
@@ -68,6 +70,11 @@
       "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-011/report.json",
       "scope": "revision-2 runtime pass; preserved historical snapshot (qualification/revision-2-local-runtime.json)",
       "sha256": "98e12486e780f059ce558403b239253425181633b46172af949a322e9185a61e"
+    },
+    {
+      "receipt": "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json",
+      "scope": "revision-3 client runtime pass (reuse gate, control client) before the weft-core kernel move; its scratch package is ~/.local/share/weft/evidence/client-20261106T0001/runtime-package-001/report.json",
+      "sha256": "a0986c05eb90bb1c64ed37a0354d926c9d26832b218708d5158f401ba59e5d43"
     }
   ],
   "failed_runtime_attempts": [
@@ -102,14 +109,30 @@
     {
       "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/rust-008/report.json",
       "sha256": "9426bed595c79d666511cf5f0b4f0aaedbe90c8fccc163bbcca69e752632671f"
+    },
+    {
+      "receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-001/report.json",
+      "sha256": "4f605f647b8380c81cc0c083539b8695b09b746ea1128f207df549daa0448c3a"
+    },
+    {
+      "receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-002/report.json",
+      "sha256": "82115a0179337c6034db017a91871284956cababcb329b93bc056b24a67a0f2f"
+    },
+    {
+      "receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-003/report.json",
+      "sha256": "c4a5850c1d39849d946a3807686d8a1dd02df4a6ffa642cb9fa375bf2cd31309"
+    },
+    {
+      "receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/runtime-package-001/report.json",
+      "sha256": "bef2642140d1142c14550579b491f467c91a7fe31105f8ec2ce64fb38c0bd986"
     }
   ],
   "full_composed_release": "blocked; P05-P07 and P09 remain required",
   "license_packaging": {
-    "archive_sha256": "9c7efb173b6b05d23a315688ac90674b7cbb4b3f6b16cc24c0e37ffeb356a6a8",
-    "packages": 28,
-    "receipt": "~/.local/share/weft/evidence/implementation-20261104T232254539927Z/license-package-001/report.json",
-    "sha256": "7b614cf79f942c3a4544191b755bc6ffee0dd0608a297d47655de6411b16c166"
+    "archive_sha256": "79d49dea72660530ed89c9b930f6a34e57fd24f52e4eb4bfedf8e02ffa01d8fe",
+    "packages": 30,
+    "receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/runtime-package-002/report.json",
+    "sha256": "26b754dc7690902e4bdab815ee6a6878b6419372ced947e2c508770d1c67b342"
   },
   "limitations": [
     "No Rust/parser refinement theorem",
@@ -119,23 +142,35 @@
   ],
   "proof_prerequisite": {
     "calculus_ledger": "qualification/finite-calculus.json",
-    "calculus_sha256": "c45bc72616ba97d0bc212e3b7183260bde13822d0bd67e1d10f12c6749c632d1",
-    "reference_receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-reference/report.json",
-    "reference_sha256": "4627cf69d53d9123d96a64706d04a3fbf95752cda34952a2da31fb69ce55f767"
+    "calculus_sha256": "9d4155d3f94b6c5d044fb5bc4a754aad37bccf2d9555914fe2e6e93258f5b127",
+    "initial_calculus_receipt": "~/.local/share/weft/evidence/client-20261106T0001/lean-002/report.json",
+    "initial_calculus_sha256": "74855c5e55b6ae17f4ee11ac7ff4eed61cd1449b692605c5aaad5be9abbbfcbd",
+    "reference_ledger": "qualification/reference-calibration.json",
+    "reference_ledger_sha256": "f0819ee81bdece8fe54f234a82cee1a9518e875ef0327a7c025227b1c587a485",
+    "reference_receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/lean-001/report.json",
+    "reference_sha256": "f6019fb3737bb5676b339e0a439c65ce5570340fc6cb38064b32fdacca864e67"
   },
-  "receipt": "~/.local/share/weft/evidence/client-20261106T0001/rust-002/report.json",
-  "receipt_sha256": "a0986c05eb90bb1c64ed37a0354d926c9d26832b218708d5158f401ba59e5d43",
+  "receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-004/report.json",
+  "receipt_sha256": "96cb8d9bafc39e5261e5076454306f58b1ced9c3e2493f6d6ae6112d4b2c7580",
   "schema_version": 1,
   "scope": "weft-local-symbolic-runtime-only",
   "scratch_runtime": {
-    "binary_sha256": "ae0ea52131b1e87d70b31e774485d3f82110012f7e45cf0e31108bbb40e5ee5e",
-    "image_id": "sha256:ad0e603f586fc8495f6eddcf42cec6547d505ce81406b52cb2410bd3de46fc2e",
-    "receipt": "~/.local/share/weft/evidence/algebra-20261105T185401992646349Z/algebra-runtime-package-001/report.json",
-    "sha256": "dbb57d4c451440d821bb5cd327c9ebc043c8fa9aebf11003176821672e341dd0"
+    "binary_sha256": "a74f773e56752b15759cd55143c72fae0051d4e322563f659c2df5e2e3813e9e",
+    "cases": {
+      "invalid-command-refusal": 2,
+      "missing-source-refusal": 2,
+      "set-algebra-positive": 1,
+      "sets-positive": 1,
+      "version": 0
+    },
+    "image_id": "sha256:d4d50b7d8beef14ec9abbb507b71ff6ee5c707acd4cc9efb4b88d5b315253aa7",
+    "receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/runtime-package-002/report.json",
+    "sha256": "26b754dc7690902e4bdab815ee6a6878b6419372ced947e2c508770d1c67b342"
   },
   "source_manifest": {
-    "Cargo.lock": "82ebd99dcea0e44476b86aee0064faac91caf5dbd0cf1cb2e4f288a47322e108",
-    "Cargo.toml": "a1a59d2275c59f05905e6f3f3c4c42aeacff2472dff7a146da780f7760c1709e",
+    "Cargo.lock": "48e07714a177e3d9998a3a7a52fea6f2041072b9eedd18b58a79ddfa55bdf916",
+    "Cargo.toml": "b4beb17571de57cb328e4509106ee97c7bf0464e12ff214097b5ed5c07f2f64a",
+    "LICENSE": "bb23cea06c1a4f205b5f6e2d4ecc5ff1c1ebf15829706f1fe366424d0919e9be",
     "compose.yaml": "2ac201812858295fbaeca00d20196373a9d35eaa930c4bb061376e23a4a21fc0",
     "crates/weft-cli/Cargo.toml": "580570d3f4bf1dfa964635a924f3cc2e3bdfd5cfaaf3fb7315cb1236f515ca33",
     "crates/weft-cli/src/args.rs": "6a7ffe04b5efed4647e1c4aad99f0255068020f0a34cf7d274d1750bece34271",
@@ -144,20 +179,27 @@
     "crates/weft-cli/src/main.rs": "90cd617d6d1e07d71bbfd268eb16a88d6fd30a4080fc40971f3d830bb8467fb0",
     "crates/weft-cli/src/reuse.rs": "3067c391ab971ed428ec6e73b7a8a05ce2b6596a3fc6120a2fbbdb51d23f61e0",
     "crates/weft-cli/src/run.rs": "1f0ea71a8bc8c430d151c13e7bd374b12c640b80369110b1bbb7bddbb5e28d00",
-    "crates/weft-cli/tests/cli.rs": "4ae032b25a5ebc8b5d061052addd17189546ee2e52377fdf9e13e7765c99d697",
-    "crates/weft-domain/Cargo.toml": "e916288a268bf29fed209869547e8d738dbdc8f28ae5167ce49275ca3811377d",
+    "crates/weft-cli/tests/cli.rs": "f30ba6f1db1d77bedcdd755a4851994feb328e32e68102130655e40dcd34a838",
+    "crates/weft-core/Cargo.toml": "b8ea7c1b4eb3423998f3ff6342f3be74fc3c2920b138224ec15887213dfb5023",
+    "crates/weft-core/src/convenience.rs": "c4aa331c22a6d608dc878de7db3ed9bc38ffaedc71e16aeaa63669117bd07c79",
+    "crates/weft-core/src/lib.rs": "757e8e3b5c5bf4f671f927c272c7554c66e5aeec5f42cce2f5e498614e499590",
+    "crates/weft-core/src/scope.rs": "f64a818171ca606b4df0ae562be0da35399fa6b30829fe4095a4e1efe815e874",
+    "crates/weft-core/src/sets.rs": "a52f118542ca1b75a0c00ef31778d2e66195c54ec1ab82ba39144b6ac1b642ae",
+    "crates/weft-core/src/verdict.rs": "642fa8450e67745101c09caf47c9131e0d81045e025bbcd98006ed08f4caa909",
+    "crates/weft-core/tests/core.rs": "28580a31347379b16c640fd607dbc258961b53b2db9e8726515273f7a70bc90e",
+    "crates/weft-domain/Cargo.toml": "70f1e7c2e0a44ed81f828b48a829483647db6e5ff42e91a5ad59e49aa8bbf8f8",
     "crates/weft-domain/src/diagnostic.rs": "c84a4097d94862e484fcfcb15e5b75a7de6f6d301f6e622c2c6d883ed7424f37",
     "crates/weft-domain/src/document.rs": "501cbb46f353d4869d5d1f1255258ee09f42178699db3f0bc91e1452f4eed1da",
     "crates/weft-domain/src/document/compile.rs": "24a6134158846a4c323f77b756fb87c5944c35f1b0a51e39f66b1f07acee39e1",
-    "crates/weft-domain/src/evaluation.rs": "92893cda4eaae305d7157fd1db734475a4ccfbcae5fbba4d6b2b67af29cab8ee",
+    "crates/weft-domain/src/evaluation.rs": "236120d204b307d75c4650743757d28d6627c7d73c972d02eafe35c71ec1a7bf",
     "crates/weft-domain/src/ids.rs": "028340daccd85503aff9e8bc65ff3fb2eb1fddc95b42ab8c346ef3aeb4565c03",
     "crates/weft-domain/src/lib.rs": "ccb6acfc3de5d5a09f4c89b8e5cff93a4361b2f857c86c537cad5d2b00666c8e",
     "crates/weft-domain/src/limits.rs": "ec72d71f41853c38f343a5273f3789b4258a7242e74aacc22ddcec478971ceef",
     "crates/weft-domain/src/theory.rs": "55eee9c4ed7eac4e305a40a7ce99d738830aa385e7249fef05bcb8473700d22d",
-    "crates/weft-domain/src/theory/algebra.rs": "e5999f0e898f101c5c7c798972945fb6b6cb66e1ff50112af7e57b76c813a94e",
+    "crates/weft-domain/src/theory/algebra.rs": "c7ece0b7062d061667d742bbfdedfd9256fcdaa20638709a59861d31c8cc8510",
     "crates/weft-domain/src/theory/builder.rs": "4a11b2e13e07ba9aff091352c8280a3ce451dbe1c616fbc629311358cdd4482c",
     "crates/weft-domain/src/theory/check.rs": "7c944ae2b81b52a37430e9998a69c5d3d1f613af4c5c68617fd348bc5b54a0b4",
-    "crates/weft-domain/src/theory/finite.rs": "2b5b97a2348e6c53191e77836afeb2e72d636aec61faf9d2902570354a3f8054",
+    "crates/weft-domain/src/theory/finite.rs": "ae2aa9340e3ffdc6b3f15fb15489690a179d99c60d033318e37b01e6154acb67",
     "crates/weft-domain/src/theory/pool.rs": "c12e06767fa37f3ceee608c7bb9466045c8826da2698badf5c0328a485533c17",
     "crates/weft-domain/src/theory/records.rs": "79a63c3a837eb497d8f6b3f0b79abe0dbd0b43dd410781cdb02c518ad52b2af7",
     "crates/weft-domain/src/value.rs": "aa77ecd84bc052fcf8ca53d0a6207bb85061ee23c1a26c4d48dee5cf63ae83c0",
@@ -189,8 +231,8 @@
     "crates/weft-frontend/src/type_boundary_tests.rs": "db0b4377fa367913c826e437ad603700582913125ce7a160a3c8a53920ec31ea",
     "crates/weft-frontend/src/types.rs": "f15ef8bd6ca8b27f85bbce69d06f09ba95414faa30cbd6cbae0044ce72a5dbd2",
     "crates/weft-frontend/src/typing.rs": "f3ea74a3371f695c61064b221a5e9f1ed72eb1c24e04cbd618e783f06ffcb54d",
-    "crates/weft-kernel/Cargo.toml": "d02fd2cee2f24080f666c710848e69aadd0737ce02d8399af7f98e6e2f7c806d",
-    "crates/weft-kernel/src/lib.rs": "b83b59bd974086a421845d46faad444084903b202b687ca67a2d88e5f046f9c0",
+    "crates/weft-kernel/Cargo.toml": "67085fa1088cf7ea690b2c1b56f573162990fc77ff676acb4560382016930473",
+    "crates/weft-kernel/src/lib.rs": "0a9a2e11d054943d22d2ad5a856488f707119790f339c129d6cb2777e7bf9634",
     "crates/weft-kernel/src/preflight.rs": "8ac375417fc9c643116636bdab012940f53917314c7a9dd93010813b6c9223b3",
     "crates/weft-kernel/src/replay.rs": "a1d13804ef58c4add1e074494e8858ed348eb7656cef653d7e599d57e612e6fd",
     "crates/weft-kernel/src/tests/budgets.rs": "4e5912ef56a20b47265097a9ec1661f4ef6c4bac61b4bbb6bfa089f180ef676a",
@@ -198,9 +240,9 @@
     "crates/weft-kernel/src/tests/models.rs": "f15a30781b2c4e2131a8f733bbcc25c9ab3544d6fde035e03a6ae3cffc80216d",
     "crates/weft-kernel/src/tests/packed.rs": "9e452f2b9a76ac8ff1df2ae6170f0f51bb7f38517672c5f9c00d63f360dc371b",
     "crates/weft-kernel/src/trace.rs": "d7bf1916ed72aac45015739c8ba02fa6f495ffe513c47e27e7ee04cc531df459",
-    "crates/weft-wire/Cargo.toml": "ebacb91866cb9fbfecb866c65fc9ae326b7c20a624834ab59a8cb9b0257f20ae",
+    "crates/weft-wire/Cargo.toml": "9c0d0881be8844cde73a36f08aa6ff44f19b5a5c6c1ecce3aee33d1e72aa4ffe",
     "crates/weft-wire/src/checks.rs": "25302c34eb6a473b3c3c4117913b78f055d2e4808232b5d6336b55107bd307bd",
-    "crates/weft-wire/src/control.rs": "f7c02cee70fc1cc11b2f102608d7b4fb225c0dfd17ef9e628e9d8a9fdb8c0879",
+    "crates/weft-wire/src/control.rs": "79f46114fc1a4c011ea5f663513255e1181d5d143092a99dc104fb3cab684683",
     "crates/weft-wire/src/envelope.rs": "c7ff36d185e7f17be93033f9f80f49b67d9adf34364bab07e604b6f68d9c9eca",
     "crates/weft-wire/src/finite.rs": "a92e91329fa572035bd34979061ad8e545c5a2d2ba8a2b8ec06c63ab9eb6622d",
     "crates/weft-wire/src/formula.rs": "a1294c606b132914f2b0fb54e65fe38a739cb5cf0d86029b0e0ea2e2d741c0d5",
@@ -209,12 +251,12 @@
     "crates/weft-wire/src/metadata.rs": "e808437cf50879f5372877e4207dc05165187717a75f72db317d236cbfd6197f",
     "crates/weft-wire/src/models.rs": "5a7f9c53619999d52ac82189e948b5a86cb0b9bfcc29392acd1a5f66a0846e7a",
     "crates/weft-wire/src/publication.rs": "c8977a06234948142e665e770b99b4885c60f716751ea65a6428b77d21a54125",
-    "crates/weft-wire/src/reuse.rs": "ed2ba71a61b3c1d86203fedd75b2588f5da9d062cf6951280e077ac7bca8c4ed",
+    "crates/weft-wire/src/reuse.rs": "bc1ee78c7a4f2b982a62418d03d2b5d68a2fa61e106ae04aa92aeefec7dca722",
     "crates/weft-wire/src/review.rs": "400c1ec29c2b9007626b388f4e6ca4d193d600b8d6486ca5eecbb9edd29b23d4",
     "crates/weft-wire/src/rows.rs": "3be46e435fae9a324648ff34c2ab932e59315192d7e35ef31702acef382f02c5",
     "crates/weft-wire/src/rpc/message.rs": "82d5160696c5166493db919a97709ce2e6b86362b92b99bfb15901573c57ab20",
     "crates/weft-wire/src/rpc/mod.rs": "edef5cdabc9931af1f875017c7108ef7fb3b9a86d9a0e394ce9064d0f62bedbf",
-    "crates/weft-wire/src/rpc/parse.rs": "13217365b40710aad528b2a0b60ec80bb8feb361ab08ba7c556f1c404067dcc8",
+    "crates/weft-wire/src/rpc/parse.rs": "af1a48cfee4cf86961cc0a62f506292b52452840e8cae02870f87d7fef1c7265",
     "crates/weft-wire/src/rpc/results.rs": "c7f683729ad1028e18860c304c7cce52848b3afbcfcfa09ad002d9931e0d4f59",
     "crates/weft-wire/src/trace.rs": "4c817c90416cc9428dd0d244aa3c706a7e3cdbd045fd81171a72b22c1258adc4",
     "crates/weft-wire/src/values.rs": "73d6bcb9fb9feaa5704e4b30526fe8a4989dac7f75e3b4b65aa6e733a2ab00a8",
@@ -223,15 +265,15 @@
     "crates/weft-wire/tests/semantics.rs": "06c237cb19df6a45bedf1d865c715cb7cda3c039124b97fc5e761cdbfc1fc38f",
     "crates/weft-writfold/Cargo.toml": "297857a3b64d28da84ceeb9ed9dbc2c02cdb8aedb18dc218ed6a5e5a2c5166b8",
     "crates/weft-writfold/src/child.rs": "0c5c80fc43c02988628f7351b6fe7b6665c21e1fc987e16bba2a40ff65e3558d",
-    "crates/weft-writfold/src/contract.rs": "1b4e8bbd323537f07c4b2d75e0c122aa25280a836b6ae5a932e2650c24e3b700",
+    "crates/weft-writfold/src/contract.rs": "7a0b036b6a4322d53ad5d17adae5191e1c1d649462b82b130ce4887e377cc00d",
     "crates/weft-writfold/src/frame.rs": "9ef880a3c010201f9d6d8aa6bf0aa639e51e022d13e05231462c58fe3857db76",
     "crates/weft-writfold/src/lib.rs": "0f7261d5ea4060f43964d5233ab2faa17d91e8a50e4348c56f117a15290dad64",
     "crates/weft-writfold/src/session.rs": "964f0d4f20b0b80de7b4a0298fde7436275a75f5407f63c45e5886c9bcb75296",
-    "crates/weft-writfold/src/tests.rs": "b49bba4d973715930ded0f46b496fb3d9b477c3f994523696da35155b6865bca",
-    "crates/weft-writfold/tests/control.rs": "ff1f29ea2f6a01363537893932bd3ef8cba55822c6fd16255206e3990fb49d59",
-    "docker/Dockerfile.runtime": "cf523a91c8d43fb231b6f13df8e4428de48065274cffc87be50a03af2ee5010a",
+    "crates/weft-writfold/src/tests.rs": "45947d4747e7f414d310538d02a9a259926f9c4701bb03711a9610c1df1cde79",
+    "crates/weft-writfold/tests/control.rs": "705b63387098e36818738d9978827b3d7c7f35d84b96030f6909850558c826db",
+    "docker/Dockerfile.runtime": "8c58569370d96e7dd25451139c7318173a9407014691c835aa8031cae3fe1b59",
     "docs/implementation-profile.md": "5ce13d243906e1b2435629bfb6a587a0c91aa220e2ab51f20a59c8e13748b32e",
-    "docs/rust-implementation.md": "379ae823fb3717b921a503ca0e36f810b5df688516a4138e5ef614c059709836",
+    "docs/rust-implementation.md": "941056dccfefa911ab93bb14aa3859e219b3a417f793af9195a60f8a0c4e1a34",
     "examples/README.md": "aa6c6b392129194bc4da702c272366b817b6e00b7babb95f6010f0362db912ca",
     "examples/conditional.weft": "c36fbfaf088058b7e6ae44f49d9c6f7a61f3fa171a70c94cbabdaaf72ea2444d",
     "examples/empty-domain.weft": "9d7c17819c3728c4ad73c14b3c29ceb2aff8988dc0455e54bc1b8e43090e8089",
@@ -241,9 +283,9 @@
     "examples/set-algebra.weft": "4d0b98506c78a200f44eed83d918a969d8a4c89284949560bd3508fededd3391",
     "examples/sets.weft": "8d8aa4eda06fe0c0ac15c928177174d394ede7b77cf2a92ff15866e40b672816",
     "examples/symbolic.weft": "b66b122e4632aa4a7116854fb3b19b455bb6e311e13f9a0bc73b6d149b196653",
-    "qualification/engineering-adoption.json": "7866da85119a4393e67e44368fa1a27cef7a37371a29547b1eab5313756c5e71",
-    "qualification/finite-calculus.json": "65b24468a86b209818ded3d2a05af1610adb64665d9587afc49b9717b8439d87",
-    "qualification/reference-calibration.json": "59b657e2d682c9a89ad13322c138ea649ec24f66fdca3d48130769bbe266e368",
+    "qualification/engineering-adoption.json": "8e761ddd460884e7bc96ac76766f8d1a7ce76e12261c1a4528077fc2a79a4dee",
+    "qualification/finite-calculus.json": "9d4155d3f94b6c5d044fb5bc4a754aad37bccf2d9555914fe2e6e93258f5b127",
+    "qualification/reference-calibration.json": "f0819ee81bdece8fe54f234a82cee1a9518e875ef0327a7c025227b1c587a485",
     "scripts/algebra_differential.py": "c0e6de447d459a531a15e37eb8661b5e17389ddb7a6171de34fca94fb1d8cb2a",
     "scripts/evidence.py": "9c0ae7b624f2bd8967593707081242ffaf1904caccc1c0d59c11bef628ab367b",
     "scripts/lint_cases.py": "69eedfcb562cff5d31b0ce9cba3dee4bb1860d417ea90046372e523d96adc756",
@@ -251,7 +293,7 @@
     "scripts/prepare_rust.py": "ea5ae58228638cc12a3c82da929ba4f2c9953ac2b4fbc34523d8641b9f34d6d7",
     "scripts/run_rust.py": "179d4f5ee0ecb662f1859b241bfabf9686128a8226d1ad5e490da58f3928b86a",
     "scripts/rust_differential.py": "f53a655a9591a8cc02e63fa032f4cdaaef63b15c2a7790612fa92d92c423d5b1",
-    "scripts/rust_gate.py": "dd91eeca89c676cd8a783bea6159c47f10415891815c1fa928781b6f02e8e66f",
+    "scripts/rust_gate.py": "65720d80255a9b8f740b92a69a949bd7c3c2b3a78a1b4c1953e253127b1326cc",
     "scripts/rust_scenarios.py": "3d5f7c6f533c1b84b04446cc45687e1f5584bdf5dfe0a16b3beab4e921bb84ae",
     "scripts/rust_smoke.py": "5fcfbf363d94d0de8452f6b888e7a2f7c6ca707779c222716160499c1d452f56",
     "spec/grammar.ebnf": "0a7ae682a3ffd79f65474370353bfcda92241a87a1b477c326659fb6cc6f5b83",
@@ -259,10 +301,10 @@
     "spec/report-v1.md": "e629f3a5f627379e65cb9205acbb8ca577651d84bfd982b476ab475692f7bce3",
     "toolchains.lock.json": "9b44d3441d9e3d794f36d501a127bd228eb8a956cbc56c49dd424a608e51d0a0",
     "tools/weft-quality/Cargo.lock": "29a170f277b24e789866f1d85bc6adc588987203bf0a18cf6cccd8e2b5156c68",
-    "tools/weft-quality/Cargo.toml": "fc378680e32724493cbd734a8a0cd5a3d82078df740d8bcefdb23839a051ecd7",
+    "tools/weft-quality/Cargo.toml": "dc54725955b1974db08977b67746dc29150a7ccd264aa90a28f5121643bdaffd",
     "tools/weft-quality/src/ast.rs": "2b0ebbffadd19dd217117559ad8eecd31ff9dbb289041b3afdddc306df17d796",
-    "tools/weft-quality/src/dependencies.rs": "c1dd82afcd730c44843735c7ecaed08d43d6579c86f63fc2d9e2ae6cd6ba1c4a",
-    "tools/weft-quality/src/lib.rs": "caa445cdb8f78a7ccf20fe5c21736e3f14bdc76dd5f89ac9074a6f788f1edb7f",
+    "tools/weft-quality/src/dependencies.rs": "ba220b7b27c1922c6e9b5dfc32a3bb9dfa35fcdcce39b6584ec37fe0bb426c01",
+    "tools/weft-quality/src/lib.rs": "7d1da917ffedec9de74a905a085bdfd5c710757dd49e72776140ed991589dfb3",
     "tools/weft-quality/src/lines.rs": "dc1083951d49154caaad196ae1bdbdcac632e9bbaf8bca0e1b3b16c56c7c1d3e",
     "tools/weft-quality/src/main.rs": "a58bf698033f0b20247eac6827f2e051d0fa24925529472654bf63069c6d7c3a",
     "tools/weft-quality/src/nominal.rs": "b93f8c90e7a5dc55a107d6abf9ad168c0c97539c47a4106310986f2561f988be",
@@ -273,7 +315,7 @@
     "tools/weft-quality/src/paths/rules.rs": "323a14881a94f0b3bdecaeb1678fdc92e99ef360f36f18fa14d3fd16fa3153a0",
     "tools/weft-quality/src/report.rs": "0e24b54b15185b3603f29c23368ba9f55f4929b9971f469336c96bed40934027",
     "tools/weft-quality/src/workspace.rs": "7a0707819b92ce6ab9318e91162e7d97c0220825e919f28a401647c3b06cd426",
-    "tools/weft-quality/tests/boundaries.rs": "83e82f622d96269f1bb10a17527cf9d5f695530a31057600a94e545a96d72518",
+    "tools/weft-quality/tests/boundaries.rs": "363ae1e3676ed7dbeb833ddd28362acaf602da3fe8d810753c5908c8efdd2eb5",
     "tools/weft-quality/tests/counting.rs": "208c1354249487476d79392ed49bfdf0f9dc32092bef6098be40bf2f2c338471",
     "tools/weft-quality/tests/development.rs": "310255bc5dc2e19d606a6a45ad3ff9b69fa315d2c1a5e233855a623f59d68a1f",
     "tools/weft-quality/tests/nominal.rs": "1d94509941c332f51bde133cdd19992c4d3c2b97fff2a1bfbf85c83bc9cb41f4",
@@ -282,19 +324,18 @@
     "tools/weft-quality/tests/workspace.rs": "540261522ca4b0b4deb698ccce9ddc2d702bb7b3c2ef8dc250fd45cc7c85d109"
   },
   "status": "pass",
-  "tool_image_id": "sha256:52e3bad8e6b7a7e770437a4e35fe04c7d77c9b7fee0eb03e509d40e72dbc8db3",
-  "tool_lock_sha256": "1daa41f68708aa69aeba247df9a6770c44f6015de3c56a893dc001687490aed9",
+  "tool_image_id": "sha256:d75f5675cc943b439c0b7a1df4dc47bc24ada14ab0346044cd8fdfd0c2724c2a",
+  "tool_lock_sha256": "9b44d3441d9e3d794f36d501a127bd228eb8a956cbc56c49dd424a608e51d0a0",
   "verification": {
-    "behavioral_regressions": 66,
-    "checked_model_witnesses": 32,
-    "cli_scenarios": 25,
-    "differential_checks": 29,
+    "behavioral_regressions": 106,
+    "derivation": "Counted from the Rust receipt's retained test, policy, nominal, lint and smoke outputs.",
     "ignored_tests": 0,
     "nominal_negative_controls": 4,
     "nominal_positive_controls": 1,
     "operation_controls": 23,
     "policy_regressions": 42,
+    "policy_tool_size_soft_warnings": 4,
     "source_size_errors": 0,
-    "source_size_soft_warnings": 22
+    "source_size_soft_warnings": 38
   }
 }

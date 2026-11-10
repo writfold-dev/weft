@@ -35,7 +35,7 @@ def check(root: Path, data: dict) -> dict:
             'scenario inventory differs')
     receipts = {}
     for name, reference in data['receipts'].items():
-        path = Path(reference['path'])
+        path = Path(reference['path']).expanduser()
         if not path.is_absolute():
             path = root / path
         require(digest(path) == reference['sha256'], f'receipt identity changed: {name}')

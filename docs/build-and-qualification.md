@@ -80,6 +80,29 @@ The release archive includes the binary, scope/identity metadata, the project
 qualified offline dependency closure. License adoption does not renew any
 historical compiler, proof or runtime receipt.
 
+The packaging producer and the record generator take a passing Rust receipt:
+
+```sh
+python3 scripts/package_runtime.py --rust-receipt "$EVIDENCE/rust/report.json" \
+  --receipt "$EVIDENCE/runtime-package/report.json"
+python3 scripts/runtime_record.py local --rust-receipt "$EVIDENCE/rust/report.json" \
+  --package-receipt "$EVIDENCE/runtime-package/report.json" --replaced-scope "..." \
+  [--failed "$EVIDENCE/<failed-attempt>/report.json" ...]
+python3 scripts/runtime_record.py traceability --bind rust-runtime=... --bind scratch-runtime=... \
+  [--scope NAME=TEXT ...]
+python3 scripts/check_traceability.py --receipt "$EVIDENCE/traceability/report.json"
+```
+
+`package_runtime.py` collects notices with `package_licenses.py` from the
+receipt's own Cargo metadata, builds the image in an owned context, verifies
+the exported root filesystem bytes and modes, and runs version, positive
+example and refusal cases whose results must equal the receipt's smoke
+results. `runtime_record.py local` rewrites
+[`local-runtime.json`](../qualification/local-runtime.json) from those receipts;
+`traceability` re-hashes named receipt references and rebinds source and
+fixture digests only where the checkout bytes equal the qualified closure.
+Neither changes a requirement, symbol or status.
+
 ## Shipped-kernel proofs
 
 `cd proofs && docker compose run --build --rm proofs` builds the pinned
