@@ -98,7 +98,10 @@
         "~/.local/share/weft/evidence/client-20261106T0001/lean-002/report.json"
       ],
       "reason": "Complete extended-calculus gate requalified under the renewed tool image: 327 audited declarations (L01-L12, Q01-Q10, A01-A08), 8 propositional and 27 finite reference cases through the rebuilt weftref/weftfiniteref executables, 36 rejected semantic mutants. Source AST scope; no parser/Rust refinement or live Writfold claim.",
-      "failed_attempts": []
+      "failed_attempts": [],
+      "reference_calibration_receipts": [
+        "~/.local/share/weft/evidence/trial-rev2-20261110/lean-001/report.json"
+      ]
     },
     {
       "id": "P02",
@@ -206,7 +209,10 @@
     "prepare-rust-image-mismatch": "~/.local/share/weft/evidence/client-20261106T0001/prepare-rust/report.json",
     "control-pin-typo": "~/.local/share/weft/evidence/client-20261106T0001/control-001/report.json",
     "control-tarfile-read": "~/.local/share/weft/evidence/client-20261106T0001/control-002/report.json",
-    "control-manifest-compare": "~/.local/share/weft/evidence/client-20261106T0001/control-003/report.json"
+    "control-manifest-compare": "~/.local/share/weft/evidence/client-20261106T0001/control-003/report.json",
+    "rust-home-path-unexpanded": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-001/report.json",
+    "rust-storage-headroom": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-002/report.json",
+    "rust-stale-calibration-pin": "~/.local/share/weft/evidence/trial-rev2-20261110/rust-003/report.json"
   },
   "qualification_status": "local_runtime_component_pass_full_release_blocked",
   "writfold_integration_note": "Owner stdio control profile is landed, pinned and now consumed by the Weft client (P11); citation/assessment/retention/effect data services remain unavailable, so WR2-WR8 and P05-P07/P09 stay not_run at the service boundary.",
