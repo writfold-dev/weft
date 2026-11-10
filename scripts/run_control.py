@@ -18,9 +18,9 @@ from evidence import digest, process_env, require_success, run_logged, write_new
 
 ROOT = Path('/work/weft')
 EVIDENCE = Path('/evidence')
-ARCHIVE_SHA256 = '1b4049c481eff17a29f1d4e1cc81918f6c58014800937ee295b792105b7fe626'
-CONTRACT_SHA256 = '0baf69b21f1051ee620ca89ba4ec659605c0cf3ddc4ae82a7a9ad8eaf1d9ac3f'
-BINARY_SHA256 = '91a1924f5bae025a131bda99ea047c30adcc404d96429abf70956a7757230f4d'
+ARCHIVE_SHA256 = 'eb5f411479e80e7820e4461e95c879f416a03dd4518e6596166ebfaebd547952'
+CONTRACT_SHA256 = 'bfa436bac90a97a38b5b70d8a20713cfbd38a12ce35283637d5ac9fa235f3f4a'
+BINARY_SHA256 = '3087e467328fd9eb6e4764a77295a98bfa43c9e1ab71d34d6a2297a460f16e41'
 MEMBERS = ('contract.json', 'methods.json', 'trial-methods.json', 'request.schema.json',
            'response.schema.json', 'citation-binding.schema.json', 'vectors.json')
 
@@ -47,7 +47,8 @@ def verify_vendored_contract() -> dict:
     if (contract['profile'] != 'writfold.agent/1'
             or contract['implementation_scope'] != 'transport-control-only'
             or contract['implemented_methods'] != ['initialize', 'shutdown', 'trial/show',
-                                                   'trial/retain', 'trial/prepare']
+                                                   'trial/retain', 'trial/prepare', 'trial/run',
+                                                   'trial/evidence-list', 'trial/evidence-show']
             or contract['advertised_capabilities'] != ['notifications', 'writfold.trial/1']):
         raise ValueError('vendored contract is not the pinned control profile')
     return {'archive_sha256': ARCHIVE_SHA256, 'members': members,

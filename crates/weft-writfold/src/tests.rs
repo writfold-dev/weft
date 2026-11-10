@@ -8,9 +8,9 @@ use weft_wire::rpc::{
 };
 
 type TestResult = Result<(), String>;
-const PINNED: &str = "0baf69b21f1051ee620ca89ba4ec659605c0cf3ddc4ae82a7a9ad8eaf1d9ac3f";
-/// The control-only contract this client pinned before `writfold.trial/1`.
-const EARLIER: &str = "b673d10f7c14c73d8f5778cfb9b2e84a98a159f1553d5c008054402ee85e7be2";
+const PINNED: &str = "bfa436bac90a97a38b5b70d8a20713cfbd38a12ce35283637d5ac9fa235f3f4a";
+/// The first `writfold.trial/1` contract this client pinned before the revision.
+const EARLIER: &str = "0baf69b21f1051ee620ca89ba4ec659605c0cf3ddc4ae82a7a9ad8eaf1d9ac3f";
 fn initialize_reply(digest: &str, generation: &str) -> String {
     format!(
         "{{\"jsonrpc\":\"2.0\",\"id\":\"r1\",\"result\":{{\
@@ -65,7 +65,7 @@ fn unpinned_contract_digest_is_refused() -> TestResult {
 }
 #[test]
 fn a_server_for_the_earlier_contract_is_refused() -> TestResult {
-    // A binary built before writfold.trial/1 presents the earlier digest; the
+    // A binary built before the writfold.trial/1 revision presents the earlier digest; the
     // pin is exact, never a compatibility range, so it must not be admitted.
     match Admission::checked(initialize_converted(EARLIER, "1")?) {
         Ok(_) => Err("a server presenting the earlier contract digest was admitted".into()),

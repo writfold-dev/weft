@@ -68,17 +68,23 @@ exists, P05-P07/P09 remain blocked at the owner data services, and every
 output stays `writfold_grounded: false`.
 
 **Re-pinned to the owner's `writfold.trial/1` contract.** The owner published a
-new revision of the same profile that adds a negotiated `writfold.trial/1`
+revision of the same profile that adds a negotiated `writfold.trial/1`
 capability (`trial/show`, `trial/retain`, `trial/prepare`; approve, apply and
-recover stay CLI-only). The vendored archive and the client pin now name
-contract `0baf69b2…` (archive `1b4049c4…`). The Weft client does not request
-the new capability, so its sessions still advertise only control methods. A
-server built for the earlier contract (`b673d10f…`) presents the old digest
-and is refused; a unit test and a live run against the earlier executable show
-it. The `control` gate's executable pin still names that earlier binary, so the
-gate fails until it is re-pinned to the binary from Writfold's fresh
-`stdio-control` receipt. The TLA+ control model below names the earlier digest
-in its comments; it models control transport only, which is unchanged.
+recover stay CLI-only), pinned at contract `0baf69b2…` (archive `1b4049c4…`) and
+executable `91a1924f…`.
+
+**Re-pinned again to the 10 November 2026 revision.** The owner revised
+`writfold.trial/1` to add `trial/run`, `trial/evidence-list` and
+`trial/evidence-show` (the Weft binary for `trial/run` is fixed by
+`writfold serve --weft`, never named by the client). The vendored archive and
+the client pin now name contract `bfa436ba…` (archive `eb5f4114…`), and the
+`control` gate's executable pin names `3087e467…`, the binary from Writfold's
+fresh `stdio-control` receipt. The Weft client still does not request the
+capability, so its sessions advertise only control methods. Servers built for
+either earlier contract (`0baf69b2…`, `b673d10f…`) present a different digest
+and are refused; a unit test covers the most recent one. The TLA+ control model
+below names the first digest in its comments; it models control transport
+only, which is unchanged.
 
 ## Control-protocol model qualification
 

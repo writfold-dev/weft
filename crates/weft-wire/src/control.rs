@@ -116,7 +116,7 @@ mod tests {
             instance: "i",
             incarnation: "c",
             server_version: "0.1.0-dev.0",
-            contract_sha256: "0baf69b21f1051ee620ca89ba4ec659605c0cf3ddc4ae82a7a9ad8eaf1d9ac3f",
+            contract_sha256: "bfa436bac90a97a38b5b70d8a20713cfbd38a12ce35283637d5ac9fa235f3f4a",
             initialize_generation: 1,
             shutdown_generation: 2,
             exit_code: 0,
