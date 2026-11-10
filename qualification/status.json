@@ -189,6 +189,10 @@
       "receipts": [
         "~/.local/share/weft/evidence/client-20261106T0001/control-004/report.json"
       ],
+      "owner_repins": [
+        {"receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/control-001/report.json", "status": "pass", "contract_sha256": "bfa436bac90a97a38b5b70d8a20713cfbd38a12ce35283637d5ac9fa235f3f4a", "executable_sha256": "3087e467328fd9eb6e4764a77295a98bfa43c9e1ab71d34d6a2297a460f16e41", "reason": "writfold.trial/1 revision adding trial/run and trial/evidence-*"},
+        {"receipt": "~/.local/share/weft/evidence/trial-rev2-20261110/control-002/report.json", "status": "pass", "contract_sha256": "bfa436bac90a97a38b5b70d8a20713cfbd38a12ce35283637d5ac9fa235f3f4a", "executable_sha256": "2fdf09edbde1db6af0f7e160cdfdd2927cde4dcd70894e62e0d3d2997390a381", "reason": "owner executable change only (trial next: lines carry --state); contract unchanged; current pin"}
+      ],
       "failed_attempts": [
         "~/.local/share/weft/evidence/client-20261106T0001/control-001/report.json",
         "~/.local/share/weft/evidence/client-20261106T0001/control-002/report.json",
